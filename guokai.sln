@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33403.182
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "guokai", "guokai.csproj", "{9D870E81-9771-499F-8516-36DBA7B55EFD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D870E81-9771-499F-8516-36DBA7B55EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D870E81-9771-499F-8516-36DBA7B55EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D870E81-9771-499F-8516-36DBA7B55EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D870E81-9771-499F-8516-36DBA7B55EFD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF6C461E-A9C5-4A61-AA68-227DCE408CA4}
+	EndGlobalSection
+EndGlobal

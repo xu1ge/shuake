@@ -1,0 +1,664 @@
+﻿
+
+
+
+
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    
+    
+    
+    <html>
+    <head>
+        <title>统一身份认证平台</title>
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta name="renderer" content="ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,IE=11; IE=10; IE=9; IE=8;">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta http-equiv="pragma" content="no-cache" >
+        <meta http-equiv="Cache-Control" content="no-store" >
+        <link rel="shortcut icon" href="/am/favicon.ico" type="image/x-icon"/>
+        <link href="/am/bjcaportal/theme/default/css/base.css" rel="stylesheet" type="text/css"/>
+        <link href="/am/bjcaportal/js/jquery-easyui/themes/bjca/easyui.css" rel="stylesheet" />
+        <link href="/am/bjcaportal/js/jquery-easyui/themes/bjca_icon.css" rel="stylesheet" />
+        <link href="/am/bjcaportal/css/login.css" rel="stylesheet" type="text/css"/>
+        <link href="/am/bjcaportal/theme/default/css/newLogin.css" rel="stylesheet" type="text/css"/>
+        <link href="/am/bjcaportal/theme/default/font/iconfont.css" rel="stylesheet" type="text/css"/>
+        <!-- <script type="text/javascript" src="/am/bjcaportal/js/login.js"></script> -->
+        <script>
+            var dynamicTokenEnabled = false;
+        </script>
+        <script type="text/javascript" src="/am/bjcaportal/theme/default/font/iconfont.js"></script>
+        <script type="text/javascript" src="/am/bjcaportal/js/jquery-easyui/jquery-1.8.0.min.js"></script>
+        <script type="text/javascript" src="/am/bjcaportal/js/jquery-easyui/jquery.nicescroll.min.js"></script>
+        <script type="text/javascript" src="/am/bjcaportal/js/des.js"></script>
+        <script type="text/javascript" src="/am/bjcaportal/js/login.js"></script>
+        <script src="/am/bjcaportal/js/jquery-easyui/jquery.easyui.min.js"></script>
+        <script type="text/javascript" src="/am/bjcaportal/js/pop.js"></script>
+        <link href="/am/bjcaportal/css/pop.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="/am/bjcaportal/js/jquery.placeholder.js"></script>
+        <script type="text/javascript" src="/am/bjcaportal/js/otherLoginType.js"></script>
+        <style>
+            .box{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                padding: 0 64px;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                box-sizing: border-box;
+                display: none;
+            }
+            .load_window{
+                width: 450px;
+                height: 173px;
+                background: #FFFFFF;
+                border-radius: 5px;
+                position: absolute;
+                z-index: 9999;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                box-sizing: border-box;
+            }
+            .load_header{
+                width: 100%;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                color: #FFFFFF;
+                font-size: 20px;
+                letter-spacing: 6px;
+                background: #196EE6;
+                font-family: PingFang SC;
+                font-weight: 400;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+            .load_content{
+                width: 100%;
+                height: calc( 100% - 40px);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 0 30px;
+                box-sizing: border-box;
+            }
+            .load_content p{
+                width: 100%;
+                margin-bottom: 13px;
+                margin-top: 0;
+                font-size: 17px;
+                font-family: PingFang SC;
+                font-weight: bold;
+                color: #313131;
+                text-align: left;
+                position: relative;
+            }
+            .load_progress,.load_progress_value{
+                width: 100%;
+                height: 12px;
+                border-radius: 5px;
+            }
+            .load_progress{
+                background-color: #D9D9D9;
+            }
+            .load_progress_value{
+                background-color: #196EE6;
+                width: 0;
+            }
+            .load_progress_num{
+                position: absolute;
+                top: 0;
+                right: 0;
+                font-size: 18px;
+                font-family: PingFang SC;
+                font-weight: bold;
+                color: #196EE6;
+            }
+            @media screen and (max-width: 480px){
+                .load_window{
+                    width: 94%!important;
+                }
+                .load_header {
+                    font-size: 17px;
+                }
+                .load_content p {
+                    font-size: 14px!important;
+                }
+                .load_progress_num {
+                    font-size: 14px!important;
+                }
+            }
+        </style>
+    </head>
+    <script type="text/javascript">
+        var uuid = "1111";
+        var state = true;
+        $("#conCode").hide();
+        var progressWidth = null;
+        var timer = null;
+        function progress(){
+            $(".box").show();
+            timer = setInterval(function(){
+                progressWidth += 10;
+                $(".load_progress_value").width(progressWidth+"%");
+                $(".load_progress_num").html(progressWidth+"%");
+                if(progressWidth == 100){
+                    progressWidth = 0;
+                }
+            },300)
+        }
+        $(function(){
+            progressWidth = $(".load_progress_value").width();
+            let windowWidth = document.documentElement.clientWidth;
+            let hours = new Date().getHours();
+            if(windowWidth < 480){
+                if((hours > 17)|| (hours < 6)){
+                    $(".login_img").attr("src","/am/bjcaportal/theme/default/img/login/phoneNight.png");
+                }else{
+                    $(".login_img").attr("src","/am/bjcaportal/theme/default/img/login/phoneDay.jpg")
+                }
+                $(".logo img").attr("src","/am/bjcaportal/theme/default/img/login/phoneLogo.png")
+            }else{
+                if((hours > 17 )|| (hours < 6)){
+                    $(".login_img").attr("src","/am/bjcaportal/theme/default/img/login/night.png")
+                }else{
+                    $(".login_img").attr("src","/am/bjcaportal/theme/default/img/login/dayTime.png")
+                }
+                $(".logo img").attr("src","/am/bjcaportal/theme/default/img/login/gklogo.png")
+            }
+            $.extend($.messager.defaults, {
+                ok: "确定",
+                cancel: "取消"
+            });
+            $("#conCode").hide();
+            $('#credenceType').val("COMMON");
+            var hotpFowardFlag = "false";
+            if (hotpFowardFlag == "true") {
+                $("#selectTagLI").removeClass();
+                $("#hoptDIV").trigger("click");
+            } else {
+                $("#selectTagLI").addClass("selectTag");
+            }
+            $("#androidScan").bind({
+                click:  function(){ $('#barCodeScan').window('open');}
+            });
+
+            $("#tishi").hide();
+            var multiCertAuth = "false";
+            if(multiCertAuth=='true'){
+                $("#dingAuth").show();
+                $("#otpAuth").show();
+                $("#faceAuth").show();
+                $("#zfbAuth").show();
+                $("#weixinAuth").show();
+            }else{
+                $("#dingAuth").hide();
+                $("#otpAuth").hide();
+                $("#faceAuth").hide();
+                $("#zfbAuth").hide();
+                $("#weixinAuth").hide();
+            }
+            //控制显示隐藏start
+            var obj={};
+            $.ajax({
+                type: "get",
+                url: "/am/config/authInstance/enabledModules.do",
+                success: function (data) {
+                    if (data.status='0') {
+                        obj=data.data;
+                        for(var i=0;i<obj.length;i++){
+                            var dataType=obj[i];
+                            $("*[data-type='"+ dataType + "']").show();
+                            if(dataType=="dynamictoken"||dataType=="otp"){
+                                $("*[data-type='dynamictokenORotp']").show();
+                            }
+                            if(dataType=="dynamictoken"){
+                                dynamicTokenEnabled = true;
+                            }
+                        }
+                        //显示隐藏第三方登录标题
+                        otherLoginShow();
+                        //控制显示隐藏end
+                    }
+                }
+            });
+
+            $('input, textarea').placeholder();
+        });
+
+        function btclick_change(imputName,tipsName,bdyyName){
+            var temp = $(imputName).val();
+            if(temp == "" || temp == null){
+                $(imputName).css('marginTop','0px');
+                $(tipsName).show();
+                //$(bdyyName).addClass('redborbot');
+            }else{
+                $(imputName).css('marginTop','8px');
+                $(tipsName).hide();
+                //$(bdyyName).removeClass('redborbot');
+            }
+        }
+
+        /**
+         * 用户登录
+         */
+        function portalLogin() {
+            var locationUrl = window.location.href;
+            localStorage.setItem("locationUrl",locationUrl);
+            var loginName = $("#loginName").val();
+            var password = $("#password").val();
+            var validateCode = $('#validateCode').val();
+            if (loginName == "" || loginName == null) {
+                $('#loginName').css('marginTop','0px');
+                $(".loginName_tips").show();
+                return;
+            }else{
+                $('#loginName').css('marginTop','8px');
+                $(".loginName_tips").hide();
+            }
+            if (password == "" || password == null) {
+                $('#password').css('marginTop','0px');
+                $(".pass_tips").show();
+                return;
+            }else{
+                $('#password').css('marginTop','8px');
+                $(".pass_tips").hide();
+            }
+            if (validateCode == "" || validateCode == null) {
+                $('#validateCode').css('marginTop','0px');
+                $(".validate_tips").show();
+                return;
+            }else {
+                $(".validate_tips").hide();
+                var check=verifyCode();
+                if(false==check){
+                    $('#validateCode').css('marginTop','0px');
+                    $(".validate_tips_two").show();
+                    return;
+                }else{
+                    $('#validateCode').css('marginTop','8px');
+                    $(".validate_tips_two").hide();
+                }
+            }
+
+            var tempPwd = password;
+            var tempLogin = loginName;
+            password=strEnc(password,$("#random").val(),"","");
+            loginName = strEnc(loginName,$("#random").val(),"","");
+            $("#password").val(password);
+            $("#loginName").val(loginName);
+            progress();
+            //验证码校验失败后不再执行后续程序
+            if(false == state){
+                $.messager.progress('close');
+                $("#password").val(tempPwd);
+                $("#loginName").val(tempLogin);
+                $('#validateCode').css('marginTop','0px');
+                $(".validate_tips").show();
+                getKaptcha();
+                return;
+            }
+            document.forms['Login'].IDToken1.value = LoginForm.loginName.value;
+            document.forms['Login'].IDToken2.value = LoginForm.password.value;
+            document.forms['Login'].IDToken3.value = LoginForm.validateCode.value;
+            $("#loginName").val("");
+            document.forms['Login'].submit();
+        }
+
+        /**
+         * 校验验证码
+         */
+        function cleanMessage(){
+            $('#validateCode').css('marginTop','8px');
+            $(".validate_tips").hide();
+            $(".validate_tips_two").hide();
+        }
+
+        /**
+         * 校验验证码
+         */
+        function verifyCode(){
+            var checkResult=false;
+            $('#validateCode').css('marginTop','8px');
+            $(".validate_tips").hide();
+            $(".validate_tips_two").hide();
+            $.ajax( {
+                type : "post",
+                url : "/am/validatecode/verify.do",
+                data : {'validateCode':$('#validateCode').val()},
+                async: false,
+                dataType: "json",
+                success : function(data) {
+                    $.messager.progress('close');
+                    if("failed" == data.state){
+                    }else{
+                        checkResult = true;
+                    }
+                },
+                error :function(data){
+                    $.messager.progress('close');
+                }
+            });
+            return  checkResult;
+        }
+
+        function butOnClick() {
+            //消除浏览器差异
+            var event = arguments.callee.caller.arguments[0] || window.event;
+            if (event.keyCode == 13) {
+                portalLogin();
+            }
+        }
+
+        function forgetPwd() {
+            var url = GetPar("goto");
+            console.log(url != null && url.indexOf("https://iam.pt.ouchn.cn") != -1)
+            if(url != null && url.indexOf("https://iam.pt.ouchn.cn") == -1){
+                url = url.replace("http://10.64.60.215:18000","https://iam.pt.ouchn.cn");
+            }
+            window.open("https://iam.pt.ouchn.cn:443/portal/#/getPswd" + "?backUrl=" + encodeURIComponent(url));
+        }
+        function register() {
+            var url = GetPar("goto");
+            console.log(url != null && url.indexOf("https://iam.pt.ouchn.cn") != -1)
+            if(url != null && url.indexOf("https://iam.pt.ouchn.cn") == -1){
+                url = url.replace("http://10.64.60.215:18000","https://iam.pt.ouchn.cn");
+            }
+            window.open("https://iam.pt.ouchn.cn:443/portal/#/Register" + "?backUrl=" + encodeURIComponent(url));
+        }
+
+        function GetPar(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^]*)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r != null) return decodeURIComponent(r[2]);
+            return null;
+        }
+
+        function getKaptcha() {
+            $("#tishi").hide();
+            $('#kaptchaImage').attr('src', "/am/validate.code?id=" + Math.random());
+        }
+
+        var i;
+        var remainTimer;
+        function refreshBARCode(){
+            $("#endTime").text('');
+            i=60;
+            $.ajax({
+                type: "POST",
+                async: false,
+                data:  {uuid:uuid,produceCode:"yes"},
+                dataType: "json",
+                url:"http://iam.pt.ouchn.cn:80/am/login/delCodesImg.do",
+                success:function(data) {
+                    $("#BARCodeImg").attr('src','/am/bjcaportal/theme/default/img/barCode/'+data.message+'.png');
+                    uuid = data.newUUID;
+                    //当产生的签名的随机数改变时候，改变隐藏域的随机数的值做验证
+                    $("#codeRandom").val(data.message);
+                    $("#random").val(data.message);
+                }
+            });
+
+            $("#refresh").hide();
+            $("#tip").show();
+            window.clearInterval(remainTimer);
+            remainTimer =  window.setInterval("remainTime()",1000);
+        }
+        //返回
+        function goBack(info) {
+            window.clearInterval(remainTimer);
+            $("#endTime").text('');
+            $("#conCode").hide();
+
+        }
+        function codeLoginIt(info) {
+            var str=info.split(",");
+            if(str.length>1){
+                document.forms['Login'].IDToken1.value =str[0];
+                document.forms['Login'].IDToken2.value =strEnc(str[1],$("#codeRandom").val(),"","");;
+            }
+
+            document.forms['Login'].submit();
+        }
+        function showCode(){
+            $("#conCode").show();
+            i =60;
+            remainTimer =  window.setInterval("remainTime()",1000);
+            $(document).ready(function(){
+                $("#refresh").hide();
+                $("#tip").show();
+            });
+        }
+        function remainTime(){
+            if(i==0){
+                $.ajax({
+                    type: "POST",
+                    data:  {uuid:uuid,produceCode:"no"},
+                    async: false,
+                    dataType: "json",
+                    url:"http://iam.pt.ouchn.cn:80/am/login/delCodesImg.do",
+                    success: function(data) {
+                        $("#BARCodeImg").attr("src", "/am/bjcaportal/theme/default/img/outTime.png");
+                        $("#tip").hide();
+                        $("#refresh").show();
+                        clearInterval(remainTimer);//停止定时器
+                    }
+                });
+            }else if(i!=-1){
+                $("#endTime").text(i--);
+                $.ajax({
+                    type: "POST",
+                    async: false,
+                    data:{uuid:uuid},
+                    dataType: "json",
+                    url:"http://iam.pt.ouchn.cn:80/am/login/getSignData.do",
+                    success: function (data) {
+                        if(data!=null && data.result!=null&& data.result!=undefined){
+                            if(data.result==0){
+                                window.clearInterval(remainTimer);
+                                codeLoginIt(data.message);
+                            }
+                            else if(data.message!=""){
+                                poplert(data.message);
+                            }
+                        }
+                    },
+                    error: function(data) {
+                        poplert("错误信息:"+ data.responseText);
+                        i=-1;
+                    }
+                });
+            }
+        }
+
+
+    </script>
+    <body>
+    <form name="LoginForm" id="LoginForm" action="" method="post">
+        <img class="login_img" src="/am/bjcaportal/theme/default/img/login/dayTime.png" alt="">
+        <div class="loginbg loginForm-wrap">
+            <div class="login_header">
+                <div class="logo">
+                    <img src="/am/bjcaportal/theme/default/img/login/gklogo.png" alt="UAMS" />
+                    <span class="line"></span>
+                    <span class="logo_text">统一身份认证平台</span>
+                </div>
+            </div>
+            <div id=con>
+                <ul id=tags style="display:inline-block;">
+                    <div data-type="cert" style="display: none;">
+                        <li>
+                            <a onclick="showmain(1,'/am')" href="javascript:void(0)" hidefocus="true">数字证书</a>
+                        </li>
+                    </div>
+                    <div data-type="userpwd"  style="display: none;width:100%">
+                        <li>
+                            <a  href="javascript:void(0)"  hidefocus="true">账号密码登录</a>
+                            <span class="active_line"></span>
+                        </li>
+                    </div>
+                    <div data-type="dynamictokenORotp"  style="display: none;">
+                        <li>
+                            <a id="hoptDIV" onclick="showmain(3,'/am',0);" href="javascript:void(0)" hidefocus="true">验证码登录</a>
+                        </li>
+                    </div>
+                </ul>
+                <div id=tagContent>
+                    <div class="tagContent selectTag" id=tagContent1>
+                        <div class="bdyy" id="loginName_bdyy" style="position: relative;">
+                            <p style="margin-top:0px;background: #ffffff;border-radius: 5px;height:45px">
+                                <span class="iconfont icon-yonghu iconfonts"></span>
+                                <input  type="text" size="35" max="50" id="loginName" class="hd inputs"   onchange="btclick_change('#loginName','.loginName_tips','#loginName_bdyy')" placeholder="请输入登录名"/>
+                                <span class="loginName_tips" style="display: none;position: absolute;left: 42px;top: 20px;">请输入登录名</span>
+                            </p>
+                        </div>
+                        <div class="blank5"></div>
+                        <div class="bdyy" id="passwprd_bdyy" style="position: relative;">
+                            <p style="margin-top:0px;background: #ffffff;border-radius: 5px;height:45px">
+                                <span class="iconfont icon-lock iconfonts"></span>
+                                <input type="password"  id="password" class="hd inputs" max="50"  placeholder="请输入登录密码" autocomplete="off" onchange="btclick_change('#password','.pass_tips','#passwprd_bdyy')"/>
+                                <span class="pass_tips" style="display: none;position: absolute;left:42px;top:20px;">请输入登录密码</span>
+                            </p>
+                        </div>
+                        <div class="blank5"></div>
+
+                        <div class="bdyy validate" id="validate_bdyy" style="position: relative;display: flex">
+                                <p style="width: 100%;height: 45px;background: #ffffff;border-right: 5px;display: inline-block;border-radius: 5px;flex:1;margin-right: 10px">
+                                    <input type="text" name="validateCode" id="validateCode" class="inputs"
+                                   maxlength="4"
+                                   style="margin-left: 0px;width:100%;height: 30px;line-height: 30px"
+                                   onkeydown="javascript:butOnClick();"
+                                   onchange="btclick_change('#validateCode','.validate_tips','#validate_bdyy');"
+                                   onkeyup="javascript:cleanMessage();"
+                                   placeholder="请输入验证码"/>
+                                </p>
+                                <span class="validate_tips" style="display: none;position: absolute;left:20px;top:20px;font-size: 12px;color:red;">请输入验证码</span>
+                                <span class="validate_tips_two" style="display: none;position: absolute;left:20px;top:20px;font-size: 12px;color:red;">验证码不正确或已过期</span>
+                                <span class="kaptchaImage_box">
+                                    <img id="kaptchaImage" onclick="getKaptcha()" src="/am/validate.code" style="vertical-align:middle;cursor: pointer;" alt="看不清，换一张" title="看不清，换一张"/>
+                                </span>
+                        </div>
+                        <div class="bu_d">
+                            <button type="button" id="button" onClick="portalLogin();"  style="margin-top: 20px" class="bu_c">登录</button>
+                        </div>
+                        <a href="javascript:void(0);" onclick="register();" style="float: left;"  alt="教师注册" title="教师注册" class="btns">教师注册</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="javascript:void(0);" onclick="forgetPwd();" style="float: right;"  alt="忘记密码" title="忘记密码" class="btns">忘记密码</a>
+                    </div>
+                </div>
+                <div class="otherLoginTypeWrap" id="otherLoginTypeWrap">
+                    <p class="otherLoginTitle" id="otherLoginTitle">第三方登录方式</p>
+                    <div class="otherLoginTypeCon niceScroll">
+                        <p class="otherType">生物识别登陆方式</p>
+                        <div class="otherCellCon">
+                            <!-- 指纹登录 -->
+                            <a class="otherCell" data-type="fingerprint" onclick="showmain(10,'/am');" style='display: none;'><img src="/am/bjcaportal/theme/default/img/login/icon8.png"/></a>
+                            <!-- 人脸登录 -->
+                            <a class="otherCell" data-type="face" style='display: none;' id="faceAuth" onclick="showmain(8,'/am');"><img src="/am/bjcaportal/theme/default/img/login/icon12.png"/></a>
+                            <!-- 声纹登录 -->
+                            <a class="otherCell" data-type="voiceprint" style='display: none;' id="faceAuth" onclick="showmain(12,'/am');"><img src="/am/bjcaportal/theme/default/img/login/sw.png"/></a>
+                        </div>
+                        <p class="otherType">移动认证登录方式</p>
+                        <div class="otherCellCon">
+                            <!-- 钉钉 -->
+                            <a class="otherCell" data-type="dingding" style='display: none;' id="dingAuth" onclick="showmain(6,'/am');"  style="text-decoration:none;"><img src="/am/bjcaportal/theme/default/img/login/icon9.png"/></a>
+                            <!-- 支付宝 -->
+                            <a class="otherCell"  data-type="alipay" style='display: none;' id="zfbAuth" onclick="showmain(9,'/am');"><img src="/am/bjcaportal/theme/default/img/login/icon11.png"/></a>
+                            <!-- 信手书 -->
+                            <a class="otherCell" data-type="cloudsign" style='display: none;' id="mssgQrCode"  onclick="showmain(5,'/am');"><img src="/am/bjcaportal/theme/default/img/login/icon10.png"/></a>
+                            <!-- 微信 -->
+                            <a class="otherCell" data-type="wechat" style='display: none;' id="weixinAuth"  onclick="showmain(11,'/am');"><img src="/am/bjcaportal/theme/default/img/login/icon13.png"/></a>
+                        </div>
+                        <p class="otherType">企业身份源认证登录方式</p>
+                        <div class="otherCellCon">
+                            <!-- ldap -->
+                            <a class="otherCell" data-type="ldap" style='display: none;' id="dingAuth" onclick="showmain(13,'/am');"  style="text-decoration:none;"><img src="/am/bjcaportal/theme/default/img/login/ldap.png"/></a>
+                            <!-- ad -->
+                            <a class="otherCell"  data-type="ad" style='display: none;' id="zfbAuth" onclick="showmain(14,'/am');"><img src="/am/bjcaportal/theme/default/img/login/ad.png"/></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="qrCode" >
+                            <img id="mssgQrCode" style="display: none" src="/am/images/qrCodeIcon.png" alt="" onclick="showmain(5,'/am');">
+                        </div> -->
+            </div>
+
+            <div class="login_footer">
+                <p style="line-height: 18px">国家开放大学 版权所有&nbsp;&nbsp;&nbsp;
+                    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802039510" style="color:white">
+                        京ICP备05064925号-6&nbsp;&nbsp;&nbsp;&nbsp;京公网安备 11010802039510号</a>
+                    <br/>
+                    服务热线：400-867-9660&nbsp;&nbsp;&nbsp;&nbsp;服务邮箱：ouc-online@ouchn.edu.cn&nbsp;&nbsp;&nbsp;&nbsp;技术支持：国开在线教育科技有限公司
+                </p>
+            </div>
+            <div id="conCode" style="padding-top:50px;display: none">
+                <div class="blank10"></div>
+                    
+
+            </div>
+
+            <div class="zbottom">
+                
+
+            </div>
+            <input type="hidden" id="credenceType" name="credenceType" value="COMMON" /> <input type="hidden" id="random" name="random" value="OqxQ1Iea4njSROH/N06Tuw==" />
+            <input type="hidden" id="codeRandom" value="OqxQ1Iea4njSROH/N06Tuw=="/>
+        </div>
+        <div class="box">
+            <div class="load_window">
+                <div class="load_header">温馨提示</div>
+                <div class="load_content">
+                    <p>学习、学习、再学习！奋力加载中......<span class="load_progress_num">0%</span></p>
+                    <div class="load_progress">
+                        <div class="load_progress_value"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div id="barCodeScan" class="easyui-window" style="padding: 5px;" data-options="title:'Android二维码下载',
+			width : 420,
+			modal : true,
+			shadow : false,
+			closed : true,
+			collapsible : false,
+			minimizable : false,
+			maximizable : false,
+			closable : true,
+			height : 420,
+			top : 100">
+        <div  style="margin: 30px 50px;">
+            <img  src="/am/bjcaportal/theme/default/img/login/android.png" style="cursor: pointer;" width=300px height=300px>
+        </div>
+        <div>
+
+            <form   method="post"  acceptCharset="UTF-8"  name="Login"  action="/am/UI/Login">
+            <input type="hidden" name="IDToken1" id="IDToken1">
+            <input type="hidden" name="IDToken2" id="IDToken2">
+            <input type="hidden" ID="IDToken3" name="IDToken3">
+            <input type="hidden" name="goto" value="aHR0cHM6Ly9pYW0ucHQub3VjaG4uY24vYW0vb2F1dGgyL2F1dGhvcml6ZT9zZXJ2aWNlPWluaXRTZXJ2aWNlJmRlY2lzaW9uPUFsbG93JnN0YXRlPTBybXpPcnh4NE9QWW04MzB6UHhmelhPZHo1MGxxSDlGWXJwbVpxcmF6MEEuTnhSVDROZEhKRk0udGMmcmVzcG9uc2VfdHlwZT1jb2RlJmNsaWVudF9pZD1mMTE2OWZlYWNiZjY0YTFlJnJlZGlyZWN0X3VyaT1odHRwcyUzQSUyRiUyRmxtcy1pZGVudGl0eS5vdWNobi5jbiUyRmF1dGglMkZyZWFsbXMlMkZndW9rYWklMkZicm9rZXIlMkZvYXV0aDItY2xpZW50JTJGZW5kcG9pbnQmc2NvcGU9YWxsJm5vbmNlPTVhYjEyNzE4LTViY2ItNGViMC04Nzg0LTU4NDIwMzM4NTNiYQ=="/>
+            <input type="hidden" name="gotoOnFail" value=""/>
+            <input type="hidden" name="SunQueryParamsString" value="cmVhbG09LyZzZXJ2aWNlPWluaXRTZXJ2aWNlJg=="/>
+            <input type="hidden" name="encoded" value="true"/>
+            <input type="hidden" name="gx_charset" value="UTF-8"/></form>
+
+                
+            <form   method="post"  acceptCharset="UTF-8"  name="HOTPLogin"  action="/am/UI/Login">
+            <input type="hidden" name="IDToken1" value="HOTP_TEL_MAIL_281399">
+            <input type="hidden" name="IDToken2" value="HOTP_AUTHFOWARD_SPEC_FLAG">
+            <input type="hidden" name="IDToken3">
+            <input type="hidden" name="goto" value="aHR0cHM6Ly9pYW0ucHQub3VjaG4uY24vYW0vb2F1dGgyL2F1dGhvcml6ZT9zZXJ2aWNlPWluaXRTZXJ2aWNlJmRlY2lzaW9uPUFsbG93JnN0YXRlPTBybXpPcnh4NE9QWW04MzB6UHhmelhPZHo1MGxxSDlGWXJwbVpxcmF6MEEuTnhSVDROZEhKRk0udGMmcmVzcG9uc2VfdHlwZT1jb2RlJmNsaWVudF9pZD1mMTE2OWZlYWNiZjY0YTFlJnJlZGlyZWN0X3VyaT1odHRwcyUzQSUyRiUyRmxtcy1pZGVudGl0eS5vdWNobi5jbiUyRmF1dGglMkZyZWFsbXMlMkZndW9rYWklMkZicm9rZXIlMkZvYXV0aDItY2xpZW50JTJGZW5kcG9pbnQmc2NvcGU9YWxsJm5vbmNlPTVhYjEyNzE4LTViY2ItNGViMC04Nzg0LTU4NDIwMzM4NTNiYQ==" />
+            <input type="hidden" name="gotoOnFail" value="" />
+            <input type="hidden" name="SunQueryParamsString" value="cmVhbG09LyZzZXJ2aWNlPWluaXRTZXJ2aWNlJg==" />
+            <input type="hidden" name="encoded" value="true" />
+            <input type="hidden" name="gx_charset" value="UTF-8"/></form>
+                
+    </body>
+
+</html>
