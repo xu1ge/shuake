@@ -1,0 +1,715 @@
+var question_detail = {
+    urls: {
+        get: {
+            question: _config.host + 'questionAnswer/getQuestionDetails',
+            reply: _config.host + 'questionAnswer/getReplyDetails',
+        },
+        add: {
+            reply: _config.host + 'questionAnswer/addReply',
+            vote: _config.host + 'questionAnswer/addVote'
+        },
+        delQuestion: _config.host + 'questionAnswer/removeQuestion',
+        delReply: _config.host + 'questionAnswer/removeQuestionAnswer'
+    },
+    uuid: function () {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    },
+    isDisabled: false,
+    elem: {},
+    courseOpenId: '',
+    questionId: '',
+    container: {},
+    ele: {},    //保存二级菜单显示隐藏相关数据和html
+    getReply: function (parentId, callback) {
+        var _this = this,
+            schoolCode = getQuery('schoolCode');
+
+        $.post(_this.urls.get.reply, {
+            courseOpenId: _this.courseOpenId,
+            questionId: _this.questionId,
+            parentId: parentId,
+            schoolCode:schoolCode,
+            page: _this.page
+        }, function (data) {
+            if (!handleException(data)) return false;
+
+            if (data.code < 0) {
+                alert(data.msg || '发生未知错误，请刷新后重试！');
+                return false;
+            }
+
+            callback.apply(this, [data]);
+
+        }, 'json');
+
+        return false;
+    },
+    addReply: function (params, callback) {
+        var _this = this;
+
+        $.post(_this.urls.add.reply, params, function (data) {
+            _this.isDisabled = false;
+            _this.elem.text('回复');
+
+            if (!handleException(data)) return false;
+
+            if (data.code < 0) {
+                alert(data.msg || '发生未知错误，请刷新后重试！');
+                return false;
+            }
+
+            callback.apply(this, [data]);
+
+        }, 'json');
+
+        return false;
+    },
+    addVote: function (elem, replyId) {
+        var _this = this,
+            schoolCode = getQuery('schoolCode');
+
+        $.post(_this.urls.add.vote, { courseOpenId: _this.courseOpenId, questionId: _this.questionId, replyId: replyId ,schoolCode:schoolCode}, function (data) {
+
+            _this.isDisabled = false;
+
+            if (!handleException(data)) return false;
+
+            if (data.code < 0) {
+                alert(data.msg || '发生未知错误请刷新后重试');
+                return false;
+            }
+
+            _this.animate_text.css('display', 'block');
+            _this.animate_text.animate({
+                top: '-40px',
+                opacity: .2
+            }, 800, function () {
+
+                $(this).css({
+                    display: 'none',
+                    opacity: 1,
+                    top: 0
+                });
+            });
+
+
+
+            $(elem).find('em').text(data.voteCount);
+            $(elem).css('color', '#f7996d');
+        }, 'json');
+
+        return false;
+    },
+    delQuestion: function (confirm, callback) {
+        var _this = this,
+            schoolCode = getQuery('schoolCode');
+
+        $.post(_this.urls.delQuestion, { courseOpenId: _this.courseOpenId, questionId: _this.questionId, confirm: confirm,schoolCode:schoolCode }, function (r) {
+            _this.isDisabled = false;
+            if (!handleException(r)) return false;
+
+            if (r.code < 0) {
+                alert(r.msg || '发生未知错误请刷新后重试！');
+                return false;
+            }
+
+            callback.apply(this, [r]);
+
+        }, 'json');
+
+        return false;
+    },
+    delReply: function (id, _confirm, callback) {
+        var _this = this,
+            schoolCode = getQuery('schoolCode');
+
+        $.post(_this.urls.delReply, { courseOpenId: _this.courseOpenId, answerId: id, confirm: _confirm,schoolCode:schoolCode }, function (r) {
+
+            if (!handleException(r)) return false;
+
+            if (r.code < 0) {
+                alert(r.msg || '发生位置错误，请刷新后重试！');
+                return false;
+            }
+
+            callback.apply(this, [r]);
+
+        }, 'json');
+
+        return false;
+    },
+    render: {
+        detail: function () {
+            var _this = question_detail;
+
+            _html = '<div class="q-one-level"></div><div class="q-a-info-list"></div>';
+
+            if (_this.isCellQuestion) {
+                _html = '<div class="tl-box"><div class="q-one-level"></div><div class="q-a-info-list"></div></div>';
+            }
+
+            _this.container.html(_html);
+
+            $.post(_this.urls.get.question, { courseOpenId: _this.courseOpenId, questionId: _this.questionId,schoolCode:getQuery('schoolCode') }, function (data) {
+                if (!handleException(data)) return false;
+
+                if (data.code < 0) {
+
+                    alert(data.msg || '发生未知错误，请刷新后重试！');
+                    return false;
+                }
+
+                if (data.code == 2) {
+                    var errorHtml = '<div class="no-content" style="min-height:auto;"><div class="no-text"><p class="no-c">问题已删除</p><p class="no-e">NO QUESTION</p></div></div>';
+
+                    if (!_this.isCellQuestion) {
+                        errorHtml = '<div style="float: right; margin-right: 15px;margin-top: -105px;"><a href="javascript:void(0);" class="btn_return_detail">&lt;返回</a></div><div class="no-content" style="min-height:auto;"><div class="no-text"><p class="no-c">问题已删除</p><p class="no-e">NO QUESTION</p></div></div>';
+                        errorHtml = $(errorHtml);
+
+                        //bind 返回
+                        $('.btn_return_detail', errorHtml).on('click', function () {
+
+                            window.location = question_list.editHash('type') + '&type=question';
+
+                            return false;
+                        });
+                    }
+
+                    _this.container.find(".q-one-level").html(errorHtml);
+
+
+
+                    return false;
+                }
+
+                //当前登录用户头象
+                _this.userImageUrl = data.user.userImgUrl;
+
+                var _html = $(template.compile(_this.html.detail)({ user: data.user, question: data.question, uuid: _this.uuid(), isCellQuestion: _this.isCellQuestion }));
+
+                _this.container.find(".q-one-level").html(_html);
+
+                //bind 返回
+                _this.container.find('.btn_return_detail').on('click', function () {
+
+                    window.location = question_list.editHash('type') + '&type=question';
+
+                    return false;
+                });
+
+                // 初始化 ueditor
+                _this.editor = UE.getEditor(_html.find('textarea:first').attr('id'), {
+                    maximumWords: 2000,
+                    toolbars: [["fullscreen", "undo", "redo", "insertunorderedlist", "insertorderedlist", "bold", "italic", "underline", "strikethrough", "fontfamily", "fontsize", "forecolor", "backcolor", "indent", "justifyleft", "justifycenter", "justifyright", "link", "unlink", "btnupload"]],
+                    initialFrameHeight: 200,
+                    autoFloatEnabled: false
+                });
+
+                _this.editor.getActionUrl = function (action) {
+                    if (action == 'config') return _config.host + 'ueditor/config?courseOpenId=' + _this.courseOpenId +'&schoolCode='+getQuery('schoolCode');
+
+                    return action;
+                };
+
+                //bind 一级回复保存点击事件
+                $('.submit a', _html).on('click', function () {
+                    if (_this.isDisabled) return;
+                    _this.elem = $(this);
+
+                    var params = {
+                        courseOpenId: _this.courseOpenId,
+                        questionId: _this.questionId,
+                        content: _this.editor.getContent(),
+                        schoolCode:getQuery('schoolCode')
+                    };
+
+                    if (!params.content.trim() && !params.content.trim().length) {
+
+                        alert('请输入回复内容');
+                        _this.editor.focus();
+                        return false;
+                    };
+
+                    _this.isDisabled = true;
+                    _this.elem.text('Loading...');
+
+                    //添加 回掉方法
+                    _this.addReply(params, function (data) {
+
+                        //保存成功后清空文本框
+                        _this.editor.execCommand('cleardoc');
+
+                        //更新一级回复数量
+                        $('.question-one').find('.answerCount em').text(data.answerCount);
+
+                        _this.page = 1;
+
+                        _this.render.reply_level();
+                    });
+                });
+
+                //bind 问答点赞事件
+                $('.btn_vote', _html).on('click', function () {
+                    if (_this.isDisabled) return;
+                    _this.isDisabled = true;
+                    _this.animate_text = $(this).find('span.like_animate');
+
+                    _this.addVote($(this), '');
+                });
+
+                //删除点击事件
+                $('.remove_detail_question', _html).on('click', function () {
+                    if (_this.isDisabled) return;
+
+                    if (!confirm("确认要删除该问答？")) return false;
+
+                    //拼接删除后的跳转地址
+                    var count = getHash('count'),
+                                page = getHash('page'),
+                                category = getHash('category'),
+                                hash = '#type=question';
+
+                    if (count <= 1 && page > 1) {
+                        page = page - 1;
+                    }
+
+                    if (category) {
+                        hash += '&category=' + category;
+                    }
+
+                    hash += '&page=' + page;
+
+                    _this.isDisabled = true;
+                    _this.delQuestion(true, function (r) {
+
+                        if (r.code == 2) {
+                            if (!confirm(r.msg)) return false;
+
+                            _this.isDisabled = true;
+                            _this.delQuestion(false, function (r) {
+
+                                alert(r.msg);
+
+                                window.location.hash = hash;
+                                return false;
+                            });
+                        } else {
+                            alert(r.msg);
+
+                            window.location.hash = hash;
+                            return false;
+                        }
+                    });
+                });
+
+                _this.render.reply_level()
+
+            }, 'json');
+
+            return _this;
+        },
+        reply_level: function () {
+            var _this = question_detail;
+
+            //加载 一级回复页面 bind 事件
+            _this.getReply('', function (data) {
+                var _html = $(template.compile(_this.html.one_reply)({ list: data.list, totalCount: data.pagination.totalCount }));
+
+                //bind 回复点击事件
+                $('a.btn_reply', _html).on('click', function () {
+                    _this.bindEle($(this));
+
+                    _this.render.reply_level2();
+                });
+
+                //bind 一级回复点赞事件
+                $('.btn_vote', _html).on('click', function () {
+                    if (_this.isDisabled) return;
+                    _this.isDisabled = true;
+                    _this.animate_text = $(this).find('span.like_animate');
+
+                    _this.addVote($(this), $(this).parents('div.q-a-box:first').data('id'));
+                });
+
+                //bind 一级回复删除点击事件
+                $('.remove_question_reply1', _html).on('click', function () {
+                    if (_this.isDisabled) return;
+                    var id = $(this).parents('.q-a-box:first').data('id');
+
+                    if (!confirm("确认要删除该回复？")) return false;
+
+                    _this.delReply(id, true, function (r) {
+
+                        if (r.code == 2) {
+                            if (!confirm(r.msg)) return false;
+
+                            _this.delReply(id, false, function (r) {
+                                alert(r.msg);
+
+                                //更新一级回复数量
+                                var _count = $('.question-one').find('.answerCount em').text();
+
+                                $('.question-one').find('.answerCount em').text(_count - 1);
+
+                                _this.render.reply_level();
+
+                                return false;
+
+                            });
+
+                        } else {
+                            alert(r.msg);
+
+                            //更新一级回复数量
+                            var _count = $('.question-one').find('.answerCount em').text();
+
+                            $('.question-one').find('.answerCount em').text(_count - 1);
+
+                            _this.render.reply_level();
+
+                            return false;
+                        }
+                    });
+                });
+
+                _this.container.find('.q-a-info-list').html(_html);
+
+                //分页展示，第一页不显示
+                if (data.pagination.totalCount > 5) {
+                    _this.container.find('.pagination').pagination('destroy').pagination({
+                        items: data.pagination.totalCount,
+                        itemsOnPage: 5,
+                        currentPage: data.pagination.page,
+                        hrefTextPrefix: '#page=',
+                        prevText: '上一页',
+                        nextText: '下一页',
+                        onPageClick: function (currentPage) {
+                            _this.page = currentPage;
+
+                            _this.render.reply_level();
+
+                            return false;
+                        }
+                    });
+                }
+            });
+            return _this;
+        },
+        reply_level2: function () {
+            var _this = question_detail,
+                has = _this.ele.reply_html.data('answer-open');
+
+            _this.ele.reply_html[has ? 'slideUp' : 'slideDown']().data('answer-open', has ? false : true);
+
+            if (!has) {
+                //如果没有加载就动态加载一次二级回复
+                if (!_this.ele.reply_html.hasClass('answer_load')) {
+                    //加载 二级回复页面 bind 事件
+                    _this.getReply(_this.ele.id, function (data) {
+                        var _html = $(template.compile(_this.html.two_reply)({ list: data.list, uuid: _this.uuid(), userImageUrl: _this.userImageUrl, replyName: _this.ele.replyName }));
+
+                        _this.ele.reply_html.addClass('answer_load');
+
+                        _this.ele.reply_html.html(_html);
+
+                        // 初始化 ueditor
+                        var editorReply = UE.getEditor(_html.find('textarea:first').attr('id'), {
+                            maximumWords: 2000,
+                            toolbars: [["fullscreen", "undo", "redo", "insertunorderedlist", "insertorderedlist", "bold", "italic", "underline", "strikethrough", "fontfamily", "fontsize", "forecolor", "backcolor", "indent", "justifyleft", "justifycenter", "justifyright", "link", "unlink", "btnupload"]],
+                            initialFrameHeight: 200,
+                            autoFloatEnabled: false
+                        });
+
+                        editorReply.getActionUrl = function (action) {
+                            if (action == 'config') return _config.host + 'ueditor/config?courseOpenId=' + _this.courseOpenId + '&schoolCode=' + getQuery('schoolCode');
+
+                            return action;
+                        };
+
+                        //bind 回复点击事件
+                        $('a.btn_a_reply', _html).on('click', function () {
+                            _this.bindEle($(this));
+
+                            var _has = _this.ele.frame_html.data('frame-open');
+
+                            _this.ele.frame_html.find('.reply-who span.name').text(_this.ele.replyName);
+
+                            if (!_has)
+                                _this.ele.frame_html.slideDown();
+                        });
+
+                        //bind 二级回复删除点击事件
+                        $('.remove_question_reply2', _html).on('click', function () {
+                            if (_this.isDisabled) return;
+                            _this.elem = $(this);
+
+                            var id = _this.elem.parents('.course-notes.border-p:first').data('id');
+
+                            _this.bindEle($(this));
+
+                            if (!confirm("确认要删除该回复？")) return false;
+
+                            _this.delReply(id, false, function (r) {
+
+                                alert(r.msg);
+                                //更新二级回复数量
+                                var _count = _this.ele.frame_html.parents('div.q-a-box:first').find('.btn_reply em').text();
+
+                                _this.ele.frame_html.parents('div.q-a-box:first').find('.btn_reply em').text(_count - 1);
+
+                                _this.elem.parents('.course-notes.border-p:first').remove();
+                                return false;
+                            });
+                        });
+
+                        //bind 添加回复事件
+                        $('a.btn_add_reply', _html).on('click', function () {
+
+                            if (_this.isDisabled) return;
+                            _this.elem = $(this);
+
+                            _this.bindEle($(this));
+
+                            var params = {
+                                courseOpenId: _this.courseOpenId,
+                                questionId: _this.questionId,
+                                parentId: _this.ele.id,
+                                replyName: _this.ele.replyName,
+                                content: editorReply.getContent(),
+                                schoolCode:getQuery('schoolCode')
+                            };
+
+                            if (!params.content.trim() && !params.content.trim().length) {
+
+                                alert('请输入回复内容');
+                                editorReply.focus();
+                                return false;
+                            };
+
+                            _this.isDisabled = true;
+                            _this.elem.text('Loading...');
+
+                            //添加 回掉方法
+                            _this.addReply(params, function (data) {
+
+                                //保存成功后清空文本框
+                                editorReply.execCommand('cleardoc');
+
+                                //更新二级回复数量
+                                _this.ele.frame_html.parents('div.q-a-box:first').find('.btn_reply em').text(data.answerCount);
+
+                                //重新请求二级回复数据
+                                _this.ele.reply_html.data('answer-open', false);
+                                _this.ele.reply_html.removeClass('answer_load');
+                                _this.render.reply_level2();
+                            });
+                        });
+
+                        //bind 取消回复事件
+                        $('a.cancel-btn', _html).on('click', function () {
+                            if (confirm("您确认放弃正在编辑的回复吗？")) {
+
+                                _this.bindEle($(this));
+
+                                _this.ele.frame_html.slideUp();
+                                _this.ele.frame_html.data('frame-open', false);
+
+                                //判断是否有二级回复 二级回复状态改为隐藏
+                                if (_this.ele.reply_html.find('div.q-two-level div.course-notes.border-p').length == 0) {
+                                    _this.ele.reply_html.data('answer-open', false);
+                                }
+                            }
+
+                            return false;
+                        });
+
+                    });
+                } else {
+                    //二次点击后 不重新加载 直接显示并对回复框做处理（1、更改回复姓名，2、回复框是否隐藏）
+                    var _has = _this.ele.frame_html.data('frame-open');
+
+                    _this.ele.frame_html.slideDown(_has);
+
+                    _this.ele.frame_html.find('.reply-who span.name').text(_this.ele.replyName);
+                }
+            }
+        }
+    },
+    bindEle: function (ele) {
+        var _this = this,
+            ele_box = ele.parents('div.q-a-box:first');
+
+        _this.ele.id = ele_box.data('id');
+        _this.ele.replyName = ele.data('replyname') || ele_box.find('.reply-who .name').text();
+        _this.ele.reply_html = ele_box.find('div.q-two-level-list');
+        _this.ele.frame_html = ele_box.find('div.q-three-level');
+    },
+    init: function (data) {
+
+        if (!data) return;
+
+        var _this = this;
+
+        _this.courseOpenId = getQuery('courseOpenId');
+        _this.questionId = data.questionId || getHash('questionId');
+        _this.page = 1;
+        _this.container = data.container;
+        _this.isCellQuestion = data.isCellQuestion || false;
+
+        if (!_this.courseOpenId || !_this.container || !_this.questionId) return;
+
+        template.config('escape', false);
+
+        //拼接问答 来源 跳转地址
+        template.helper('resolveUrl', function (id) {
+
+            return _config.prefix + 'studying/?courseOpenId=' + _this.courseOpenId + '&cellId=' + id + '&schoolCode=' + getQuery('schoolCode') + '#type=question';
+        });
+
+        //默认头像
+        template.helper('defaultAvator', function (url) {
+            return url || '../../images/no_photo_180.png';
+        });
+
+        //时间显示
+        template.helper('dateFormat', dateFormat.format);
+
+        template.helper('htmlencode', function (data) {
+
+            return $.htmlencode(data);
+        });
+
+        _this.render.detail();
+
+        //单元问答才会用到
+        if ($('.sys-dialog-lock').length > 0) {
+            $('.sys-dialog-lock').addClass('hidden');
+        }
+    },
+    html: {
+        detail: ['{{if !isCellQuestion}}',
+                 '<div class="question-one">',
+                 '  <a href="javascript:void(0);" class="go-back btn_return_detail">&lt;返回</a>',
+                 '  <div class="head-pic"><img src="{{user.creatorImgUrl | defaultAvator}}"><span>{{user.creator}}</span></div>',
+                 '  <div class="q-title">{{question.title | htmlencode}}</div>',
+                 '  <div class="q-info uerichText">{{question.content}}</div>',
+                 '  <div class="q-time">',
+                 '      <span>时间：{{question.dateCreated | dateFormat:"yyyy年MM月dd日"}}</span>{{if question.fromTitle.length > 0}}<span>源自：<a href="{{question.cellId | resolveUrl}}" target="_blank" title="{{question.fromTitle}}">{{question.fromTitle}}</a></span>{{/if}}',
+                 '      <div class="hd-number praise">',
+                 '          <span><a href="javascript:void(0);" class="answerCount"><i class="iconfont icon-xinxi mr5"></i><em>{{question.answerCount}}</em></a></span>',
+                 '          {{if question.isRemove}}',
+                 '          <span><a href="javascript:void(0);" class="remove_detail_question"><i class="iconfont icon-shanchu"></i></a></span>',
+                 '          {{/if}}',
+                 '          <span><a href="javascript:void(0);" class="btn_vote" {{if question.isVote}}style="color:#f7996d;"{{/if}} data-tips="tips" data-direction="top" title="点赞"><i class="iconfont icon-dianzan"></i> <em>{{question.voteCount}}</em><span class="like_animate">+1</span></a></span>',
+                 '      </div>',
+                 '  </div>',
+                 '</div>',
+                 '{{else}}',
+                 '<div class="tl-theme uerichText">{{question.content}}</div>',
+                 '{{/if}}',
+                 '<div class="course-notes q-a-list">',
+                 '  <div class="notes-learner"><img src="{{user.userImgUrl | defaultAvator}}"></div>',
+                 '  <div class="answer-info">',
+                 '      <form class="form-horizontal" role="form">',
+                 '          <div class="form-group">',
+                 '              <div class="col-md-12">',
+                 '                  <div class="col-md-row">',
+                 '                      <textarea name="reply_{{uuid}}" id="reply_{{uuid}}" cols="30" rows="10"></textarea>',
+                 '                   </div>',
+                 '               </div>',
+                 '           </div>',
+                 '           <div class="form-group">',
+                 '               <div class="submit"><a href="javascript:void(0);" style="padding:10px 30px;">回复</a></div>',
+                 '           </div>',
+                 '      </form>',
+                 '  </div>',
+                 '</div>'].join(''),
+        one_reply: ['{{if list.length > 0}}',
+                    '{{each list as item i}}',
+                    '<div class="q-a-box" data-id={{item.id}}>',
+                    '   <div class="course-notes border-p">',
+                    '        <div class="notes-learner">',
+                    '           <img src="{{item.userImgUrl | defaultAvator}}"><span>{{item.userName}}</span>',
+                    '        </div>',
+                    '        <div class="answer-info">',
+                    '             <div class="notelist-content uerichText">',
+                    '                  <p>{{item.content}}</p>',
+                    '             </div>',
+                    '             <div class="notelist-bottom clefix">',
+                    '                  <span>时间：{{item.dateCreated | dateFormat:"yyyy年MM月dd日"}}</span>',
+                    '                  <div class="answer-number praise">',
+                    '                      <span><a href="javascript:void(0);" class="btn_reply" data-replyname="{{item.userName}}" ><i class="iconfont icon-xinxi mr5"></i>回复(<em>{{item.answerCount}}</em>)</a></span>',
+                    '                      {{if item.isRemove}}',
+                    '                      <span><a href="javascript:void(0);" class="remove_question_reply1"><i class="iconfont icon-shanchu"></i>删除</a></span>',
+                    '                      {{/if}}',
+                    '                      <span><a href="javascript:void(0);" class="btn_vote" {{if item.isVote}}style="color:#f7996d;"{{/if}} data-tips="tips" data-direction="top" title="点赞"><i class="iconfont icon-dianzan"></i><em>{{item.voteCount}}</em><span class="like_animate">+1</span></a></span>',
+                    '                  </div>',
+                    '             </div>',
+                    '        </div>',
+                    '   </div>',
+                    '   <div class="q-two-level-list"></div>',
+                    '</div>',
+                    '{{/each}}',
+                    '{{else}}',
+                    '<div class="no-content" style="min-height:auto;">',
+                    '    <div class="no-text">',
+                    '        <p class="no-c">暂无回复</p>',
+                    '        <p class="no-e">NO COMMENT</p>',
+                    '    </div>',
+                    '</div>',
+                    '{{/if}}',
+                    '<div class="pagination-box clefix" {{if totalCount==0}}style="display:none"{{/if}}>',
+                    '   <div class="pagination-l">共{{totalCount}}条</div>',
+                    '   <div class="pagination-r"> <div class="pagination"></div></div>',
+                    '</div>'].join(''),
+        two_reply: ['<div class="q-two-level">',
+                    '   {{each list as item i}}',
+                    '   <div class="course-notes border-p" data-id={{item.id}}>',
+                    '      <div class="notes-learner">',
+                    '         <img src="{{item.userImgUrl | defaultAvator}}"><span>{{item.userName}}</span>',
+                    '      </div>',
+                    '      <div class="answer-info">',
+                    '           <div class="notelist-content uerichText">',
+                    '                <span class="name">{{item.userName}}</span>&nbsp;&nbsp;回复<span class="name">&nbsp;&nbsp;{{item.replyName}}</span>&nbsp;：&nbsp;',
+                    '                <p>{{item.content}}</p>',
+                    '           </div>',
+                    '           <div class="notelist-bottom clefix">',
+                    '                <span>时间：{{item.dateCreated | dateFormat:"yyyy年MM月dd日"}}</span>',
+                    '                <div class="answer-number">',
+                    '                    <span><a href="javascript:void(0);" data-replyname="{{item.userName}}" class="btn_a_reply"><i class="iconfont icon-xinxi mr5"></i>回复</a></span>',
+                    '                    {{if item.isRemove}}',
+                    '                    <span><a href="javascript:void(0);" class="remove_question_reply2"><i class="iconfont icon-shanchu remove_question_reply2"></i>删除</a></span>',
+                    '                    {{/if}}',
+                    '                </div>',
+                    '          </div>',
+                    '      </div>',
+                    '   </div>',
+                    '   {{/each}}',
+                    '</div>',
+                    '<div class="q-three-level" data-frame-open="true">',
+                    '   <div class="course-notes border-p">',
+                    '       <div class="notes-learner"><img src="{{userImageUrl | defaultAvator}}"></div>',
+                    '       <div class="answer-info">',
+                    '             <form class="form-horizontal" role="form">',
+                    '                <div class="reply-who">回复<span class="name">{{replyName}}</span></div>',
+                    '                <div class="form-group">',
+                    '                    <div class="col-md-12">',
+                    '                        <div class="col-md-row">',
+                    '                             <textarea name="reply_{{uuid}}" id="reply_{{uuid}}" cols="30" rows="10"></textarea>',
+                    '                        </div>',
+                    '                    </div>',
+                    '                </div>',
+                    '                <div class="form-group">',
+                    '                    <div class="submit">',
+                    '                        <a href="javascript:void(0);" class="cancel-btn">取消</a><a href="javascript:void(0);" class="btn_add_reply" style="padding:10px 30px;">提交</a>',
+                    '                    </div>',
+                    '                </div>',
+                    '            </form>',
+                    '       </div>',
+                    '   </div>',
+                    '</div>', ].join('')
+    }
+};

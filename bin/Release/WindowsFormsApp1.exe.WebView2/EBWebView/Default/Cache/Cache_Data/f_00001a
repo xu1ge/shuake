@@ -1,0 +1,315 @@
+!
+function (e) {
+    
+    e.extend({
+        _hasFile: function (a, r) {
+            var s = !1,
+				t = "script" == a ? "src" : "href";
+            return e(a + "[" + t + "]").each(function (a, l) {
+                var i = e(l).attr(t);
+                return i == r || -1 != decodeURIComponent(i).indexOf(r) ? (s = !0, !1) : void 0
+            }), s
+        },
+        _loadCss: function (a, r) {
+            if (e._hasFile("link", a)) r && e.isFunction(r) && r.apply(this, []);
+            else {
+                var s = document.createElement("link");
+                s.setAttribute("type", "text/css"), s.setAttribute("rel", "stylesheet"), s.setAttribute("href", a), document.getElementsByTagName("head")[0].appendChild(s), s.onload = function () {
+                    r && e.isFunction(r) && r.apply(this, [])
+                }
+            }
+        },
+        _loadJs: function (a, r, s) {
+            var t = [],
+				l = t[a] || (t[a] = {
+				    loaded: !1,
+				    callbacks: []
+				});
+            return l.loaded ? r.apply(this, [s]) : (l.callbacks.push({
+                fn: r
+            }), void (1 == l.callbacks.length && e.ajax({
+                type: "GET",
+                url: a,
+                dataType: "script",
+                cache: !0,
+                success: function () {
+                    l.loaded = !0, e.each(l.callbacks, function () {
+                        this.fn.apply(this, [s])
+                    }), l.callbacks.length = 0
+                },
+                error: function (e, a, r) {
+                    throw window.console ? (console.log("lazyIncludeError:" + r + ",statusCode:" + a), r) : (alert("lazyIncludeError:" + r + ",statusCode:" + a), r)
+                }
+            })))
+        },
+        _log: function (e) {
+            window.console ? console.log(e) : alert(e)
+        },
+        insertString: function (e, a, r) {
+            return a = -1 == a ? e.length + 1 : a, [e.slice(0, a), r, e.slice(a)].join("")
+        }
+    }), e.fn.DViewer = function (a) {
+        a = e.extend(!0, {}, e.fn.DViewer.defaults, a), a.data || (a.onError && e.isFunction(a.onError) ? a.onError.apply(this, {
+            code: -100,
+            msg: "预览数据不正确！！"
+        }) : e._log("预览数据不正确！！"));
+        var r = function (r) {
+            switch (a.data.category) {
+                case "img":
+                    if ("gif" == a.data.extension) r.html('<div class="gif_container" style="overflow:auto;"><img src="' + a.data.urls.preview + '" style="display:block; margin:10px auto;"/><div>');
+                    else {
+                        var s = a.data.urls.preview;
+                        e._loadCss(a.baseUrl + "viewer/imageView/jquery.iviewer.css"), e._loadJs(a.baseUrl + "viewer/imageView/jquery.iviewer.min.js", function () {
+                            r.iviewer({
+                                src: a.data.urls.preview,
+                                onErrorLoad: function () {
+                                    r.html('<span class="picture_load_error">图片加载失败了,请尝试刷新页面</span>')
+                                }
+                            })
+                        })
+                    }
+                    break;
+                case "video":
+                    e._loadJs(a.baseUrl + "viewer/jwplayer/jwplayer.js", function () {
+                        r.append('<div id="video_container_"' + (new Date).getTime() + ' class="video_container" ></div>');
+                        var s = [];
+                        var isUseColud = a.data.urls.isUseCloud;
+                        var preview_cloud = a.data.urls.preview_cloud;
+                        var pewviewUrl = a.data.urls.preview;
+                        if (isUseColud == 1 && preview_cloud.length > 0) {
+                            pewviewUrl = preview_cloud;
+                        }
+						a.data.args["360p"] && "true" === a.data.args["360p"] && s.push({
+                            file: a.data.urls.preview360p,
+                            label: "流畅",
+							"default": !0
+                        }),a.data.args["720p"] && "true" === a.data.args["720p"] && s.push({
+                            file: a.data.urls.preview720p,
+                            label: "高清"
+                        }), a.data.args.original && "true" === a.data.args.original && s.push({
+                            file: a.data.urls.preview,
+                            label: "原画",
+                            
+                        });
+                      
+                        var t = jwplayer(r.find(".video_container").attr("id")).setup({
+                            flashplayer: a.baseUrl + "viewer/jwplayer/jwplayer.flash.swf",
+                            sources: s,
+                            autostart: !0,
+                            provider: "http",
+                            startparam: "start",
+                            width: "100%",
+                            height: "100%",
+                            base: a.baseUrl + "viewer/jwplayer/",
+                            skin: {
+                                name: "stormtrooper"
+                            }
+                        });
+                        a.callback.video && a.callback.video.apply(this, [t])
+                    });
+                    break;
+                case "mp3":
+                    e._loadJs(a.baseUrl + "viewer/jwplayer/jwplayer.js", function () {
+                        r.append('<div id="mp3_container_"' + (new Date).getTime() + ' class="mp3_container" ></div>'), jwplayer(r.find(".mp3_container").attr("id")).setup({
+                            flashplayer: a.baseUrl + "viewer/jwplayer/jwplayer.flash.swf",
+                            file: a.data.urls.preview,
+                            autostart: !0,
+                            width: "100%",
+                            height: "100%",
+                            base: a.baseUrl + "viewer/jwplayer/",
+                            skin: {
+                                name: "stormtrooper"
+                            }
+                        })
+                    });
+                    break;
+                case "swf":
+                    e._loadJs(a.baseUrl + "viewer/swf/swfobject.js", function () {
+                        var e = (new Date).valueOf(),
+							s = {};
+                        s.quality = "high", s.allowscriptaccess = "sameDomain", s.allowfullscreen = "true", s.wmode = "transparent", r.append('<div id="swfobj_div_' + e + '" style="height:100%"></div>'), swfobject.embedSWF(a.data.urls.preview, "swfobj_div_" + e, "100%", "100%", "8.0.0", "http://www.adobe.com/", {}, s)
+                    });
+                    break;
+                case "office":
+                    e._loadCss(a.baseUrl + "viewer/MPreview/css/MPreview.css", function () {
+                        r.html('<iframe width="100%" height="100%" src="'+ a.data.urls.preview +'" ></iframe>');
+                    });
+                    break;
+                case "threeScreen":
+                    e._loadJs(a.baseUrl + "viewer/threeScreen/threeScreen.js", function () {
+                        e._loadJs(a.baseUrl + "viewer/jwplayer/jwplayer.js", function () {
+                            var s = setTimeout(function () {
+                                r.html('<span class="error_display" >文件不存在 或者 正在转换，请稍后查看。</span>')
+                            }, 2e3);
+                            e.ajax({
+                                type: "GET",
+                                url: e.insertString(a.data.urls.preview, a.data.urls.preview.indexOf("?"), "/catalog.js"),
+                                cache: !1,
+                                dataType: "script",
+                                success: function () {
+                                    window.clearTimeout(s), r.threeScreen({
+                                        playerHtml: a.baseUrl + "viewer/threeScreen/html/play.html",
+                                        playerCss: a.baseUrl + "viewer/threeScreen/css/threeScreen.css",
+                                        flashplayer: a.baseUrl + "viewer/jwplayer/jwplayer.flash.swf",
+                                        skin: {
+                                            name: "stormtrooper"
+                                        },
+                                        baseUrl: a.baseUrl,
+                                        autoStart: !0,
+                                        teachersUrl: e.insertString(a.data.urls.preview, a.data.urls.preview.indexOf("?"), "/teacher.mp4"),
+                                        screenUrl: e.insertString(a.data.urls.preview, a.data.urls.preview.indexOf("?"), "/screen.mp4"),
+                                        directoryData: json_treeview_data,
+                                        callback: a.callback.zipx
+                                    })
+                                }
+                            })
+                        })
+                    });
+                    break;
+                case "shou_threeScreen":
+                    e._loadJs(a.baseUrl + "viewer/shou_threeScreen/shou_threeScreen.js", function () {
+                        e._loadJs(a.baseUrl + "viewer/jwplayer/jwplayer.js", function () {
+                            var s = setTimeout(function () {
+                                r.html('<span class="error_display" >文件不存在 或者 正在转换，请稍后查看。</span>')
+                            }, 2e3);
+                            e.ajax({
+                                type: "GET",
+                                url: e.insertString(a.data.urls.preview, a.data.urls.preview.indexOf("?"), "/catalog.js"),
+                                cache: !1,
+                                dataType: "script",
+                                success: function () {
+                                    window.clearTimeout(s), r.threeScreen({
+                                        playerHtml: a.baseUrl + "viewer/shou_threeScreen/html/play.html",
+                                        playerCss: a.baseUrl + "viewer/shou_threeScreen/css/shou_threeScreen.css",
+                                        flashplayer: a.baseUrl + "viewer/jwplayer/jwplayer.flash.swf",
+                                        skin: {
+                                            name: "stormtrooper"
+                                        },
+                                        baseUrl: a.baseUrl,
+                                        autoStart: !0,
+                                        teachersUrl: e.insertString(a.data.urls.preview, a.data.urls.preview.indexOf("?"), "/index.mp4"),
+                                        screenUrl: e.insertString(a.data.urls.preview, a.data.urls.preview.indexOf("?"), "/index.mp4"),
+                                        directoryData: json_treeview_data
+                                    })
+                                }
+                            })
+                        })
+                    });
+                    break;
+                case "csf":
+                    e._loadJs(a.baseUrl + "viewer/csf/csf.js", function () {
+                        e._loadJs(a.baseUrl + "viewer/jwplayer/jwplayer.js", function () {
+                            var s = setTimeout(function () {
+                                r.html('<span class="error_display" >文件不存在 或者 正在转换，请稍后查看。</span>')
+                            }, 2e3);
+                            e.ajax({
+                                type: "GET",
+                                url: e.insertString(a.data.urls.preview, a.data.urls.preview.indexOf("?"), "/catalog.js"),
+                                cache: !1,
+                                dataType: "script",
+                                success: function () {
+                                    window.clearTimeout(s), r.csf({
+                                        playerHtml: a.baseUrl + "viewer/csf/html/play.html",
+                                        playerCss: a.baseUrl + "viewer/csf/css/csf.css",
+                                        flashplayer: a.baseUrl + "viewer/jwplayer/jwplayer.flash.swf",
+                                        skin: {
+                                            name: "stormtrooper"
+                                        },
+                                        baseUrl: a.baseUrl,
+                                        autoStart: !0,
+                                        teachersUrl: e.insertString(a.data.urls.preview, a.data.urls.preview.indexOf("?"), "/teacher.mp4"),
+                                        screenUrl: e.insertString(a.data.urls.preview, a.data.urls.preview.indexOf("?"), "/screen.mp4"),
+                                        directoryData: json_treeview_data,
+                                        callback: a.callback.csf
+                                    })
+                                }
+                            })
+                        })
+                    }), r.html('<span class="can_not_display" >抱歉，该文件类型暂时还不支持在线查看。</span>');
+                    break;
+                case "ziph":
+                    r.html('<iframe frameborder="0" style="width:100%;height:100%;" allowtransparency="true" src="' + e.insertString(a.data.urls.preview, a.data.urls.preview.indexOf("?"), "/index.html") + '" ></iframe>');
+                    break;
+                case "epg":
+                    e._loadJs(a.baseUrl + "viewer/epg/lessonPlay.js", function () {
+                        r.lessonPlay({
+                            playerHtml: a.baseUrl + "viewer/epg/html/lessonPlay.html",
+                            swfobject: a.baseUrl + "viewer/epg/play/swfobject.js",
+                            IMKPlayer: a.baseUrl + "viewer/epg/play/IMKPlayer.swf",
+                            lessonUrl: a.lessonUrl,
+                            anthenUrl: a.anthenUrl,
+                            url: a.data.urls.statusUrl,
+                            t: a.data.urls.t,
+                            m: a.data.urls.m
+                        })
+                    });
+                    break;
+                default:
+                    r.html('<span class="can_not_display" >抱歉，该文件类型暂时还不支持在线查看。</span>')
+            }
+        },
+			s = function (a, s) {
+			    switch (a.data.status) {
+			        case 1:
+			            a.onError && e.isFunction(a.onError) ? a.onError.apply(this, [{
+			                code: 1,
+			                msg: "文件已上传，等待转换中"
+			            }]) : s.html('<span style="dfs_error" >要查看的已上传，等待转换中。</span>');
+			            break;
+			        case 2:
+			            r(s), a.onSuccessed && e.isFunction(a.onSuccessed) && a.onSuccessed.apply(this, a.data);
+			            break;
+			        case -1:
+			            a.onError && e.isFunction(a.onError) ? a.onError.apply(this, [{
+			                code: -1,
+			                msg: "文件正在转换"
+			            }]) : s.html('<span style="dfs_error" >文件正在转换中，请稍后查看……</span>');
+			            break;
+			        case -2:
+			            a.onError && e.isFunction(a.onError) ? a.onError.apply(this, [{
+			                code: -2,
+			                msg: "文件转换失败"
+			            }]) : s.html('<span style="dfs_error" >文件转换失败，只能下载后查看。</span>');
+			            break;
+			        case -3:
+			            a.onError && e.isFunction(a.onError) ? a.onError.apply(this, [{
+			                code: -3,
+			                msg: "文件不支持转换"
+			            }]) : s.html('<span style="dfs_error" >文件不支持转换。</span>');
+			            break;
+			        default:
+			            a.onError && e.isFunction(a.onError) ? a.onError.apply(this, [{
+			                code: 0,
+			                msg: "文件不存在"
+			            }]) : s.html('<span style="dfs_error" >要查看的文件不存在。</span>')
+			    }
+			};
+        return e(this).each(function (r, t) {
+            a.data = JSON.parse(a.data), a.data.status || a.data.args ? s(a, e(t)) : e.ajax({
+                type: "get",
+                url: a.data.urls.status,
+                dataType: "jsonp",
+                jsonp: "jsonpcallback",
+                success: function (r, l, i) {
+                    return a.data.status = r.status, a.data.args = r.args, s(a, e(t)), !1
+                },
+                error: function (r, s) {
+                    a.onError && e.isFunction(a.onError) ? a.onError.apply(this, [{
+                        code: 500,
+                        msg: s
+                    }]) : e._log(s)
+                }
+            })
+        })
+    }, e.fn.DViewer.defaults = {
+        baseUrl: e("head").data("vp2"),
+        data: "",
+        onError: null,
+        onSuccessed: null,
+        callback: {
+            video: null,
+            csf: null,
+            zipx: null
+        }
+    }
+}(jQuery);

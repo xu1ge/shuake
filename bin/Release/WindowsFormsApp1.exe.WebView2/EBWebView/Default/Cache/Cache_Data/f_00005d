@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=9;IE=8;IE=7;IE=EDGE">
+<link rel="shortcut icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="https://www.ahjxjy.cn/css/style.css?v=0.2" />
+<link rel="stylesheet" href="https://www.ahjxjy.cn/css/phone.css?v=0.133" />
+<script>
+  //百度统计
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?0a8c441c3e9dc428ff06edd4469dd4dc";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+    <title>安徽继续教育在线</title>
+    <link href="https://www.ahjxjy.cn/css/fullpage.css" rel="stylesheet">
+    <script src="https://www.ahjxjy.cn/js/jquery.js"></script>
+    <style>
+      @media screen and (min-width: 1920px) {
+        .fp-scrollable {overflow-y:auto;}
+      }
+      @media screen and (min-width: 1200px) {
+        .navbar_ul > li > a.action, .navbar_ul > li > a:hover{background-color: rgba(0,0,0,0.2) !important;}
+      }
+      @media screen and (max-width: 1900px) {
+        .section{padding-bottom: 90px;}
+      .banner{padding-bottom: 0px;}
+      .fp-section .allWidth{
+        -webkit-overflow-scrolling: touch;     
+        overflow-x: hidden;     
+        overflow-y: auto;
+        overflow: -moz-scrollbars-none;     
+        overflow: -moz-scrollbars-none;
+      }
+      .fp-section .allWidth::-webkit-scrollbar{display:none;}
+      
+      }
+      
+    </style>
+    
+  <script type="text/javascript" src="/SiteFiles/Plugins/SS.Advertisement/assets/adFloating.js"></script></head>
+  <body>
+
+<div id="ad_2" class="ads-float ads-float-left" style="position: fixed; width: 320px; height: 105px; z-index: 10500; display: block; left: 20px; top: 120px;"><div style="width: 320px; height: 105px; position: absolute; left: 0px; top: 0px;"><a href="https://www.ahjxjy.cn/utils/report.html" target="_blank"><img src="https://www.ahjxjy.cn/upload/images/2021/12/f1f9e726eefecf07.png" width="100%" height="100%" border="0"></a></div>
+<div class="ads-float-close" style="width: 320px; height: 18px; position: absolute; left: 0px; top: 105px; background: url(&quot;/SiteFiles/Plugins/SS.Advertisement/assets/close.gif&quot;) right center no-repeat rgb(235, 235, 235); cursor: pointer;" onclick="document.getElementById('ad_2').style.display = 'none';"></div>
+</div>
+
+<script type="text/javascript">
+    var ad2=new Ad_Move("ad_2");
+    ad2.SetLocation(20, 120);
+    ad2.SetType(2);
+    
+    ad2.Run();
+</script>
+
+<link href="/sitefiles/assets/flashes/videojs/video-js.min.css" rel="stylesheet">
+<script type="text/javascript" src="/sitefiles/assets/flashes/videojs/video.min.js"></script>
+
+
+    <!--登录-->
+<div class="login_link  hide">
+  <div class="login_cover">
+    <div class="login_close">
+      <img src="https://www.ahjxjy.cn/images/close11.png"/>
+    </div>
+    <div class="login_ifame">
+      <iframe src="https://main.ahjxjy.cn/minlogin?id=kdsl3fkg1" class="ifame"></iframe>
+    </div>
+  </div>
+</div>
+<style>
+  .login_link{width:100%;height:100%;overflow:hidden;background:rgba(0,0,0,.6);position:fixed;top:0;right:0;left:0;bottom:0;z-index:20000;}
+  .login_cover{position:fixed;left:0;top:0;bottom:0;right:0;z-index:20001;width: 522px;height:360px;margin: auto;/*background: rgba(255,255,255,0.4);border-radius: 20px;*/}
+  .login_close{position:relative;}
+  .login_close img{position: absolute;right: -36px;top: -36px;width: 40px;cursor: pointer;}
+  .login_ifame{width:100%;height:100%;margin: auto;background: #ecf4fd;border-radius: 12px;overflow: hidden;}
+  .login_ifame .ifame{width:100%;height:100%;border: none;}
+  @media screen and (max-width:768px) {  
+    .login_cover{width:98%;}
+    .login_close img{right: 4px;top: 4px;width: 30px;}
+  }
+</style>
+
+
+<!--mobile-->
+<div class="mobile_login hide">
+  <a href="javascript:void(0);" class="fl header_login">登录</a>
+  <a href="https://main.ahjxjy.cn/portal/register_new.aspx" class="fl">注册</a>
+  <div class="mobile_search search fr">
+    <form action="https://www.ahjxjy.cn/utils/search.html" target="_blank">
+      <input type="text" name="word" id="word" placeholder="请输入要查询的内容"/>
+      <button><img src="https://www.ahjxjy.cn/upload/images/2021/1/search.png" /></button>
+    </form>
+  </div>
+</div>
+
+
+<div class="top">
+  <div class="allWidths clearfix">
+    
+    <div class="logo fl">
+      
+        <img src="https://www.ahjxjy.cn/upload/images/2021/7/b72c3e47a51f0fdf.png" style="width:100%;" />
+      
+    </div>
+    
+    <ul class="navbar_ul center clearfix fl" >
+  
+      
+      <li>
+            <a class="action" href="https://www.ahjxjy.cn/index.html">首页</a>
+          </li>    
+    
+      <li>
+                <a href="https://www.ahjxjy.cn/channels/3.html">高校园区</a>
+              </li>
+    
+      <li>
+                <a href="https://www.ahjxjy.cn/channels/5.html">教学资源</a>
+              </li>
+    
+      <li>
+                <a href="https://www.ahjxjy.cn/channels/7.html">政策文件</a>
+                    <div class="add_select fr hide"></div>
+                    <ul class="menu">
+                      
+                        <li><a title="国家政策" href="https://www.ahjxjy.cn/channels/7.html">国家政策</a></li>
+                      
+                        <li><a title="省厅文件" href="https://www.ahjxjy.cn/channels/8.html">省厅文件</a></li>
+                      
+                        <li><a title="园区简报" href="https://www.ahjxjy.cn/channels/9.html">园区简报</a></li>
+                      
+                        <li><a title="项目规范" href="https://www.ahjxjy.cn/channels/10.html">项目规范</a></li>
+                      
+                    </ul>
+              </li>
+    
+      <li>
+                <a href="https://www.ahjxjy.cn/channels/12.html">操作指南</a>
+                    <div class="add_select fr hide"></div>
+                    <ul class="menu">
+                      
+                        <li><a title="学生" href="https://www.ahjxjy.cn/channels/12.html">学生</a></li>
+                      
+                        <li><a title="教师" href="https://www.ahjxjy.cn/channels/13.html">教师</a></li>
+                      
+                        <li><a title="高校督导员/系统管理员" href="https://www.ahjxjy.cn/channels/14.html">高校督导员/系统管理员</a></li>
+                      
+                        <li><a title="高校教务管理员" href="https://www.ahjxjy.cn/channels/15.html">高校教务管理员</a></li>
+                      
+                        <li><a title="高校教学管理员" href="https://www.ahjxjy.cn/channels/748.html">高校教学管理员</a></li>
+                      
+                        <li><a title="教学点管理员" href="https://www.ahjxjy.cn/channels/749.html">教学点管理员</a></li>
+                      
+                    </ul>
+              </li>
+    
+      <li>
+                <a target="_blank" href="http://www.ahlecb.cn/">学分银行</a>
+              </li>
+    
+      <li>
+                <a href="https://www.ahjxjy.cn/contents/17/1320.html">关于我们</a>
+              </li>
+    
+  <li>
+    <a href="javascript:;" class="degree">学位外语</a>
+  </li>
+  <li>
+    <a href="/zkzxpt/">自考助学</a>
+  </li>
+</ul>
+
+    
+    <ul class="nav_btn hide fl">
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    
+    <div class="head_phone fl">
+      <div class="phone_tit">联系方式</div>
+      <div class="phone_hide hide">
+        <table>
+          <tr>
+            <td class="td_one">教学服务部:</td>
+            <td>0551-64652807<br/>0551-64652805</td>
+          </tr>
+          <tr>
+            <td class="td_one">技术服务部<br/>学习成果认证服务部:</td>
+            <td>0551-63633772</td>
+          </tr>
+          <tr>
+            <td class="td_one">学历继续教育服务部:</td>
+            <td>0551-63656935</td>
+          </tr>
+          <tr>
+            <td class="td_one">自考助学服务部:</td>
+            <td>0551-63633213</td>
+          </tr>
+          <tr>
+            <td class="td_one">综合事务部:</td>
+            <td>0551-63695287</td>
+          </tr>
+          <tr>
+            <td class="td_one">合作发展部:</td>
+            <td>0551-64652619</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+    <div class="head_weixin fl">
+      <div class="nav_code"><img src="https://www.ahjxjy.cn/upload/images/2021/8/8f4f2c143aaf8fe2.png"/><span>官方微信</span></div>
+      <div class="wechat hide"><img src="https://www.ahjxjy.cn/images/code.png"><p>关注官方微信，随时随地学习</p></div>
+    </div>
+    
+    <div class="login fr">
+      <a href="javascript:void(0);" class="fl header_login">登录</a>
+      <a href="https://main.ahjxjy.cn/portal/register_new.aspx" class="fl">注册</a>
+      <div class="pc_search search fl">
+        <form action="https://www.ahjxjy.cn/utils/search.html" target="_blank" class="hide">
+          <input type="text" name="word" id="word" placeholder="请输入要查询的内容"/>
+          <button><img src="https://www.ahjxjy.cn/upload/images/2021/1/search.png" /></button>
+        </form>
+        <img class="click_img" src="https://www.ahjxjy.cn/upload/images/2021/1/search.png" />
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+    <div id="fullPage">
+      
+      <div class="section banner">
+        <!-- tab01 -->
+        <div class="pc_videos" style="width:100% !important;height:100% !important;">
+          <!--
+          <video class="video-js vjs-default-skin" src="https://huaweicloudobs.ahjxjy.cn/ahjxjyportalVideo.mp4" autoplay controls poster="https://www.ahjxjy.cn/upload/images/2021/7/8c2e3e9106923397.jpg" height="280"></video>
+        -->
+          <video controls muted="true" style="width:100%;height:100%;object-fit: cover;" poster="https://www.ahjxjy.cn/upload/images/2021/7/8c2e3e9106923397.jpg" AutoPlay="true">  
+            <source src="https://huaweicloudobs.ahjxjy.cn/ahjxjyportalVideo.mp4" type="video/mp4"/>
+            <source src="movie.ogg"  type="video/ogg"/>
+            您的浏览器不支持 HTML5 video 标签。
+          </video>
+        </div>
+        <div class="mb_videos hide">
+          <!--
+            <video class="video-js vjs-default-skin" src="https://huaweicloudobs.ahjxjy.cn/ahjxjyportalVideo.mp4" controls poster="https://www.ahjxjy.cn/upload/images/2021/7/8c2e3e9106923397.jpg" height="280"></video>
+        -->
+          <video controls muted="true" style="width:100%;height:100%;object-fit: cover;" poster="https://www.ahjxjy.cn/upload/images/2021/7/8c2e3e9106923397.jpg">  
+            <source src="https://huaweicloudobs.ahjxjy.cn/ahjxjyportalVideo.mp4" type="video/mp4" />
+            <source src="movie.ogg"  type="video/ogg"/>
+            您的浏览器不支持 HTML5 video 标签。
+          </video>
+        </div>
+        <!-- end tab01 -->
+      </div>
+      
+      <div class="section news_tab">
+        
+        <div class="allWidth clearfix">          
+          <div class="tabs">
+            
+            <!-- tab02 -->
+            <div class="news_title">
+              <span class="normal">园区动态<img src='https://www.ahjxjy.cn/upload/images/2021/1/normal_bg.png'/></span>
+              <span>高校新闻<img src='https://www.ahjxjy.cn/upload/images/2021/1/normal_bg.png'/></span>
+              <span>园区公告<img src='https://www.ahjxjy.cn/upload/images/2021/1/normal_bg.png'/></span>
+            </div>
+            
+            <div class="news_list">
+              <!-- list01 -->
+              <div class="lists clearfix">
+                
+                <div class="news_slide fl">
+                  <ul class="bd">
+                    
+                      <li>
+                        <a target="_blank" title="安徽省学分银行应邀在2023年中国成人教育协会学分银行研究专业委员会 会议上交流发言" href="https://www.ahjxjy.cn/contents/47/1688.html">
+                          <img src="https://www.ahjxjy.cn/upload/images/2023/6/t_b38e28acaa77c6c8.png" class="news_img" />
+                          <div class="news_txt clearfix">
+                            <span class="news_tit fl">安徽省学分银行应邀在2023年中国成人教育协...</span>
+                            <span class="news_time fr">2023-06-27</span>
+                          </div>
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a target="_blank" title="安徽机电职业技术学院来访网络园区、学分银行调研交流" href="https://www.ahjxjy.cn/contents/47/1681.html">
+                          <img src="https://www.ahjxjy.cn/upload/images/2023/6/t_729a059dfdf72571.jpg" class="news_img" />
+                          <div class="news_txt clearfix">
+                            <span class="news_tit fl">安徽机电职业技术学院来访网络园区、学分银...</span>
+                            <span class="news_time fr">2023-06-15</span>
+                          </div>
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a target="_blank" title="阜阳科技职业学院与安徽开放大学签订合作协议" href="https://www.ahjxjy.cn/contents/47/1680.html">
+                          <img src="https://www.ahjxjy.cn/upload/images/2023/6/t_6855217cdbcf8cc7.png" class="news_img" />
+                          <div class="news_txt clearfix">
+                            <span class="news_tit fl">阜阳科技职业学院与安徽开放大学签订合作协...</span>
+                            <span class="news_time fr">2023-06-14</span>
+                          </div>
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a target="_blank" title="江西高等学历继续教育学位外语考评高校联盟来访园区、学分银行考察交流" href="https://www.ahjxjy.cn/contents/47/1679.html">
+                          <img src="https://www.ahjxjy.cn/upload/images/2023/6/t_d4943192575d42d2.JPG" class="news_img" />
+                          <div class="news_txt clearfix">
+                            <span class="news_tit fl">江西高等学历继续教育学位外语考评高校联盟...</span>
+                            <span class="news_time fr">2023-06-14</span>
+                          </div>
+                        </a>
+                      </li>
+                    
+                  </ul>
+                  <ul class="hd"></ul>
+                </div>
+                
+                <div class="news_con fr">
+                  <ul>
+                    <table cellspacing="0" cellpadding="0" style="border-width:0px;width:100%;border-collapse:collapse;">
+	<tr>
+		<td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽省学分银行应邀在2023年中国成人教育协会学分银行研究专业委员会 会议上交流发言" href="https://www.ahjxjy.cn/contents/47/1688.html">
+                          <div class="con_title">安徽省学分银行应邀在2023年中国成人教育协会学分银行研究专业委...</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-27</div>
+                          <div class="con_content">为深入贯彻党的二十大精神，推进教育数字化，建设全民终身学习的...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽机电职业技术学院来访网络园区、学分银行调研交流" href="https://www.ahjxjy.cn/contents/47/1681.html">
+                          <div class="con_title">安徽机电职业技术学院来访网络园区、学分银行调研交流</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-15</div>
+                          <div class="con_content">6月13日上午，安徽机电职业技术学院继续教育学院副院长徐园园一...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="阜阳科技职业学院与安徽开放大学签订合作协议" href="https://www.ahjxjy.cn/contents/47/1680.html">
+                          <div class="con_title">阜阳科技职业学院与安徽开放大学签订合作协议</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-14</div>
+                          <div class="con_content">6月9日，阜阳科技职业学院继续教育学院院长于言来访安徽继续教育...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="江西高等学历继续教育学位外语考评高校联盟来访园区、学分银行考察交流" href="https://www.ahjxjy.cn/contents/47/1679.html">
+                          <div class="con_title">江西高等学历继续教育学位外语考评高校联盟来访园区、学分银行考...</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-14</div>
+                          <div class="con_content">6月13日下午，江西高等学历继续教育学位外语考评高校联盟第二届...</div>
+                        </a>
+                      </li>
+                    </td>
+	</tr><tr>
+		<td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="南昌航空大学继续教育学院来访园区、学分银行考察交流" href="https://www.ahjxjy.cn/contents/47/1678.html">
+                          <div class="con_title">南昌航空大学继续教育学院来访园区、学分银行考察交流</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-12</div>
+                          <div class="con_content">6月9日上午，南昌航空大学继续教育学院院长兼直属党支部书记王浩...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="合肥幼儿师范高等专科学校继续教育学院来访网络园区、学分银行调研交流" href="https://www.ahjxjy.cn/contents/47/1677.html">
+                          <div class="con_title">合肥幼儿师范高等专科学校继续教育学院来访网络园区、学分银行调...</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-12</div>
+                          <div class="con_content">6月8日下午，合肥幼儿师范高等专科学校继续教育学院院长罗玉蓉到...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽现代信息工程职业学院来访园区、学分银行考察交流" href="https://www.ahjxjy.cn/contents/47/1673.html">
+                          <div class="con_title">安徽现代信息工程职业学院来访园区、学分银行考察交流</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-07</div>
+                          <div class="con_content">6月7日上午，安徽现代信息工程职业学院党委副书记、院长魏捷，副...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="园区管理中心联合三所高职学院在滁州职业技术学院商谈应用化工专业课程资源共建共享事宜" href="https://www.ahjxjy.cn/contents/47/1672.html">
+                          <div class="con_title">园区管理中心联合三所高职学院在滁州职业技术学院商谈应用化工专...</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-07</div>
+                          <div class="con_content">为促进继续教育教学资源共建共享、推动远程化教学模式改革，6月1...</div>
+                        </a>
+                      </li>
+                    </td>
+	</tr><tr>
+		<td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽职业技术学院继续教育学院来访园区、 学分银行考察交流" href="https://www.ahjxjy.cn/contents/47/1671.html">
+                          <div class="con_title">安徽职业技术学院继续教育学院来访园区、 学分银行考察交流</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-06</div>
+                          <div class="con_content">5月31日下午，安徽职业技术学院继续教育学院院长李京文、教务处...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽高校继续教育合作联盟自考助学服务改革专门委员会2023年工作会议在滁州召开" href="https://www.ahjxjy.cn/contents/47/1667.html">
+                          <div class="con_title">安徽高校继续教育合作联盟自考助学服务改革专门委员会2023年工作...</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-05</div>
+                          <div class="con_content">为发挥安徽高校继续教育合作联盟（以下简称“联盟”）桥梁纽带作...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽继续教育网络园区访问滁州职业技术学院继续教育学院调研交流" href="https://www.ahjxjy.cn/contents/47/1666.html">
+                          <div class="con_title">安徽继续教育网络园区访问滁州职业技术学院继续教育学院调研交流</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-05</div>
+                          <div class="con_content">为促进继续教育教学资源共建共享、推动远程化教学模式改革，6月1...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="立足新时代 携手共发展 园区管理中心积极推进长三角高校继续教育联盟筹备工作" href="https://www.ahjxjy.cn/contents/47/1665.html">
+                          <div class="con_title">立足新时代 携手共发展 园区管理中心积极推进长三角高校继续教育...</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-05</div>
+                          <div class="con_content">为深入贯彻落实党的二十大关于“建设全民终身学习的学习型社会、...</div>
+                        </a>
+                      </li>
+                    </td>
+	</tr>
+</table>
+                  </ul>
+                  <div class="wheel_btn">
+                    <a class="prev prevStop" href="javascript:void(0)"><img src='https://www.ahjxjy.cn/images/prev.png' /></a>
+                    <a class="next" href="javascript:void(0)"><img src='https://www.ahjxjy.cn/images/next.png' /></a>
+                  </div>
+                </div>
+                
+              </div>
+              <!-- end list01 -->
+              <!-- list02 -->
+              <div class="lists hide clearfix">
+                
+                <div class="news_slide fl">
+                  <ul class="bd">
+                    
+                      <li>
+                        <a target="_blank" title="从农民工到大专生，他们圆了大学梦" href="https://www.ahjxjy.cn/contents/48/1675.html">
+                          <img src="https://www.ahjxjy.cn/upload/images/2021/7/bfe2fc58a43e3c33.png" class="news_img common_img">
+                          <div class="news_txt clearfix">
+                            <span class="news_tit fl">从农民工到大专生，他们圆了大学梦</span>
+                            <span class="news_time fr">2023-06-08</span>
+                          </div>
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a target="_blank" title="黑龙江开放大学一行调研考察网络园区及学分银行建设" href="https://www.ahjxjy.cn/contents/48/1659.html">
+                          <img src="https://www.ahjxjy.cn/upload/images/2023/5/t_88dda810a2d406d2.png" class="news_img" />
+                          <div class="news_txt clearfix">
+                            <span class="news_tit fl">黑龙江开放大学一行调研考察网络园区及学分...</span>
+                            <span class="news_time fr">2023-05-31</span>
+                          </div>
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a target="_blank" title="东北农业大学加入安徽继续教育公共英语联盟" href="https://www.ahjxjy.cn/contents/48/1643.html">
+                          <img src="https://www.ahjxjy.cn/upload/images/2023/5/t_3cfd2aa605d7e2da.png" class="news_img" />
+                          <div class="news_txt clearfix">
+                            <span class="news_tit fl">东北农业大学加入安徽继续教育公共英语联盟</span>
+                            <span class="news_time fr">2023-05-30</span>
+                          </div>
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a target="_blank" title="安徽农业大学召开高等学历继续教育2023版人才培养方案修订专家评审会" href="https://www.ahjxjy.cn/contents/48/1600.html">
+                          <img src="https://www.ahjxjy.cn/upload/images/2021/7/bfe2fc58a43e3c33.png" class="news_img common_img">
+                          <div class="news_txt clearfix">
+                            <span class="news_tit fl">安徽农业大学召开高等学历继续教育2023版人...</span>
+                            <span class="news_time fr">2023-04-25</span>
+                          </div>
+                        </a>
+                      </li>
+                    
+                  </ul>
+                  <ul class="hd"></ul>
+                </div>
+                
+                <div class="news_con fr">
+                  <ul>
+                    <table cellspacing="0" cellpadding="0" style="border-width:0px;width:100%;border-collapse:collapse;">
+	<tr>
+		<td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="从农民工到大专生，他们圆了大学梦" href="https://www.ahjxjy.cn/contents/48/1675.html">
+                          <div class="con_title">从农民工到大专生，他们圆了大学梦</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-08</div>
+                          <div class="con_content">从农民工到大专生，他们圆了大学梦&#160;&#160;编者按：合肥市职工大学依托...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="黑龙江开放大学一行调研考察网络园区及学分银行建设" href="https://www.ahjxjy.cn/contents/48/1659.html">
+                          <div class="con_title">黑龙江开放大学一行调研考察网络园区及学分银行建设</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-05-31</div>
+                          <div class="con_content">5月29日，黑龙江开放大学党委委员、副校长张铁军一行三人来校调...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="东北农业大学加入安徽继续教育公共英语联盟" href="https://www.ahjxjy.cn/contents/48/1643.html">
+                          <div class="con_title">东北农业大学加入安徽继续教育公共英语联盟</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-05-30</div>
+                          <div class="con_content">为进一步加强安徽继续教育公共英语联盟建设，持续抓好学位外语考...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽农业大学召开高等学历继续教育2023版人才培养方案修订专家评审会" href="https://www.ahjxjy.cn/contents/48/1600.html">
+                          <div class="con_title">安徽农业大学召开高等学历继续教育2023版人才培养方案修订专家评...</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-04-25</div>
+                          <div class="con_content">4月13日下午，安徽农业大学继续教育学院组织召开高等学历继续教...</div>
+                        </a>
+                      </li>
+                    </td>
+	</tr><tr>
+		<td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽开放大学考点顺利完成自学考试实践课程考核工作" href="https://www.ahjxjy.cn/contents/48/1586.html">
+                          <div class="con_title">安徽开放大学考点顺利完成自学考试实践课程考核工作</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-04-06</div>
+                          <div class="con_content">根据安徽省考试院高等教育自学考试实践课程考核要求，4月1日，安...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽职业技术学院圆满完成2022年京和职教协作项目交流访学培训" href="https://www.ahjxjy.cn/contents/48/1473.html">
+                          <div class="con_title">安徽职业技术学院圆满完成2022年京和职教协作项目交流访学培训</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2022-09-09</div>
+                          <div class="con_content">本网讯（发展规划处通讯员 王奎）8月15日上午，由安徽职业技术学...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="巢湖学院国继学院一行赴富煌集团公司洽谈继续教育合作事宜" href="https://www.ahjxjy.cn/contents/48/1472.html">
+                          <div class="con_title">巢湖学院国继学院一行赴富煌集团公司洽谈继续教育合作事宜</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2022-09-09</div>
+                          <div class="con_content">为进一步加强校企合作，深化巢湖学院国际交流与继续教育学院与安...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="【奋进正当时】滁州学院继续教育学院暑期工作成果丰硕成效显著" href="https://www.ahjxjy.cn/contents/48/1471.html">
+                          <div class="con_title">【奋进正当时】滁州学院继续教育学院暑期工作成果丰硕成效显著</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2022-09-09</div>
+                          <div class="con_content">今年暑期，滁州学院继续教育学院统筹协调指导教育科学学院、马克...</div>
+                        </a>
+                      </li>
+                    </td>
+	</tr><tr>
+		<td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽财经大学首届同等学力美术学研究生赴查济写生纪实 " href="https://www.ahjxjy.cn/contents/48/1470.html">
+                          <div class="con_title">安徽财经大学首届同等学力美术学研究生赴查济写生纪实 </div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2022-09-08</div>
+                          <div class="con_content">&#160; 2022年8月16日～22日，按教学计划安排，安徽财经大学首届同等...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="希望田野上的课堂 ——安庆市乡村振兴学院“职业教育+乡村振兴”协同发展新路径" href="https://www.ahjxjy.cn/contents/48/1434.html">
+                          <div class="con_title">希望田野上的课堂 ——安庆市乡村振兴学院“职业教育+乡村振兴”...</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2022-07-04</div>
+                          <div class="con_content">为更好发挥职业教育在乡村振兴事业中增值赋能的效果。2020年安徽...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽开放大学赴皖西学院调研交流" href="https://www.ahjxjy.cn/contents/48/1433.html">
+                          <div class="con_title">安徽开放大学赴皖西学院调研交流</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2022-06-27</div>
+                          <div class="con_content">为深化校际战略合作，6月22日下午，安徽开放大学校党委委员、副...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="疫情防控有力度 考试服务有温度 ——蚌埠电大圆满完成2022年上半年继续教育学位外语网考工作" href="https://www.ahjxjy.cn/contents/48/1432.html">
+                          <div class="con_title">疫情防控有力度 考试服务有温度 ——蚌埠电大圆满完成2022年上半...</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2022-06-27</div>
+                          <div class="con_content">2022年6月17日至21日，蚌埠电大圆满完成安徽继续教育公共英语联...</div>
+                        </a>
+                      </li>
+                    </td>
+	</tr>
+</table>
+                  </ul>
+                  <div class="wheel_btn">
+                    <a class="prev prevStop" href="javascript:void(0)"><img src='https://www.ahjxjy.cn/images/prev.png' /></a>
+                    <a class="next" href="javascript:void(0)"><img src='https://www.ahjxjy.cn/images/next.png' /></a>
+                  </div>
+                </div>
+                
+              </div>
+              <!-- end list02 -->
+              <!-- list03 -->
+              <div class="lists hide clearfix">
+                
+                <div class="news_slide fl">
+                  <ul class="bd">
+                    
+                      <li>
+                        <a target="_blank" title="关于2023年下半年高等学历继续教育学士学位英语、学位日语辅导课程上线的通知" href="https://www.ahjxjy.cn/contents/49/1687.html">
+                          <img src="https://www.ahjxjy.cn/upload/images/2023/6/t_a9f495ca220b5dba.png" class="news_img" />
+                          <div class="news_txt clearfix">
+                            <span class="news_tit fl">关于2023年下半年高等学历继续教育学士学位...</span>
+                            <span class="news_time fr">2023-06-16</span>
+                          </div>
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a target="_blank" title="安徽继续教育网络园区 关于开放2023年度成人高考在线辅导课程的通知" href="https://www.ahjxjy.cn/contents/49/1686.html">
+                          <img src="https://www.ahjxjy.cn/upload/images/2021/7/bfe2fc58a43e3c33.png" class="news_img common_img">
+                          <div class="news_txt clearfix">
+                            <span class="news_tit fl">安徽继续教育网络园区 关于开放2023年度成...</span>
+                            <span class="news_time fr">2023-06-16</span>
+                          </div>
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a target="_blank" title="声明" href="https://www.ahjxjy.cn/contents/49/1682.html">
+                          <img src="https://www.ahjxjy.cn/upload/images/2021/7/bfe2fc58a43e3c33.png" class="news_img common_img">
+                          <div class="news_txt clearfix">
+                            <span class="news_tit fl">声明</span>
+                            <span class="news_time fr">2023-06-16</span>
+                          </div>
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a target="_blank" title="关于做好2023年度农民工免费上大学招生工作的通知" href="https://www.ahjxjy.cn/contents/49/1634.html">
+                          <img src="https://www.ahjxjy.cn/upload/images/2021/7/bfe2fc58a43e3c33.png" class="news_img common_img">
+                          <div class="news_txt clearfix">
+                            <span class="news_tit fl">关于做好2023年度农民工免费上大学招生工作...</span>
+                            <span class="news_time fr">2023-05-25</span>
+                          </div>
+                        </a>
+                      </li>
+                    
+                  </ul>
+                  <ul class="hd"></ul>
+                </div>
+                
+                <div class="news_con fr">
+                  <ul>
+                    <table cellspacing="0" cellpadding="0" style="border-width:0px;width:100%;border-collapse:collapse;">
+	<tr>
+		<td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="关于2023年下半年高等学历继续教育学士学位英语、学位日语辅导课程上线的通知" href="https://www.ahjxjy.cn/contents/49/1687.html">
+                          <div class="con_title">关于2023年下半年高等学历继续教育学士学位英语、学位日语辅导课...</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-16</div>
+                          <div class="con_content">有关高校、各位考生：&#160;为进一步推进继续教育公共英语资源信息化...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽继续教育网络园区 关于开放2023年度成人高考在线辅导课程的通知" href="https://www.ahjxjy.cn/contents/49/1686.html">
+                          <div class="con_title">安徽继续教育网络园区 关于开放2023年度成人高考在线辅导课程的...</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-16</div>
+                          <div class="con_content">有关高校、各位考生：为促进高等教育均衡化发展，满足广大成人高...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="声明" href="https://www.ahjxjy.cn/contents/49/1682.html">
+                          <div class="con_title">声明</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-06-16</div>
+                          <div class="con_content">近日，安徽继续教育公共英语联盟（以下简称“联盟”）秘书处接到...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="关于做好2023年度农民工免费上大学招生工作的通知" href="https://www.ahjxjy.cn/contents/49/1634.html">
+                          <div class="con_title">关于做好2023年度农民工免费上大学招生工作的通知</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-05-25</div>
+                          <div class="con_content">关于做好2023年度农民工免费上大学招生工作的通知</div>
+                        </a>
+                      </li>
+                    </td>
+	</tr><tr>
+		<td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="声明" href="https://www.ahjxjy.cn/contents/49/1616.html">
+                          <div class="con_title">声明</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-05-17</div>
+                          <div class="con_content">声 &#160;明&#160;近期发现，安徽乐大教育科技有限公司、安徽七佰教育科技...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="关于开展2023上半年高等学历继续教育学士学位外语考试报名工作的通知" href="https://www.ahjxjy.cn/contents/49/1553.html">
+                          <div class="con_title">关于开展2023上半年高等学历继续教育学士学位外语考试报名工作的...</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-02-28</div>
+                          <div class="con_content">有关高校，各位考生：&#160;&#160; &#160; &#160; 安徽继续教育公共英语联盟（以下简...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽继续教育公共英语联盟关于开展2023年上半年高等学历继续教育学士学位外语考试报名的通知" href="https://www.ahjxjy.cn/contents/49/1534.html">
+                          <div class="con_title">安徽继续教育公共英语联盟关于开展2023年上半年高等学历继续教育...</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-01-16</div>
+                          <div class="con_content">继教英语联盟〔2023〕2号有关高校及考生：安徽继续教育公共英语...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽省终身教育学分银行关于2022年特岗教师培训成果存储的通知" href="https://www.ahjxjy.cn/contents/49/1530.html">
+                          <div class="con_title">安徽省终身教育学分银行关于2022年特岗教师培训成果存储的通知</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-01-11</div>
+                          <div class="con_content">皖学银〔2023〕1号&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;&#160;有关高等学校、有关教育...</div>
+                        </a>
+                      </li>
+                    </td>
+	</tr><tr>
+		<td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="关于2023年上半年高等学历继续教育学士学位英语、学位日语辅导课程上线的通知" href="https://www.ahjxjy.cn/contents/49/1527.html">
+                          <div class="con_title">关于2023年上半年高等学历继续教育学士学位英语、学位日语辅导课...</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2023-01-05</div>
+                          <div class="con_content">有关高校、各位考生：为进一步推进继续教育公共英语资源信息化建...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽开放大学关于转发《安徽省教育厅关于公布2022年安徽省终身教育学分银行认证服务中心备案结果的通知》的通知" href="https://www.ahjxjy.cn/contents/49/1519.html">
+                          <div class="con_title">安徽开放大学关于转发《安徽省教育厅关于公布2022年安徽省终身教...</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2022-12-08</div>
+                          <div class="con_content">皖开大学银〔2022〕2号各市级开放大学，广德开放大学、宿松开放...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽开放大学关于自学考试2023年春季考期线上助学课程开课的通知" href="https://www.ahjxjy.cn/contents/49/1516.html">
+                          <div class="con_title">安徽开放大学关于自学考试2023年春季考期线上助学课程开课的通知</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2022-12-07</div>
+                          <div class="con_content">皖开大继教〔2022〕16号各位考生：为确保自学考试助学工作顺利开...</div>
+                        </a>
+                      </li>
+                    </td><td align="left" valign="top">
+                      <li>
+                        <a target="_blank" title="安徽开放大学关于自学考试2023年春季考期线上助学课程开课的通知" href="https://www.ahjxjy.cn/contents/49/1515.html">
+                          <div class="con_title">安徽开放大学关于自学考试2023年春季考期线上助学课程开课的通知</div>
+                          <div class="con_date"><img src="https://www.ahjxjy.cn/images/icon01.png">2022-12-07</div>
+                          <div class="con_content">皖开大继教〔2022〕16号各位考生：为确保自学考试助学工作顺利开...</div>
+                        </a>
+                      </li>
+                    </td>
+	</tr>
+</table>
+                  </ul>
+                  <div class="wheel_btn">
+                    <a class="prev prevStop" href="javascript:void(0)"><img src='https://www.ahjxjy.cn/images/prev.png' /></a>
+                    <a class="next" href="javascript:void(0)"><img src='https://www.ahjxjy.cn/images/next.png' /></a>
+                  </div>
+                </div>
+                
+              </div>
+              <!-- end list03 -->
+              
+            </div>
+            
+            <div class="news_more">
+              <a target="_blank" href="https://www.ahjxjy.cn/channels/47.html">更多动态></a>
+              <a class="hide" target="_blank" href="https://www.ahjxjy.cn/channels/48.html">更多新闻></a>
+              <a class="hide" target="_blank" href="https://www.ahjxjy.cn/channels/49.html">更多公告></a>
+            </div>
+            
+            <div class="common_foot news_foot"><img src="https://www.ahjxjy.cn/images/icon02.png">崇尚创新、注重协调、倡导绿色、厚植开放、推进共享</div>
+            <!-- end tab02 -->
+            
+          </div>
+        </div>
+      </div>
+      
+      <div class="section project_tab">
+        <div class="allWidth clearfix">          
+          <div class="tabs">
+            <!-- tab03 -->
+            
+            <div class="tab_title">
+              <div class="big_title fl">课程超市</div>
+              <div class="pro_more fr"><a target="_blank" href="https://www.ahjxjy.cn/channels/18.html">更多课程></a></div>
+            </div>
+            
+            <div class="pro_title">
+              <div class="pro_btn prev prevStop fl">
+                <img src="https://www.ahjxjy.cn/upload/images/2021/4/a1385b38500f93e1.png"/>
+              </div>
+              
+              <ul class="fl keep" id="course_type"></ul>
+              
+              <div class="pro_btn next fr">
+                <img src="https://www.ahjxjy.cn/upload/images/2021/1/9c950d6a1940336d.png"/>
+              </div>
+              
+            </div>
+            
+            <div class="pro_list" id="courses">
+              
+              <div class="common_lists independ1">
+                <!--<div class="pro_left"><img src="https://www.ahjxjy.cn/upload/images/2021/7/ba4e715b167010b3.png"/></div>-->
+                <ul class="list_info" id="course_data"></ul>
+                <!--<div class="pro_right"><img src="https://www.ahjxjy.cn/upload/images/2021/7/f5ffe323a8cb6232.png"/></div>-->
+              </div>
+              
+            </div>
+            
+            <div class="common_foot pro_foot"><img src="https://www.ahjxjy.cn/images/icon03.png">学习者是园区服务终端，享受优质资源和个性化学习支持服务</div>
+            
+            <!-- end tab03 -->
+            
+          </div>
+        </div>
+      </div>
+      <div class="section teacher_tab">
+        <div class="allWidth clearfix">          
+          <div class="tabs">
+            
+            <!-- tab04 -->
+            <div class="teach_title">名师介绍</div>
+            <div id="certify">
+              <div class="teach_list swiper-container">
+                <div class="swiper-wrapper">
+                  
+                    <div class="swiper-slide">
+                      <a target="_blank" title="彭凡" href="https://www.ahjxjy.cn/contents/30/261.html">
+                        <div class="teach_img">
+                          <img src="/demo/upload/images/2021/2/92a7cea55d7b377b.jpg" style="width:100%;" />
+                        </div>
+                        <div class="teach_tit center">
+                          彭凡
+                        </div>
+                        <div class="teach_source center">
+                          <img src="https://www.ahjxjy.cn/images/icon04.png">
+                          安徽农业大学
+                        </div>
+                        <div class="mask"></div>
+                      </a>
+                    </div>
+                  
+                    <div class="swiper-slide">
+                      <a target="_blank" title="陈名君" href="https://www.ahjxjy.cn/contents/30/260.html">
+                        <div class="teach_img">
+                          <img src="/demo/upload/images/2021/2/37624536d51de9ce.jpg" style="width:100%;" />
+                        </div>
+                        <div class="teach_tit center">
+                          陈名君
+                        </div>
+                        <div class="teach_source center">
+                          <img src="https://www.ahjxjy.cn/images/icon04.png">
+                          安徽农业大学
+                        </div>
+                        <div class="mask"></div>
+                      </a>
+                    </div>
+                  
+                    <div class="swiper-slide">
+                      <a target="_blank" title="孙裴" href="https://www.ahjxjy.cn/contents/30/259.html">
+                        <div class="teach_img">
+                          <img src="/demo/upload/images/2021/2/7b2c75293a130c48.JPG" style="width:100%;" />
+                        </div>
+                        <div class="teach_tit center">
+                          孙裴
+                        </div>
+                        <div class="teach_source center">
+                          <img src="https://www.ahjxjy.cn/images/icon04.png">
+                          安徽农业大学
+                        </div>
+                        <div class="mask"></div>
+                      </a>
+                    </div>
+                  
+                    <div class="swiper-slide">
+                      <a target="_blank" title="王桂军" href="https://www.ahjxjy.cn/contents/30/258.html">
+                        <div class="teach_img">
+                          <img src="/demo/upload/images/2021/2/f0cb7b451ed29779.jpg" style="width:100%;" />
+                        </div>
+                        <div class="teach_tit center">
+                          王桂军
+                        </div>
+                        <div class="teach_source center">
+                          <img src="https://www.ahjxjy.cn/images/icon04.png">
+                          安徽农业大学
+                        </div>
+                        <div class="mask"></div>
+                      </a>
+                    </div>
+                  
+                    <div class="swiper-slide">
+                      <a target="_blank" title="谢红玉" href="https://www.ahjxjy.cn/contents/39/276.html">
+                        <div class="teach_img">
+                          <img src="/demo/upload/images/2021/2/e25fbdcee9543521.jpg" style="width:100%;" />
+                        </div>
+                        <div class="teach_tit center">
+                          谢红玉
+                        </div>
+                        <div class="teach_source center">
+                          <img src="https://www.ahjxjy.cn/images/icon04.png">
+                          安庆师范大学
+                        </div>
+                        <div class="mask"></div>
+                      </a>
+                    </div>
+                  
+                </div>
+              </div>
+            </div>
+            
+            <div class="teach_more">
+              <a target="_blank" href="https://www.ahjxjy.cn/channels/28.html">更多名师></a>
+            </div>
+            
+            <div class="common_foot teach_foot"><img src="https://www.ahjxjy.cn/images/icon03.png">开放、共享、合作、共赢、融合、创新</div>
+            <!-- end tab04 -->
+          </div>
+        </div>
+      </div>
+      
+      <div class="section data_tab">
+        <div class="allWidth clearfix">          
+          <div class="tabs">
+            
+            <!-- tab05 -->
+            <div class="big_title">数据园区</div>
+            
+            <div class="data_title">
+              <span class="normal">访问用户</span>
+              <span>园区概览</span>
+              <!-- <span>学习资源</span>
+              <span>学习行为</span> -->
+            </div>
+            
+            <div class="data_list">
+              <ul class="data_info">
+                <li>
+                  <div class="num JS_onlineNum"></div>
+                  <div class="object">在线人数</div>
+                </li>
+                <li>
+                  <div class="num JS_todayNum"></div>
+                  <div class="object">今日浏览</div>
+                </li>
+                <li>
+                  <div class="num JS_totalNum"></div>
+                  <div class="object">总访问量</div>
+                </li>
+              </ul>
+              <ul class="data_info hide">
+                <li>          
+                  <div class="num JS_resCount"></div>
+                  <div class="object ">资源总数</div>
+                </li>
+                <li>
+                  <div class="num JS_videoCount"></div>
+                  <div class="object">视频资源</div>
+                </li>
+                <li>
+                  <div class="num JS_courseCount"></div>
+                  <div class="object">上线课程</div>
+                </li>
+                <li>
+                  <div class="num JS_sharedCourseCount"></div>
+                  <div class="object">课程共享</div>
+                </li>
+                <li>
+                  <div class="num JS_majorCount"></div>
+                  <div class="object">专业数</div>
+                </li>
+              </ul>
+              
+              <ul class="data_info hide">
+                
+              </ul>
+              <ul class="data_info hide">
+                
+              </ul>
+            </div>
+            
+            <div class="common_foot teach_foot"><img src="https://www.ahjxjy.cn/images/icon03.png">推动资源共建共享，促进人才培养质量提升</div>
+            <!-- end tab05 -->
+          </div>
+        </div>
+      </div>
+      <div class="section footer_tab">
+        
+        <div class="allWidth clearfix">          
+          <div class="tabs">
+            
+            <!-- tab06 -->
+            <div class="server">
+              <div class="server_title">服务平台</div>
+              <ul class="server_list">
+                <li><a href="https://www.ahjxjy.cn/szpt/" target="_blank"><img src="https://www.ahjxjy.cn/upload/images/2022/4/5f038393aa903623.png" style="width:100%;"/></a></li>
+                <li><a href="https://www.ahjxjy.cn/workeredu/" target="_blank"><img src="https://www.ahjxjy.cn/images/server01.png" style="width:100%;"/></a></li>
+                <li><a href="https://www.ahjxjy.cn/hzlm/" target="_blank"><img src="https://www.ahjxjy.cn/upload/images/2021/8/554313b274af2c99.png" style="width:100%;"/></a></li>
+                <li><a href="http://hsz.ahjxjy.cn" target="_blank"><img src="https://www.ahjxjy.cn/upload/images/548a00e1082c508b.png" style="width:100%;"/></a></li>
+                <li><a href="https://www.ahjxjy.cn/zkzxpt/" target="_blank"><img src="https://www.ahjxjy.cn/upload/images/2022/2/a244a90512e9f5d1.png" style="width:100%;"/></a></li>
+                <li><a href="http://www.ahlecb.cn/" target="_blank"><img src="https://www.ahjxjy.cn/upload/images/2022/2/bbb42ed9abc284ca.png" style="width:100%;"/></a></li>
+              </ul>
+            </div>
+            
+            <div class="link">
+              <div class="link_title">友情链接</div>
+              <div class="link_list">
+                
+                  <a target="_blank" title="中华人民共和国教育部" href="http://www.moe.gov.cn/">
+                    中华人民共和国教育部
+                  </a>
+                
+                  <a target="_blank" title="中国教育在线" href="https://www.eol.cn/">
+                    中国教育在线
+                  </a>
+                
+                  <a target="_blank" title="安徽省政府网" href="http://www.ah.gov.cn/">
+                    安徽省政府网
+                  </a>
+                
+                  <a target="_blank" title="安徽省教育网" href="http://jyt.ah.gov.cn/">
+                    安徽省教育网
+                  </a>
+                
+                  <a target="_blank" title="全国高等继续教育信息管理系统" href="http://jxjy.moe.edu.cn/">
+                    全国高等继续教育信息管理系统
+                  </a>
+                
+                  <a target="_blank" title="安徽省教育招生考试院" href="https://www.ahzsks.cn/index.htm">
+                    安徽省教育招生考试院
+                  </a>
+                
+                  <a target="_blank" title="安徽开放大学" href="https://www.ahtvu.ah.cn/portal/">
+                    安徽开放大学
+                  </a>
+                
+                  <a target="_blank" title="安徽专业技术人员继续教育在线" href="http://www.zjzx.ah.cn/index.action">
+                    安徽专业技术人员继续教育在线
+                  </a>
+                
+                  <a target="_blank" title="安徽干部教育在线" href="https://www.ahgbjy.gov.cn/pc/index.do">
+                    安徽干部教育在线
+                  </a>
+                
+                  <a target="_blank" title="安徽中小学教师教育" href="http://www.jsjy.ah.cn/cms/">
+                    安徽中小学教师教育
+                  </a>
+                
+                  <a target="_blank" title="安徽省成人高校招生网" href="http://crbm.ahzsks.cn/">
+                    安徽省成人高校招生网
+                  </a>
+                
+                  <a target="_blank" title="虚拟仿真实验教学中心" href="http://main.ahjxjy.cn/virexp/">
+                    虚拟仿真实验教学中心
+                  </a>
+                
+              </div>
+            </div>
+            
+            <div class="foot_text">
+              <div class="left_txt center">
+                <p>地址：合肥市九华山路3号，安徽开放大学(本部) ，安徽继续教育网络园区管理中心</p>
+                <p>
+                  技术支持：<a href="https://www.yzl.ltd/" target="_blank">安徽渔之蓝教育软件技术有限公司</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                  备案序号：<a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备05003560号</a>
+                </p>
+                <p>版权所有：安徽省教育厅主管，安徽继续教育网络园区管理中心制&nbsp;&nbsp;<script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1281016222'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/stat.php%3Fid%3D1281016222%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script></p>
+              </div>
+              <div class="code">
+                
+                  <img src="https://www.ahjxjy.cn/images/code.png" />
+                  <span>官方微信</span>
+                
+              </div>
+            </div>
+            
+            <div class="common_foot teach_foot"><img src="https://www.ahjxjy.cn/images/icon03.png">一体化教学、一站式学习、全过程监控、智能化管理。</div>
+            <!-- end tab06 -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="weixin_con"></div>
+    
+    <!--<script src="https://www.ahjxjy.cn/js/jquery.slimscroll.js"></script>-->
+    <script>
+      //全屏滚动判断
+      if (screen && screen.width > 999) {  
+        document.write('<script src="https://www.ahjxjy.cn/js/jquery.fullPage.js"><\/script>'); 
+      } 
+    </script>  
+    <script>
+      //导航点
+      $(function() {
+        $('#fullPage').fullpage({
+          verticalCentered: false, //定义每一页的内容是否垂直居中，默认true
+          navigation: true, //是否显示导航，默认为false
+          navigationPosition: 'right', //导航小圆点的位置
+          navigationTooltips: [' ',' ',' ',' '],//导航小圆点的提示
+          scrollOverflow:true
+        });
+      });
+    </script>
+    
+    <!--课程超市-->
+    <script type="text/javascript" src="https://www.ahjxjy.cn/js/course.js"></script>
+    <script src="https://www.ahjxjy.cn/js/SuperSlide.js"></script>
+    <script src="https://www.ahjxjy.cn/js/script.js"></script>
+    
+    <!--[if !IE]><!-->
+    <style>
+      #certify{position: relative;margin: 0 auto;width:1400px;}
+      #certify .swiper-slide{width:390px; height:510px; background-color: #fff; border-radius: 16px; overflow: hidden;}
+    </style>
+    <link href="https://www.ahjxjy.cn/css/swiper5.4.5.min.css" rel="stylesheet">
+    <script src="https://www.ahjxjy.cn/js/swiper5.4.5.min.js"></script>
+    <script src="https://www.ahjxjy.cn/js/swiper1.js"></script>
+    <!--<![endif]-->
+    <!--[if IE]>
+    <style>
+    #certify{position: relative;margin: 0 auto;width:1400px;}
+    .swiper-container{height:446px;}
+    #certify .swiper-slide{ width:312px !important; height:446px !important;background-color: #fff; border-radius: 16px; overflow: hidden;margin:0 10px;}
+  </style>
+    <link href="https://www.ahjxjy.cn/css/idangerous.swiper.min.css" rel="stylesheet">       
+    <script src="https://www.ahjxjy.cn/js/idangerous.swiper.min.js"></script>
+    <script src="https://www.ahjxjy.cn/js/swiper2.js"></script>
+    <![endif]-->
+    <script>
+      
+      Views();
+      resourceNum();
+      
+      //浏览量
+      setInterval ("Views()", 5000);
+      
+      /*function Views(){
+        jQuery.getJSON("https://tj.ahjxjy.cn:42345/?host=" + location.host + "&callback=?", function (msg) {
+          $(".JS_onlineNum").text(msg.online + 1);
+          $(".JS_todayNum").text(msg.today + 1);
+          $(".JS_totalNum").text(msg.total + 10000000);
+        });
+      };*/
+      
+       function Views() {        
+         let ajax = new XMLHttpRequest();
+        ajax.open("get", `https://tj.ahjxjy.cn:42345/?host=" + ${location.host} + "&callback=?`, true);
+        ajax.send();
+        ajax.onreadystatechange = function () {
+            if (ajax.status == 200) {
+                let regex = /\((.+?)\)/g; // 小括号
+
+                let aaa = ajax.responseText;
+                let msg = ""
+                if (aaa) {
+                    msg = JSON.parse(aaa.match(regex)[0].replace("(", "").replace(")", ""));
+                } else {
+                    return
+
+                }
+                    console.log(msg);
+                localStorage.setItem("msg", JSON.stringify(msg));
+
+               
+                $(".JS_onlineNum").text(msg.online + 1);
+                $(".JS_todayNum").text(msg.today + 1);
+                $(".JS_totalNum").text(msg.total + 10000000);
+            } else {
+
+              
+                let acc = JSON.parse(localStorage.getItem("msg"));
+                if (acc) {
+                    $(".JS_onlineNum").text(acc.online + 1);
+                    $(".JS_todayNum").text(acc.today + 1);
+                    $(".JS_totalNum").text(acc.total + 10000000);
+                } else {
+                    $(".JS_onlineNum").text(800 + 1);
+                    $(".JS_todayNum").text(30000 + 1);
+                    $(".JS_totalNum").text(451381739 + 10000000);
+                }
+            }
+        };
+
+
+                               };
+      
+      //资源总数
+      function resourceNum() {        
+        jQuery.getJSON("https://main.ahjxjy.cn/api/External/getOverview",function(data) {
+          
+          $(".JS_resCount").text(data.resCount);
+          $(".JS_videoCount").text(data.videoCount);
+          $(".JS_courseCount").text(data.courseCount);
+          $(".JS_sharedCourseCount").text(data.sharedCourseCount);
+          $(".JS_majorCount").text(data.majorCount);
+        });
+      };
+    </script>
+    <script>
+      //学位外语
+      //var btn = document.getElementsByClassName("serverClick")[2];
+      function threeFn(){
+        debugger;
+        jQuery.post('https://main.ahjxjy.cn/portal/ajax/supermarket/degreeenglishsso', function (r) {
+          if (r.code > 0 ) {
+            location.href = "http://sso.ahjxjy.cn/login.html?ReturnUrl=http://sso.ahjxjy.cn/ssoclient.html&" + r.msg;
+          }else{
+            alert(r.msg);
+            return false;
+          }
+        });
+        return true;
+      };
+    </script>
+    <script>
+      //课程超市课程类
+      setTimeout(function () {    
+        jQuery(".project_tab .pro_title").slide({mainCell:".keep",effect:"left",autoPlay:false,pnLoop:false});
+      }, 1000);
+      
+    </script>
+    
+    <!--学位外语-->
+    <!--学位外语-->
+<style>
+  .degree_link{width:100%;height:100%;overflow:hidden;background:rgba(0,0,0,.6);position:fixed;top:0;right:0;left:0;bottom:0;z-index:1000;}
+  .degree_cover{position:fixed;left:0;top:0;bottom:0;right:0;width: 650px;height:180px;margin: auto;}
+  .degree_close{position:relative;}
+  .degree_close img{position: absolute;right: -36px;top: -36px;width: 40px;cursor: pointer;}
+  .degree_con{width: 100%; margin: auto; background: #ecf4fd; border-radius: 12px; overflow: hidden; line-height: 50px; font-size: 16px; color: #666; padding: 60px 0;}
+  .degree_con>p{width: 95%; margin: auto;}
+  .common_degree{text-align:center;font-weight:bold;font-size:17px;line-height:30px;padding-bottom: 20px;}
+  .degree_con>p span.degree_tit{width: 70%; line-height:30px;text-align: right; display: inline-block;margin-right: 10px;}
+  .degree_con>p a.links{color: #d61010;cursor: pointer;}
+  .degree_con>p a.links:hover{color: #d61010;font-weight: bold;}
+  @media screen and (max-width:768px) {
+    .degree_cover{width:98%;}
+    .degree_close img{right: 4px;top: 4px;width: 30px;}
+  }
+</style>
+
+<div class="degree_link hide">
+  <div class="degree_cover">
+    <div class="degree_close">
+      <img src="https://www.ahjxjy.cn/images/close11.png"/>
+    </div>
+    <div class="degree_con">
+      <p class="common_degree">2023年上半年学位外语考试结果将于近期陆续发布，敬请广大考生关注! </p>
+      <p class="degree_search"><span class="degree_tit"> 2023年上半年学位外语考试预约，结果查询（2022下半年）</span>：<a href="https://main.ahjxjy.cn/newxwyylogin" class="links search_link">前往</a></p>
+      <p class="degree_study"><span class="degree_tit">2023年上半年学位英语辅导课程学习</span>：<a href="https://main.ahjxjy.cn/study/html/content/process/?courseOpenId=7uzfahivqynkgzvqhpmffg&projectId=&schoolCode=002" class="links study_link">前往</a></p>
+      <p class="degree_search"><span class="degree_tit">2023年上半年学位日语辅导课程学习</span>：<a href="https://main.ahjxjy.cn/study/html/content/process/?courseOpenId=7ezfahivh5ri92xtxradcq&projectId=&schoolCode=002" class="links search_link">前往</a></p>
+     <p class="degree_study"><span class="degree_tit">2022年上半年及历年考试成绩查询</span>：<a href="https://main.ahjxjy.cn/xwyylogin" class="links study_link">前往</a></p>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  //学位外语
+  $(".degree").click(function(){
+    $(".degree_link").show();
+  });
+  $(".degree_close").click(function(){
+    $(".degree_link").hide();
+  });
+
+</script>
+
+
+
+    
+  </body>
+</html>

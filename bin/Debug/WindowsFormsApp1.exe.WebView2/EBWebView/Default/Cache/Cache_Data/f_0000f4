@@ -1,0 +1,988 @@
+@charset "utf-8";
+/* CSS Document */
+@import url('table.css');
+/*reset  初始化各种样式*/
+body {font-size:12px;font-family: Arial,"宋体","微软雅黑",  sans-serif;}
+body, p, h1, h2, h3, h4, h5, h6, dd, dl, dt, th, td, ul, li, ol, p, form, input, select, textarea, button {margin:0;padding:0;}
+input, select, textarea {font-family:Arial, Helvetica, sans-serif;font-size:12px;vertical-align:middle;}
+table {border-collapse:collapse;border-spacing:0;}
+img {border:0;}
+em, i {font-style:normal;}
+ul, ol {list-style-type:none;}
+*html {background-image:url(about:blank);background-attachment:fixed;/*解决ie6下固定定位的闪烁问题*/}
+/*html5 for IE*/
+header, footer, nav, section, hgroup {display:block;}
+a {color:#333;text-decoration:none;outline:none; }
+a:hover, a:active, a:focus {color:#0066cc;text-decoration:none;}
+/*清除浮动*/
+.clear {clear: both;}
+.clearfix:after {clear:both;content:'';display: block;font-size: 0;line-height: 0;visibility: hidden;width: 0;height: 0;}
+.clearfix {+display: inline-block;}
+* html .clearfix {height: 1%;}
+
+
+
+
+
+
+
+/*课程表样式*/
+.tg-timedevents {background-color: #FFFFFF;border-bottom: 1px solid #CCCCCC;margin-top: -1px;table-layout: fixed;width: 100%;}
+#tgTable{ border-collapse:collapse;}
+
+#tgTable td{ text-align:center;border:1px #b9bad9 solid;}
+.wk-tzTlabel{background:#e3e3e3; height:50px; }
+.Tlabel{ background-color:#f1f1f1;color:#039;}
+.fontC{color:#3c4963;}
+.wk_t{vertical-align:top; height:50px;}
+.right_corner{ padding:0 0 0 70px; height:10px; color:#775597;}
+.conrner_left{ float:left; height:25px; padding:5px 0 0 0; color:#aaaaaa; font-size:10px;}
+.Tlabel dl{ float:left; padding:5px 0 0 5px;}
+
+/*教师首页*/
+/* #mainContent_teacher{		未使用
+	background:#e1e5ea url(../img/contentBack.jpg) repeat-x top;
+	border-left: #333333 1px solid;
+	border-top: #333333 1px solid;
+	min-height:500px;
+	height:auto !important;
+	height:500px;
+	padding-top: 15px;
+	padding-right: 25px;
+	padding-bottom: 0px;
+	padding-left: 30px;
+}
+ */
+ 
+/* 分界线样式 */
+hr {
+	height:1px;
+	border:0;
+	border-bottom:1px dotted #cccccc;
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: 2px;
+	margin-left: 0;
+}
+
+
+
+
+
+
+/* 从这里开始是整个页面的主体部分 */
+#main {padding-left : 220px;margin-left : 0;background-position: 11px 0;}
+
+/* .mainOut{margin-left : 11px;padding-left : 0;background-image : none;}
+.mainIn{	 未使用 
+	padding-left : 220px;margin-left : 0;background-image:url(../img/leftBack.jpg)}
+ */
+
+#content{						 /* 比如有课程的教师首页就用到了content */	
+	background:#e1e5ea url(../img/contentBack.jpg) repeat-x top;
+	padding:25px 40px 0px 30px;
+	border-left: #333333 1px solid;
+	border-top: #333333 1px solid;
+	min-height:560px;
+	height:auto !important;
+}
+
+/* 页面内嵌iframe页面的样式 */
+#iframe_content{
+	min-height:520px;
+	height:auto;
+	height:520px;
+	*+height:530px;
+	/*overflow-y:scroll;*/
+}
+
+#mainContent {
+	background:#fff url(../img/mainContentBack.jpg) repeat-x top;
+	border-left: #333333 1px solid;
+	border-top: #333333 1px solid;
+	min-height:550px;
+	height:auto !important;
+	height:500px;
+	padding-top: 15px;
+	padding-right: 25px;
+	padding-bottom: 0px;
+	padding-left: 30px;
+}
+/* 
+.buttonArea {
+	min-height:45px;
+	overflow:hidden; 
+	line-height:45px;
+}
+
+.buttonArea ul li{float:left;}
+ul.bottomButtonArea li{float:left; padding-right:10px;}
+按钮区右侧带搜索 的部分 */
+/* */
+
+/* 
+			big暂未使用
+.buttonArea ul li.big {padding-right:25px;margin-right:5px;background:url(../img/liBigBack.png) no-repeat right center;}
+.buttonArea ul li.normal {padding:0px 2px;vertical-align:top;margin-top:5px;}	normal暂未使用
+
+normal是普通按钮的样式					normal暂未使用
+.normal  #date_date_selector{vertical-align:top;margin-top:1px;}
+.normal  .dateSelector{vertical-align:top;margin-top:1px;}
+
+.buttonArea ul li.select {padding-right:5px;}			li.select暂未使用  
+.buttonArea ul li.select.labName{width:240px;width:29%\9;*width:25%;*+width25%:}
+ */
+
+/* 不带左侧导航的页面主体部分 */
+#main1 {
+	padding-top:10px;
+	padding-left:11px;
+	_margin-left:0px;
+	_padding-left:11px;
+	background-position: 11px 0;
+	width:98%;
+}
+#mainContent1 {
+	background:#fff url(../img/mainContentBack.jpg) repeat-x top;
+	border-left: #333333 1px solid;
+	border-top: #333333 1px solid;
+	min-height:500px;
+	height:auto !important;
+	height:500px;
+	padding-top: 15px;
+	padding-right: 25px;
+	padding-bottom: 0px;
+	padding-left: 30px;
+}
+/* 
+input.little{	仅在一个关于耗材的页面使用，耗材模块部分在虚拟仿真中没有涉及
+	width:15%;
+	width:100px;
+	padding-left:5px;
+} */
+				/* operation是各个角色便捷操作首页的主体部分容器 */
+#operation{
+	min-height:500px;
+	height:auto !important;
+	height:500px;
+}
+#operation section {
+	width: 700px;
+	height: 120px;
+	background: url(../img/shelfBack.jpg) no-repeat center bottom;
+}
+#operation section .title {
+	float: left;
+	font-weight: bold;
+	font-size: 14px;
+	padding-top: 30px;
+	padding-right:20px;
+	width: 110px;
+	text-align:right;
+}
+#operation section ul {
+	padding-left: 70px;
+}
+#operation section ul li {
+	width: 65px;
+	padding-right:50px;
+	float: left;
+	background: url(../img/operationArrow.png) no-repeat right;
+}
+#operation section ul li.last {
+	background: none;
+}
+#operation section ul li a span {
+	width: 90px;
+	height:20px;
+	line-height:20px;
+	text-align: center;
+	float: left;
+}
+#operation section ul li a img {
+	padding-left: 10px;
+}
+
+
+/* 实验室管理页面实验台放置的主体页面，学生工位预约提交信息后跳转的实验室页面，还有电源控制的页面（暂时未找到进入页面的方式）*/
+#desk {
+	float: left;
+	font-size: 16px;
+	font-weight: bold;
+	color: #333;
+	padding: 0 0 0px 0px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	border: 1px solid #ddd;
+	background-image: url(../img/wood2.jpg);
+}
+
+#desk ul li {
+	color: #333;
+	padding-left: 15px;
+	margin-top: 20px;
+	float: left;
+	width: 180px;
+	height: 120px;
+	/*background:url(../img/desk.png) no-repeat;*/
+	background-position: 0px 0px;
+}
+
+#desk ul li.on {
+	margin-top:0;
+	float: left;
+	width: 115px;
+	height: 90px;
+	background: url(../img/desk.png) no-repeat;
+	background-position: 10px 20px;
+}
+
+#desk ul li.off {
+	margin-top: 10px;
+	float: left;
+	width: 115px;
+	height: 108px;
+	background: url(../img/deskOff.png) no-repeat;
+	background-position: 10px 20px;
+}
+
+#desk ul li.underFix {
+	margin-top: 20px;
+	float: left;
+	width: 110px;
+	height: 100px;
+	background: url(../img/deskUn.png) no-repeat;
+	background-position: 10px 10px;
+}
+
+#desk ul li.connect {
+	margin-top: 20px;
+	float: left;
+	width: 110px;
+	height: 100px;
+	background: url(../img/deskOff.png) no-repeat;
+	background-position: 10px 10px;
+}
+
+#desk ul li.disConnect {
+	margin-top: 20px;
+	float: left;
+	width: 110px;
+	height: 100px;
+	background: url(../img/deskOff.png) no-repeat;
+	background-position: 10px 10px;
+}
+
+a.power {
+	display: block;
+	width: 120px;
+	height: 30px;
+	margin-top: 80px;
+	background: url(../img/switchOn.png) no-repeat;
+	background-position: 10px 5px;
+}
+
+#desk ul li.off a.power {
+	background: url(../img/switchOff.png) no-repeat;
+	background-position: 10px 5px;
+}
+
+#desk ul li.connect a.power {
+	background: url(../img/unknown.png) no-repeat;
+	background-position: 10px 5px;
+}
+
+#desk ul li.disConnect a.power {
+	background: url(../img/disConnect.png) no-repeat;
+	background-position: 10px 5px;
+}
+
+#desk ul li.underFix a.power {
+	background: none;
+}
+/***************************  实验室工位布置页面结束    **********************************/
+
+
+
+/************************ 欢迎页面左侧文字样式结束   *********************/
+
+/************************ 有些编辑页面输入框右侧的提示   *********************/
+.formHelp{
+	border:2px solid #ddd;
+	padding:8px;
+	background:#f1f1f1;
+	color:#666;
+}
+/******************输入框右侧的提示样式结束***************************/
+
+
+
+/*--------------------------------------------------
+  Oh buttons I love you guys,you always smile when I touch you.
+  button部分已然全部被替换
+  --------------------------------------------------*/
+/* a.buttonOpen{
+	line-height:12px;
+	font-family:"宋体";
+	display: inline-block;
+	background: #ddd url('../img/buttonOpenBackGray.jpg') top left repeat-x !important;
+	border: 1px solid #bbb !important;
+	padding: 3px 10px 3px 10px !important;
+	color: #000 !important;
+	font-size: 12px !important;
+	cursor: pointer;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	
+}
+
+
+a.buttonOpen:hover{
+	color: white !important;
+	border: 1px solid #06f !important;
+	background: #ddd url('../img/bg-button-blue.jpg') top left repeat-x !important;
+
+}
+.buttonUn{
+	width:25px;
+	font-family:"宋体";
+	line-height:12px;
+    display: inline-block;
+    background: #ddd url('../img/buttonUnBack.jpg') top left !important;
+    border: 1px solid #e0e0e0 !important;
+    padding: 3px 10px 3px 10px !important;
+    color: #a1a1a1 !important;
+    font-size: 12px !important;
+    cursor: pointer;
+	-moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+
+a.buttonOpen1{
+	font-family:"宋体";
+    display: inline-block;
+    background: #ddd url('../img/bg-button-silver.jpg') top left repeat-x !important;
+    border: 1px solid #ccc !important;
+    padding: 5px 20px 5px 20px !important;
+    color: #333 !important;
+    font-size: 12px !important;
+    cursor: pointer;
+	-moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+	border-radius: 4px;
+	font-weight:normal;
+}
+
+a.buttonOpen2{
+	font-family:"宋体";
+    display: inline-block;
+    background: #ddd url('../img/bg-button-blue.jpg') top left repeat-x !important;
+    background: url('../img/bg-button-blue.jpg') top left repeat-x !important;
+    border: 1px solid #0066ff !important;
+    padding: 5px 20px 5px 20px !important;
+    color: #333 !important;
+    font-size: 12px !important;
+    cursor: pointer;
+	-moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+	border-radius: 4px;
+	font-weight:normal;
+}
+
+a.buttonOpen3{
+	font-family:"宋体";
+    display: inline-block;
+    background: url('../img/bg-button-gray.jpg') top left repeat-x !important;
+    border: 1px solid #939393 !important;
+    padding: 5px 20px 5px 20px !important;
+    color: #FFFFFF !important;
+    font-size: 12px !important;
+    cursor: pointer;
+	-moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+	border-radius: 4px;
+	font-weight:normal;
+}
+a.buttonOpen1:hover{
+	
+background: #3399ff url('../img/bg-button-blue.jpg') top left repeat-x !important;
+                border: 1px solid #0066ff !important;
+                color: #fff !important;
+}	
+
+.button{
+	font-family:"宋体";
+    display: inline-block;
+    background: #ddd url('../img/bg-button-silver.jpg') top left repeat-x !important;
+    border: 1px solid #ccc !important;
+    padding: 4px 20px 4px 20px !important;
+    color: #333 !important;
+    font-size: 12px !important;
+    cursor: pointer;
+	-moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+	border-radius: 4px;
+				
+}
+.buttonArea .search input,.buttonArea .search select   wenqq搜索处input和select宽度的控制
+{
+	  max-width:150px; 
+}
+
+
+.buttonSearch , , a.buttonSearch:visited,.btn-search:visited{
+	设置成右对齐时，搜索按钮会有换行
+	display:block;
+	width:60px;
+	height:24px;
+	background:url(../img/searchBack.jpg) no-repeat;
+	background-position:0px 0px;
+	border:none;
+	cursor:pointer;
+}
+.buttonSearch:hover{
+	设置成右对齐时，搜索按钮会有换行
+	display:block;
+	width:60px;
+	height:24px;
+	background:url(../img/searchBack.jpg) no-repeat;
+	background-position:0 -24px;
+	cursor:pointer;
+}
+
+.searchField{
+	height:23px;
+}
+.textField{
+	height:20px;
+	margin-top:-5px;
+}
+.pageNavi{
+	float:right;
+}
+.pageNavi span{
+	float:left;
+	padding:6px 10px 0 0;
+}
+.pagePrev{
+	float:left;
+	display: inline-block;
+    background: #ddd url('../img/bg-button-silver.jpg') top left repeat-x !important;
+    border: 1px solid #ccc !important;
+    padding: 4px 10px 4px 10px !important;
+    color: #333 !important;
+    font-size: 12px !important;
+    cursor: pointer;
+	-moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.pagePrev:hover{
+	 background: #3399ff url('../img/bg-button-blue.jpg') top left repeat-x !important;
+     border: 1px solid #0066ff !important;
+     color: #fff !important;
+}
+.pageNext{
+	float:left;
+	display: inline-block;
+    background: #ddd url('../img/bg-button-silver.jpg') top left repeat-x !important;
+    border: 1px solid #ccc !important;
+    padding: 4px 10px 4px 10px !important;
+    color: #333 !important;
+    font-size: 12px !important;
+    cursor: pointer;
+	-moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-border-top-left-radius: 0;
+	-webkit-border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+.pageNext:hover{
+	 background: #3399ff url('../img/bg-button-blue.jpg') top left repeat-x !important;
+   	 border: 1px solid #0066ff !important;
+     color: #fff !important;
+}
+.buttonSmall{
+     font-family:"宋体", Verdana, Arial, sans-serif;
+     display: inline-block;
+     background: #ddd url('../img/bg-button-silver.jpg') top left repeat-x !important;
+     border: 1px solid #ccc !important;
+     padding: 4px 1px 4px 1px !important;
+     color: #333 !important;
+     font-size: 12px !important;
+     cursor: pointer;
+	 -moz-border-radius: 4px;
+     -webkit-border-radius: 4px;
+	 border-radius: 4px;
+	 overflow: visible;
+     width: auto;
+	 *width: 1;
+}
+.buttonSmall:hover{
+	 background: #3399ff url('../img/bg-button-blue.jpg') top left repeat-x !important;
+     border: 1px solid #0066ff !important;
+     color: #fff !important;
+}
+.buttonIm{
+				font-family:"微软雅黑", Verdana, Arial, sans-serif;
+                display: inline-block;
+                background: #3399cc url('../img/bg-button-Im.jpg') top left repeat-x !important;
+                border: 1px solid #0066ff !important;
+                padding: 4px 20px 4px 20px !important;
+                color: #fff !important;
+                font-size: 12px !important;
+                cursor: pointer;
+				-moz-border-radius: 4px;
+                -webkit-border-radius: 4px;
+				border-radius: 4px;
+}
+.button:hover{
+                background: #3399ff url('../img/bg-button-blue.jpg') top left repeat-x !important;
+                border: 1px solid #0066ff !important;
+                color: #fff !important;
+
+}
+.buttonIm:hover{
+               background: #3399ff url('../img/bg-button-blue.jpg') top left repeat-x !important;
+                border: 1px solid #0066ff !important;
+                color: #fff !important;
+
+}
+ */
+/******************************* button结束 ***********************************/
+
+/*--------------------------------------------------
+  table and table and still table
+  --------------------------------------------------*/
+.generalList{
+	min-height:510px;
+	height:auto !important;
+	height:700px;
+}
+
+
+/* 
+ $Id: example.css,v 1.5 2006/03/27 02:44:36 pat Exp $ 
+
+--------------------------------------------------
+  REQUIRED to hide the non-active tab content.
+  But do not hide them in the print stylesheet!
+  --------------------------------------------------
+.tabberlive .tabbertabhide {
+ display:none;
+}
+
+
+--------------------------------------------------
+  .tabber = before the tabber interface is set up
+  .tabberlive = after the tabber interface is set up
+  --------------------------------------------------
+
+
+--------------------------------------------------
+  ul.tabbernav = the tab navigation list
+  li.tabberactive = the active tab
+  --------------------------------------------------
+ul.tabbernav
+{
+ margin:0;
+ padding: 3px 0;
+ border-bottom: 1px solid #778;
+}
+
+ul.tabbernav li
+{
+ list-style: none;
+ margin: 0;
+ display: inline;
+}
+
+ul.tabbernav li a
+{
+ padding: 3px 1em;
+ margin-left: 3px;
+ border: 1px solid #036;
+ border-bottom: none;
+ background:#eee;
+ text-decoration: none;
+}
+
+ul.tabbernav li a:link { color: #333; }
+ul.tabbernav li a:visited { color: #667; }
+
+ul.tabbernav li a:hover
+{
+ color: #fff;
+ background: #3399ff;
+ border-color: #0066ff;
+}
+
+ul.tabbernav li.tabberactive a
+{
+color:#3C4963;
+border: 1px solid #999;
+font-weight:bold;
+ background-color: #e8e8e8;
+ background-image:none;
+ border-bottom: 1px solid #e8e8e8;
+}
+
+ul.tabbernav li.tabberactive a:hover
+{
+ background: white;
+ border-bottom: 1px solid white;
+}
+
+.tabbertab #hor-minimalist-b{				貌似没用到
+	border-top:1px solid #e8e8e8;
+}
+
+--------------------------------------------------
+  .tabbertab = the tab content
+  Add style only after the tabber interface is set up (.tabberlive)
+  --------------------------------------------------
+.tabberlive .tabbertab {
+ padding:0;
+
+ border-top:0;
+
+ If you don't want the tab size changing whenever a tab is changed
+    you can set a fixed height
+
+ height:200px;
+
+ If you set a fix height set overflow to auto and you will get a
+    scrollbar when necessary
+
+ overflow:auto;
+}
+
+If desired, hide the heading since a heading is provided by the tab
+.tabberlive .tabbertab h2 {
+ display:none;
+}
+.tabberlive .tabbertab h3 {
+ display:none;
+}
+
+Example of using an ID to set different styles for the tabs on the page
+.tabberlive#tab1 {
+}
+.tabberlive#tab2 {
+}
+.tabberlive#tab2 .tabbertab {
+ height:200px;
+ overflow:auto;
+}
+ */
+/* #language{
+	height:27px;
+} */
+/* #degree{
+	height:24px;
+	margin-top:-7px;
+}
+ */
+
+#hor-minimalist-b{font-size: 12px;background: #fff;margin: 0;width: 100%;border-collapse: collapse;text-align: center;border: 1px solid #ccc;table-layout:fixed;}
+
+/* 用于控制表格下面显示页数的位置 */
+#hor-minimalist-b tfoot th{text-align:right;padding-right:10px;}
+/* 显示页数处最左面“总计” */
+#hor-minimalist-b tfoot th .sum{padding-right:3px;}	
+
+
+#hor-minimalist-b th{font-size: 12px;font-weight:bold;color: #3c4963;padding-left:4px;padding-right:4px;border-bottom:1px solid #ccc;background-color:#e3e3e3;text-align:center;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;height:30px;}
+#hor-minimalist-b th a{color: #3c4963;padding-right:10px}
+#hor-minimalist-b th a:hover{color: #4b8df9;}
+
+/* 向上向下排序，好像直接在表格中有增加图片了 */
+#hor-minimalist-b th a.sortUp{background:url(../img/slideUp.gif)  no-repeat right center;	}
+#hor-minimalist-b th a.sortDown{background:url(../img/slideDown.gif)  no-repeat right center;	}
+#hor-minimalist-b td{border-bottom: 1px solid #ccc;color: #3e3e83;padding-left:  4px;padding-right:  4px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+#hor-minimalist-b tr{height:30px;}
+#hor-minimalist-b tr.odd{background-color:#f4f4f4 !important;}
+#hor-minimalist-b tbody tr:hover td{color: #009;}
+#hor-minimalist-b tr.alt{background-color:#f4f4f4;}
+#hor-minimalist-b tr.over{background-color:#dfdfec;}
+
+table.uiInfoTable{
+	width:100%;
+	margin: 0 auto;
+	padding:0;
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+	
+}
+table.uiInfoTable th{
+	background-color:#e3e3e3;
+	color:#3c4963;
+	border-bottom:1px #bbb solid;
+	_white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+    padding:10px;
+}
+
+
+table.uiInfoTable tbody th{
+    width:18%;  /*1024*768分辨率下8个汉字，1280*1024分辨率下10个汉字*/
+    text-align:right;
+     /* width:130px;*/  /* 原来width为16%时是130px，现在改为18%，不知道是多少像素 */
+}
+
+table.uiInfoTable tfoot tr th{
+	text-align:center;
+}
+
+table.uiInfoTable td{
+	padding:8px;
+    color: #3e3e83;
+	line-height:17px;
+	border-bottom:1px #bbb solid;
+
+	
+}
+table.uiInfoTable tbody tr{
+	border-bottom:#ccc 1px solid ;
+}
+
+table.uiInfoTable tr.two_cols td
+{
+	width:32%;
+}
+
+table.uiInfoTable th.label{
+	
+	padding:10px;
+	text-align:right;
+	vertical-align:baseline;
+	_white-space:nowrap;
+	white-space:nowrap;
+}
+
+table.uiInfoTable th.label span{
+	color:#F00;
+	padding-right:3px;
+
+}
+/* 
+td a.pluginDown{
+	float:left;
+	display:block;
+	width:111px;
+	height:39px;
+	background-image:url(../img/pluginDown.jpg);
+	background-position:0 0;
+}
+td a.pluginDown:hover{
+	background-position:0 -39px;
+}
+td a.pluginTest{
+	margin:0 20px;
+	float:left;
+	display:block;
+	width:111px;
+	height:39px;
+	background-image:url(../img/pluginTest.jpg);
+	background-position:0 0;
+}
+td a.pluginTest:hover{
+	background-position:0 -39px;
+}
+ */
+
+/* shengqing未使用 */
+/* #shengqing{
+	width:100%;
+	
+}
+#shengqing th
+{
+	font-size: 12px;
+	font-weight:bold;
+	color: #3c4963;
+	padding: 13px 8px 12px 8px;
+	border-bottom: 2px solid #6678b1;
+	background:url(../img/shengqingBack.png) repeat-x ;
+	text-align:left;
+}
+#shengqing tbody
+{
+	padding:0 0 0 10px;
+	border: 1px solid #ccc;
+}
+#shengqing ul{
+	padding:10px;
+}
+#shengqing ul li{
+	padding:5px 0;
+	color:#009;
+} */
+/* #lessons未找到 */
+/* ul#lessons li span{
+	display:block;
+	margin-top:-18px;
+	padding-left:22px;
+	padding-bottom:2px;
+}
+ */
+
+
+/* floatBox没在系统中找到 */
+/* .floatBox{
+	display: block; 
+	position: absolute; 
+	top: 242.5px; 
+	left: 40%; 
+	width: 422px; 
+	height: 261px; 
+	padding:25px;
+	background-image: url(../img/floatBoxBack.png); 
+	background-attachment: initial; 
+	background-origin: initial; 
+	background-clip: initial; 
+	background-color: initial; 
+	margin-right: 30px; 
+	background-position: initial;
+	background-repeat: no-repeat; 
+} */
+/* #shengqing .floatTable{
+	border:none;
+	width:100%
+}
+#shengqing .floatTable tbody{
+	border:none;
+}
+#shengqing .floatTable  tr th{
+	background-image:none;
+	border:none;
+	text-align:right;
+	width:90px;
+	vertical-align:baseline;
+	padding:6px 10px;
+}
+ */
+
+
+.errorMessage{
+	color: #ff0000;
+	padding-left: 5px;
+}
+
+
+table.uiInfoTable tbody .textarea50,table.uiInfoTableT tbody .textarea50,table.uiInfoTableF tbody .textarea50
+{
+	width:94%;
+	height:50px;
+}
+table.uiInfoTable tbody .textarea100,table.uiInfoTableT tbody .textarea100,table.uiInfoTableF tbody .textarea100
+{
+	width:94%;
+	height:100px;
+}
+/* table.uiInfoTable tbody .textarea150,table.uiInfoTableT tbody .textarea150,table.uiInfoTableF tbody .textarea150
+{
+	width:94%;
+	height:150px;
+} */
+/* table.uiInfoTable tbody .textarea200,table.uiInfoTableT tbody .textarea200,table.uiInfoTableF tbody .textarea200
+{
+	width:94%;
+	height:200px;
+} */
+
+table.uiInfoTable tbody .input_full
+{
+	width:94%;   /*  td宽度的94% */
+}
+table.uiInfoTable tbody .input_name_long,table.uiInfoTable tbody .input_address
+{
+	width:250px;    /* 各种名称（长）或者地址（低分辨率下最多20个汉字） */
+}
+table.uiInfoTable tbody .input_title,table.uiInfoTable tbody .input_route
+{
+	width:200px;    /* 标题、路径（低分辨率下最多16个汉字） */
+}
+table.uiInfoTable tbody .input_domainName,table.uiInfoTable tbody .input_name
+{
+	width:150px;    /* 域名或者名称（短）（低分辨率下最多11个汉字） */
+}
+table.uiInfoTable tbody .input_position,table.uiInfoTable tbody .input_key
+{
+	width:130px;    /* 职务、关键字等（低分辨率下最多10个汉字）     不加任何class时width:130px */
+}
+table.uiInfoTable tbody .input_teacher
+{
+	width:70px;   /* 人的名字 （低分辨率下最多5个汉字）*/
+}
+table.uiInfoTable tbody .input_studentId,,table.uiInfoTable tbody .input_code_long
+{
+	width:150px;    /* 教工号、账号、编号（长）等 （低分辨率下最多20位数字）*/
+}
+table.uiInfoTable tbody .input_teleNum,table.uiInfoTable tbody .input_code
+{
+	width:92px;    /* 电话 、编号（短）（低分辨率下最多13位数字）*/
+}
+table.uiInfoTable tbody .input_date,table.uiInfoTable tbody .input_time
+{
+	width:65px;    /* 日期、时间 (低分辨率下8位数字) */
+}
+table.uiInfoTable tbody .input_five_nums
+{
+	width:40px;    /* 5位数字 */
+}
+table.uiInfoTable tbody .input_three_nums
+{
+	width:25px;    /* 3位数字 */
+}
+
+#page .current {
+	display: inline-block;
+	font-weight: 700;
+	color: #eee;
+	background: #3c4963;
+	border-radius: 8px;
+	padding-right: 4px;
+	padding-left: 4px;
+	margin-right: 5px;
+}
+/* 
+select {
+    height: 17px !important;
+    *+height: auto !important;
+    padding: 0px !important;
+}
+ */
+/* input[type = "password"],
+input[type = "text"] {
+    height: 15px;
+    border-radius: 2px !important;
+    background: #fff;
+    border: 1px solid #aaa !important;
+    padding: 0px 2px !important;
+} */
+/* #help {*+padding-left: 5px !important;} */
+
+/* .select2-container {
+	max-width: 127px;
+	min-width: 60px;
+} */
+/* .buttonArea input[type = "text"] {
+	width: 90px;
+} */
+
+/*解决搜索中日历控件的上下对齐问题*/
+#searchDate_date_selector{
+	vertical-align:top;
+	margin-top:1px;		
+}

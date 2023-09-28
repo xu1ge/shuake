@@ -1,0 +1,1124 @@
+﻿/* global template */
+; (function ($) {
+
+    $.fn.assignment = function (opts) {
+
+        opts = $.extend(true, {}, $.fn.assignment.defaults, opts);
+
+        return new assignment(this, opts);
+    };
+
+    $.fn.assignment.defaults = {
+        data: [],
+        ue_config: {},
+        model: 'doing',
+        callbacks: {
+            loaded: null,
+            postAnswer: null,
+            submit: null,
+            overTime: null
+        }
+    };
+
+    var assignment = function (container, opts) {
+
+        var _this = this;
+        
+        _this.opts = opts;
+        _this.data = opts.data;
+        _this.time = opts.time;
+        _this.isDone = opts.isDone;
+        _this.totalScore = opts.totalScore;
+        _this.container = container;
+        _this.model = opts.model;
+        _this.ue_config = opts.ue_config;
+        _this.callbacks = opts.callbacks;
+        _this.left_data = opts.left_data;
+        _this.userType = opts.userType;
+
+        template.config('escape', false);   //禁用HTMLENCODE
+        template.helper('format_option', function (index) {
+            return ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'][index] || index;
+        });
+
+        _this.init();
+
+        setTimeout(function () {
+            opts.callbacks.loaded && $.isFunction(opts.callbacks.loaded) && opts.callbacks.loaded.apply(this, [_this.container]);
+        }, 1500);
+
+        return container;
+    };
+
+    assignment.prototype.init = function () {
+
+        var _this = this,
+            model = _this.model,
+            _f_left = null;
+
+        if (model == "compare") {
+            model = "readonly";
+            _f_left = eval('_this.render_ui.' + model + '.left')
+        }
+
+        var _f_menu = eval('_this.render_ui.' + model + '.menu'),
+            _f_right = eval('_this.render_ui.' + model + '.right'),
+            _f_body = eval('_this.render_ui.' + model + '.body'),
+            _f_process = eval('_this.render_ui.' + model + '.process');
+
+        _this.container.html('<div class="on-line-hw"><div class="wl_types clefix"></div><div class="right-all"></div><div class="left-all e-o"></div></div>');
+
+        if (_this.model == "compare") { _f_left.call(_this) }
+        _f_menu.call(_this);
+        _f_right.call(_this);
+        _f_body.call(_this);
+        _f_process.call(_this);
+
+        _this.utils.scroll(_this);
+    };
+
+    assignment.prototype.render_ui = {
+        doing: {
+            menu: function () {
+                var _this = this,
+                    menus = [];
+
+                $.each(_this.data, function (i, v) {
+                    menus.push({ type: v.type, name: v.name });
+                });
+                _this.container.find('.wl_types').append(template.compile(_this.templates.doing.menu)({ menus: menus }));
+            },
+            right: function () {
+                var _this = this,
+                    rights = [],
+                    index = 1;
+               
+                //构造右边导航条的数据结构
+                $.each(_this.data, function (i, v) {
+
+                    var score = 0,
+                        questions = [];
+
+                    $.each(v.list, function (j, k) {
+                        score += k.totalScore;
+
+                        questions.push({
+                            id: k.id,
+                            sortOrder: index
+                        });
+
+                        index++;
+                    });
+
+                    rights.push({
+                        type:v.type,
+                        name: v.name,
+                        count: v.list.length,
+                        score: score,
+                        questions: questions
+                    });
+                });
+
+                _this.container.find('.wl_types')
+                    .append(template.compile(_this.templates.doing.right)({
+                        rights: rights,
+                        time: _this.time && _this.time.toString().toHHMMSS(),
+                        seconds: _this.time,
+                        opts: _this.opts
+                    }));
+            },
+            body: function () {
+
+                var _this = this,
+                    menus = [],
+                    index = 1,
+                    reg = /<button[^>]*class=\"btn_fill\"[^>]*>([^<]*)<\/button>|(\[填空\])/g;
+
+                //构造题目数据
+                $.each(_this.data, function (i, v) {
+
+                    var questions = [];
+
+                    //处理问题
+                    $.each(v.list, function (j, k) {
+                       
+                        k.sortOrder = index;
+                        k.content = k.content.replace(reg, "______");    //将填空题更新为填空
+
+                        questions.push(k);
+
+                        index++;
+                    });
+
+                    //处理菜单
+                    menus.push({ name: v.name, type: v.type, questions: questions });
+                });
+
+                //动态生成题目的选项内容
+                template.helper('resolveOptions', function (question) {
+					
+if (question.options && question.options.length > 0) {
+  for (let i = 0; i < question.options.length; i++) {
+    let item = question.options[i].content;
+    console.log(question.content, 3333333333333333);
+    if (item && item.includes("<")) {
+      question.options[i].content = item.replace("<", "&lt;");
+    }
+    if (
+      (item &&
+        item.includes(
+          '<p style=";text-align:justify;text-justify:inter-ideograph">'
+        )) ||
+      (item &&
+        item.includes('<p style="margin-right: 0;line-height: 150%">')) ||
+      (item &&
+        item.includes('<p style="text-align: left; line-height: 21px;">')) ||
+      (item &&
+        item.includes('<p style="white-space: normal; line-height: 21px;">')) ||
+      (item && item.includes('<p style="line-height: 21px;">')) ||
+      (item &&
+        item.includes(
+          '<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px;">'
+        )) ||
+      (item && item.includes("<p>"))
+    ) {
+      question.options[i].content = item;
+    }
+  }
+}
+                    switch (question.type) {
+                        case 1:
+                        case 2:
+                        case 8:
+                            return template.compile(_this.templates.doing.options.single)({ question: question });
+                        case 3:
+                            return _this.templates.doing.options.judge;
+                        case 4:
+                            return template.compile(_this.templates.doing.options.blank)({ question: question });
+                        case 5:
+                            return template.compile(_this.templates.doing.options.short)({ question: question });
+                        case 6:
+                        case 7:
+                            return template.compile(_this.templates.doing.options.cloze)({ question: question });
+                    }
+                });
+
+                _this.container.find('.left-all').append(template.compile(_this.templates.doing.body)({ menus: menus, opts: _this.opts }));
+            },
+            process: function () {
+
+                var _this = this;
+
+                //显示时间
+                _this.utils.timer(_this);
+
+                //单选，多选，判断
+                $('li.e-a', _this.container).click(function () {
+                    if (!!_this.userType && _this.userType != 2) {
+                        alert("不是学生，不能操作此请求");
+                        return false;
+                    }
+                    var parent = $(this).parents('.e-q:first'),
+                        type = parent.data('type');
+                    var subQuestionType = $(this).data("subquestiontype");
+
+                    //填空题，简答题不做处理
+                    if (type == 4 || type == 5) return false;
+
+                    //多选题不移除已经勾选的选项
+                    if (type != 2) {
+                        if (subQuestionType != 2) {
+                            $(this).parent().find('li').removeClass('checked');
+                        } 
+
+                    }
+
+                    if ($(this).hasClass('checked')) {
+
+                        $(this).removeClass('checked');
+
+                        //清除所有已选项则移除notdo 样式
+                        $(this).parent().find('li.checked').length == 0 && $('.e-item[data-id=' + parent.attr('id') + ']', _this.container).removeClass('notdo');
+
+                    } else {
+
+                        $(this).addClass('checked');
+
+                        $('.e-item[data-id=' + parent.attr('id') + ']', _this.container).addClass('notdo');
+                    }
+
+                    //获取选中的值，将学生所做答案提交至服务器
+                    var answer = '';
+
+                    //判断题
+                    if (type == 3) {
+
+                        answer = $(this).index() == 0;  //判断题第一个是正确
+
+                    } else if (type == 2) {
+
+                        //多选题
+                        var _answer = [];
+
+                        parent.find('li.e-a').each(function (i, v) {
+                            if ($(v).hasClass('checked')) {
+                                _answer.push(i);
+                            }
+                        });
+
+                        answer = _answer.join(','); //构造
+                    } else if (type == 6 || type == 7) {
+                        if (subQuestionType == 3) { //判断题
+                            answer = $(this).data("index") == 0;
+                        } else if (subQuestionType == 2) {//多选题
+                            var subParent = $(this).parents('.subQuestion:first');
+                            var _answer = [];
+                            subParent.find('li.e-a').each(function (i, v) {
+                                if ($(v).hasClass('checked')) {
+                                    _answer.push(i);
+                                }
+                            });
+                            answer = _answer.join(','); //构造
+                        } else {
+                            answer = $(this).data("index");
+                        }
+                    } else {
+
+                        //单选题
+                        answer = parent.find('li.e-a.checked').index();
+                    }
+
+                    var data = {
+                        questionId: parent.attr('id'),
+                        answer: answer,
+                        subQuesId: $(this).data("subquesid")
+                    };
+
+                    _this.callbacks.postAnswer && $.isFunction(_this.callbacks.postAnswer) && _this.callbacks.postAnswer.apply(this, [data]);
+
+                    return false;
+                });
+
+                //填空，问答
+                $('textarea.answer-input', _this.container).focus(function () {
+
+                    var parent = $(this).parents('.e-q:first');
+                   
+                    if (parent.data('type') == 4 || parent.data('type') == 5) {
+
+                        _this.utils.render_ue(_this, $(this), function (_ue) {
+
+                            _this.utils.ue_event(_this, parent, _ue);
+                        });
+                    }
+                });
+
+                //处理上一次学生作答情况
+                $.each(_this.data, function (i, v) {
+                    $.each(v.list, function (j, k) {
+
+                        //如果学生填写了答案
+                        if (k.studentAnswer) {
+
+                            switch (k.type) {
+                                case 1:
+                                case 8:
+                                    $('#' + k.id, _this.container).find('.e-a:eq(' + k.studentAnswer + ')').addClass('checked');
+
+                                    break;
+                                case 2:
+
+                                    $.each(k.studentAnswer.split(','), function (o, p) {
+                                        $('#' + k.id, _this.container).find('.e-a:eq(' + p + ')').addClass('checked');
+                                    });
+
+                                    break;
+                                case 3:
+
+                                    $('#' + k.id, _this.container).find('.e-a:eq(' + (k.studentAnswer == 'true' ? 0 : 1) + ')').addClass('checked');
+
+                                    break;
+                                case 4:
+
+                                    $.each(k.studentAnswer.split('@@'), function (o, p) {
+
+                                        //如果有值就初始化ue
+                                        if (p) {
+
+                                            var parent = $('#' + k.id, _this.container),
+                                                _t = parent.find('.e-a:eq(' + o + ')').find('textarea');
+
+                                            _this.utils.render_ue(_this, _t, function (_ue) {
+
+                                                //将用户的html放入ue中
+                                                _ue.execCommand('inserthtml', p);
+
+                                                setTimeout(function () {
+                                                    _this.utils.ue_event(_this, parent, _ue);
+                                                }, 500);
+                                            });
+                                        }
+                                    });
+
+                                    break;
+                                case 5:
+
+                                    var parent = $('#' + k.id, _this.container),
+                                        _t = parent.find('textarea:first');
+
+                                    _this.utils.render_ue(_this, _t, function (_ue) {
+
+                                        //将用户的html放入ue中
+                                        _ue.execCommand('inserthtml', k.studentAnswer);
+
+                                        setTimeout(function () {
+                                            _this.utils.ue_event(_this, parent, _ue);
+                                        }, 500);
+                                    });
+
+                                    break;
+                            }
+
+                            $('.e-item[data-id=' + k.id + ']', _this.container).addClass('notdo');
+                        }
+                        if (k.type == 6 || k.type == 7) {
+                            $.each(k.subQuesList, function (jj, kk) {
+                                if (kk.stuAnswer) {
+                                    $('.e-item[data-id=' + k.id + ']', _this.container).addClass('notdo');
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+        },
+        readonly: {
+            left: function () {
+                var _this = this;
+
+                _this.container.find('.right-all').append(template.compile(_this.templates.readonly.left)({ left_data: _this.left_data }));
+
+                _this.container.find('.right-all .btn_preview_' + _this.left_data.type).addClass('active');
+            },
+            menu: function () {
+
+                var _this = this,
+                    menus = [];
+
+                $.each(_this.data, function (i, v) {
+                    menus.push({ type: v.type, name: v.name });
+                });
+
+                _this.container.find('.wl_types').append(template.compile(_this.templates.readonly.menu)({ menus: menus }));
+            },
+            right: function () {
+
+                var _this = this,
+                    rights = [],
+                    index = 1;
+
+                //构造右边导航条的数据结构
+                $.each(_this.data, function (i, v) {
+
+                    var score = 0,
+                        questions = [],
+                        marking = {
+                            right: 0,
+                            wrong: 0,
+                            totalScore: 0
+                        };
+
+                    $.each(v.list, function (j, k) {
+                        var status = '';
+
+                        score += k.totalScore;
+                        marking.totalScore += k.score;
+
+                        //题目的答题正确性，用不同类来表示
+                        if (k.correctStatus != -1) {
+
+                            if (k.correctStatus == 1) {
+                                status = 'right';
+                            } else if (k.correctStatus == 0 || k.correctStatus == 2) {
+                                status = 'wrong';
+                            }
+                        }
+
+                        questions.push({
+                            id: k.id,
+                            sortOrder: index,
+                            status: status
+                        });
+
+                        index++;
+                    });
+
+                    marking.right = $.grep(v.list, function (i, v) {
+                        return i.correctStatus == 1;
+                    }).length;
+
+                    marking.wrong = $.grep(v.list, function (i, v) {
+                        return i.correctStatus == 0 || i.correctStatus == 2;
+                    }).length;
+                    
+                    rights.push({
+                        type:v.type,
+                        name: v.name,
+                        count: v.list.length,
+                        score: score,
+                        questions: questions,
+                        marking: marking
+                    });
+                });
+
+                _this.container.find('.wl_types')
+                    .append(template.compile(_this.templates.readonly.right)({ rights: rights, opts: _this.opts, totalScore: _this.totalScore }));
+
+                if (_this.model == "compare") {
+                    _this.container.find('.wl_types .totalscore').remove();
+                }
+
+            },
+            body: function () {
+
+                var _this = this,
+                    menus = [],
+                    index = 1,
+                    reg = /<button[^>]*class=\"btn_fill\"[^>]*>([^<]*)<\/button>|(\[填空\])/g;
+
+                //构造题目数据
+                $.each(_this.data, function (i, v) {
+
+                    var questions = [];
+
+                    //处理问题
+                    $.each(v.list, function (j, k) {
+
+                        var _temp_answer = [],
+                            _temp_user_answer = [],
+                            status = '';
+
+                        //题目的答题正确性，用不同类来表示
+                        if (k.correctStatus != -1) {
+
+                            if (k.correctStatus == 1) {
+                                status = 'right';
+
+                            } else if (k.correctStatus == 0) {
+                                status = 'wrong';
+                            } else if (k.correctStatus == 2) {
+                                status = "halfright";
+                            }
+                        }
+
+                        k.sortOrder = index;
+                        k.content = k.content.replace(reg, "______");    //将填空题更新为填空
+                        k.status = status;
+
+                        //处理用户的答案，以及正确答案
+                        if (k.type == 1 || k.type == 2) {
+
+                            $.each(k.answers.split(','), function (i, v) {
+                                _temp_answer.push(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'][parseInt(v)]);
+                            });
+                            _temp_answer = _temp_answer.join('、');
+
+                        } else if (k.type == 3) {
+
+                            _temp_answer = k.answers == 'true' ? '正确' : '错误';
+                        } else if (k.type == 4) {
+
+                            _temp_answer = k.answers.replace(/,/g, '、');
+                        } else {
+
+                            _temp_answer = k.answers;
+                        }
+
+                        k._answers = _temp_answer;
+                        k._studentAnswer = _temp_user_answer;
+
+                        questions.push(k);
+
+                        index++;
+                    });
+
+                    //处理菜单
+                    menus.push({ name: v.name, type: v.type, questions: questions });
+                });
+
+                //动态生成题目的选项内容
+                template.helper('resolveOptions', function (question) {
+			                     if (question.options && question.options.length > 0) {
+							   
+       console.log(question.content)
+	   if(question.content.includes("<script language='javascript'>")){
+		   console.log(3333)
+	   }
+          }
+
+
+
+
+                    switch (question.type) {
+                        case 1:
+                        case 2:
+                        case 8:
+                            return template.compile(_this.templates.doing.options.single)({ question: question });
+                        case 3:
+                            return _this.templates.doing.options.judge;
+                        case 4:
+                            return template.compile(_this.templates.doing.options.blank)({ question: question });
+                        case 5:
+                            return template.compile(_this.templates.doing.options.short)({ question: question });
+                        case 6:
+                        case 7:
+                            return template.compile(_this.templates.doing.options.cloze)({ question: question });
+                    }
+                });
+
+                _this.container.find('.left-all').append(template.compile(_this.templates.readonly.body)({ menus: menus, opts: _this.opts, isDone: _this.isDone }));
+
+            },
+            process: function () {
+
+                var _this = this;
+
+                $.each(_this.data, function (i, v) {
+                    $.each(v.list, function (j, k) {
+
+                        //如果学生填写了答案
+                        if (k.studentAnswer) {
+
+                            switch (k.type) {
+                                case 1:
+                                case 8:
+                                    $('#' + k.id, _this.container).find('.e-a:eq(' + k.studentAnswer + ')').addClass('checked');
+
+                                    break;
+                                case 2:
+
+                                    $.each(k.studentAnswer.split(','), function (o, p) {
+                                        $('#' + k.id, _this.container).find('.e-a:eq(' + p + ')').addClass('checked');
+                                    });
+
+                                    break;
+                                case 3:
+
+                                    $('#' + k.id, _this.container).find('.e-a:eq(' + (k.studentAnswer == 'true' ? 0 : 1) + ')').addClass('checked');
+
+                                    break;
+                                case 4:
+
+                                    $.each(k.studentAnswer.split('@@'), function (o, p) {
+
+                                        var parent = $('#' + k.id, _this.container),
+                                            _t = parent.find('.e-a:eq(' + o + ')').find('textarea');
+
+                                        if (p) {
+                                            _t.replaceWith('<div class="ErichText ErichText-mt0 ErichText-mt9">' + p || + '</div>');
+                                        } else {
+                                            _t.replaceWith('<div class="ErichText ErichText-mt0" style="color: #02a303; font-size: 14px;">系统提醒：该题您未做答！</div>');
+                                        }
+                                    });
+
+                                    break;
+                                case 5:
+
+                                    var parent = $('#' + k.id, _this.container),
+                                        _t = parent.find('textarea:first');
+
+                                    _t.replaceWith('<div class="ErichText ErichText-mt0 ErichText-mt10">' + k.studentAnswer + '</div>');
+
+                                    break;
+                            }
+
+                        } else {
+
+                            if (k.type == 4) {
+
+                                $.each(k.answers.split(','), function (o, p) {
+
+                                    if (p) {
+
+                                        var parent = $('#' + k.id, _this.container),
+                                            _t = parent.find('.e-a:eq(' + o + ')').find('textarea');
+
+                                        _t.replaceWith('<div class="ErichText ErichText-mt0" style="color: #02a303; font-size: 14px;">系统提醒：该题您未做答！</div>');
+                                    }
+                                });
+
+                            } else if (k.type == 5) {
+
+                                var parent = $('#' + k.id, _this.container),
+                                    _t = parent.find('textarea:first');
+
+                                _t.replaceWith('<div class="ErichText ErichText-mt0" style="color: #02a303; font-size: 14px;">系统提醒：该题您未做答！</div>');
+                            }
+                        }
+                    });
+                });
+
+                //解析内容
+                $('.btn_show_analysis', _this.container).click(function () {
+
+                    var _t = $(this),
+                        target = _t.parents('.e-a-ans:first').next();
+
+                    if (target.data('open')) {
+
+                        target.slideUp(300, function () {
+
+                            $(this).data('open', false);
+
+                            _t.text('展开解析');
+                        });
+                    } else {
+
+                        target.slideDown(300, function () {
+
+                            $(this).data('open', true);
+
+                            _t.text('收起解析');
+                        });
+                    }
+
+                    return false;
+                });
+            }
+        }
+    };
+
+    assignment.prototype.utils = {
+        scroll: function (_this) {
+
+            var menu = $('.types-l', _this.container),
+                _offsetTop = menu.offset().top,
+                right = $('.e-quest-p.w_e-q-panel', _this.container);
+
+            //自动跟着滚动
+            $(window).scroll(function () {
+
+                var top = $(window).scrollTop();
+
+                //上部导航
+                if (top > _offsetTop) {
+                    menu.css({ position: 'fixed', top: 0, left: menu.offset().left });
+                    right.css({ position: 'fixed', top: 0, left: right.offset().left });
+
+                } else {
+                    menu.removeAttr('style');
+                    right.removeAttr('style');
+                }
+
+                //计算每个题型的高度范围
+                $('.types-l', _this.container).find('a').each(function (i, v) {
+                    var _t = $('#' + $(v).data('type')),
+                        min = _t.offset().top,
+                        max = _t.outerHeight() + _t.offset().top;
+
+                    top = top + (_this.container.offset().top);
+
+                    if (top >= min && top <= max) {
+                        $('.types-l', _this.container).find('a').removeClass('active');
+
+                        $(v).addClass('active');
+
+                        return false;
+
+                    } else {
+                        $(v).removeClass('active');
+                    }
+                });
+            });
+
+            //点击定位
+            $('.types-l', _this.container).find('a').click(function () {
+                var type = $(this).data('type'),
+                    _t_container = $('#' + type);
+
+                $(window).scrollTop(_t_container.offset().top - ($('.types-l', _this.container).outerHeight()));
+
+                return false;
+            });
+
+            //右边题目定位
+            $('.e-select-g .e-item', _this.container).click(function () {
+
+                var _id = $(this).data('id'),
+                    _t_question = $('#' + _id);
+
+                $(window).scrollTop(_t_question.offset().top - $('.types-l', _this.container).outerHeight());
+
+                return false;
+            });
+
+            //折叠
+            $('.e-close', _this.container).click(function () {
+
+                var parent = $(this).parents('.e-q-panel:first');
+
+                if (parent.hasClass('closed')) {
+
+                    $('.e-q-body', parent).slideDown(function () {
+                        parent.removeClass('closed');
+                    });
+                } else {
+
+                    $('.e-q-body', parent).slideUp(function () {
+                        parent.addClass('closed');
+                    });
+                }
+
+                return false;
+            });
+
+        },
+        render_ue: function (_this, textarea, callback) {
+
+            //创建一个UE
+            var ue = UE.getEditor(textarea.attr('id'), {
+                toolbars: [["fullscreen", "undo", "redo", "bold", "italic", "underline", "fontfamily", "fontsize", "forecolor", "backcolor", "link", "unlink", "|", "inserttable", "deletetable", "edittable", "btnupload"]],
+                initialFrameHeight: 100,
+                autoFloatEnabled: false
+            });
+
+            ue.getActionUrl = function (action) {
+
+                if (action == 'config') return _this.ue_config;
+
+                return action;
+            };
+
+            ue.ready(function () {
+
+                ue.focus(); //触发一次focus 事件后就会将该禁用的toolbar 就禁用了. http://jira.txtek.cn/browse/AHCEO-5592
+
+                textarea.data('ue', ue);
+
+                callback && $.isFunction(callback) && callback.apply(this, [ue]);
+            });
+        },
+        ue_event: function (_this, parent, _ue) {
+
+            //ue失去焦点的事件
+            _ue.addListener('blur', function () {
+                if (_ue.hasContents()) {
+                    $('.e-item[data-id=' + parent.attr('id') + ']', _this.container).addClass('notdo');
+
+                    var answer = [];
+
+                    parent.find('textarea').each(function (i, v) {
+                        var _u = $(v).data('ue');
+
+                        if (_u) {
+                            answer.push($(v).data('ue').getContent());
+                        } else {
+                            answer.push('');
+                        }
+                    });
+
+                    var data = {
+                        questionId: parent.attr('id'),
+                        answer: answer.join('@@')
+                    };
+
+                    _this.callbacks.postAnswer && $.isFunction(_this.callbacks.postAnswer) && _this.callbacks.postAnswer.apply(this, [data]);
+
+                } else {
+                    $('.e-item[data-id=' + parent.attr('id') + ']', _this.container).removeClass('notdo');
+                }
+            });
+        },
+        timer: function (_this) {
+
+            var target = $('.container_time', _this.container);
+            var _timer = this;
+
+            this.re = setInterval(function () {
+
+                var seconds = target.data('seconds'),
+
+                    text = '';
+
+                seconds--;
+
+                text = seconds.toString().toHHMMSS();
+
+                target.data('seconds', seconds);
+                target.text(text).attr('title', '距离作业截止日期还剩：' + text);
+
+                if (Math.floor(seconds) == 60) {
+
+                    alert("还剩最后一分钟，请抓紧时间提交", 6);
+                };
+
+                if (seconds < 0) {
+
+                    target.text(text).attr('title', '已截止');
+                    target.text('已截止');
+
+                    clearInterval(_timer.re);
+
+                    _this.callbacks.overTime && $.isFunction(_this.callbacks.overTime) && _this.callbacks.overTime.apply(this, []);
+                };
+
+            }, 1000);
+        }
+    };
+
+    assignment.prototype.templates = {
+        doing: {
+            menu: ['<div class="e-b-g types-l">',
+                '{{each menus as item i}}',
+                '    <a href="#" class="e-b" data-type="{{item.type}}">{{item.name}}</a>',
+                '{{/each}}',
+                '</div>'].join(''),
+            right: ['<div class="e-quest-p w_e-q-panel">',
+                '{{if opts.showTime }}',
+                '<div class="photo" >',
+                '    <div class="photo-time" >',
+                '        <p class="icon-photo container_time" data-seconds="{{seconds}}">{{time}}</p>',
+                '    </div>',
+                '</div>',
+                '{{/if}}',
+                '<div class="e-selects-g">',
+                '    {{each rights as item i}}',
+                '    <div>',
+                '        <div class="e-select-i">{{item.name}}<span class="e-i-desc">({{item.count}}题{{if opts.showScore}} 共{{item.score}}分{{/if}})</span></div>',
+                '        <div class="e-select-g">',
+                '            {{each item.questions as question j}}',
+                '                <a href="#" class="e-item" data-id="{{question.id}}">{{question.sortOrder}}</a>',
+                '            {{/each}}',
+                '        </div>',
+                '    </div>',
+                '    {{/each}}',
+                '</div>',
+                '</div>'].join(''),
+            body: ['{{each menus as item i}}',
+                '   <div class="e-q-panel" id="{{item.type}}">',
+                '       <div class="e-q-header clefix">',
+                '           <span class="e-text">{{item.name}}</span>',
+                '           <span class="e-close">&nbsp;</span>',
+                '       </div>',
+                '       <div class="e-q-body">',
+                '       {{each item.questions as question j}}',
+                '           <div class="e-q" id="{{question.id}}" data-type="{{question.type}}">',
+                '               <div class="e-q-t">',
+                '                   <div class="e-q-r">',
+                '                       <span class="e-q-no">{{question.sortOrder}}{{if opts.showScore}}<em>({{question.totalScore}}分)</em>{{/if}}、</span>',
+                '                       <div class="e-q-quest">',
+                '                           <div class="e-q-q">',
+                 '          {{if question.type!=4}}',
+                '                               <div class="ErichText">{{#question.content}}</div>',
+                '                 {{/if}}',
+                '          {{if question.type==4}}',
+                '                               <div class="ErichText">{{question.content}}</div>',
+                '                 {{/if}}',
+                '                           </div>',
+                '                           <div class="e-a-g e-choice-a">',
+                '                               {{question | resolveOptions}}',
+                '                           </div>',
+                '                       </div>',
+                '                   </div>',
+                '               </div>',
+                '           </div>',
+                '       {{/each}}',
+                '       </div>',
+                '   </div>',
+                '{{/each}}'].join(''),
+            options: {
+                single: ['<ul>',
+                    '{{each question.options as option k}}',
+                    '<li class="e-a">',
+                    '    <span class="e-a-right"></span>{{k | format_option}}、',
+                    '        <div class="ErichText">{{option.content}}</div>',
+                    '</li>',
+                    '{{/each}}',
+                    '</ul>'].join(''),
+                judge: ['<ul>',
+                    '<li class="e-a">',
+                    '    <span class="e-a-right"></span>A、正确',
+                    '</li>',
+                    '<li class="e-a">',
+                    '    <span class="e-a-right"></span>B、错误',
+                    '</li>',
+                    '</ul>'].join(''),
+                blank: ['<ul>',
+                    '{{each question.options as option k}}',
+                    '<li class="e-a clefix">',
+                    '    <div class="e-blank-e" style="display:inline;">填空{{k + 1}}、</div>',
+                    '    <textarea id="{{option.uuid}}" class="answer-input" ></textarea>',
+                    '</li>',
+                    '{{/each}}',
+                    '</ul>'].join(''),
+                short: ['<ul>',
+                    '{{each question.options as option k}}',
+                    '<li class="e-a clefix">',
+                    '    <div class="e-blank-e" style="display:inline;">答案、</div>',
+                    '    <textarea id="{{option.uuid}}" class="answer-input" ></textarea>',
+                    '</li>',
+                    '{{/each}}',
+                    '</ul>'].join(''),
+                cloze: ['<ul>',
+                    '{{each question.subQuesList as item k}}',
+                    '<span class="e-a clefix subQuestion">',
+                    '    <div class="e-blank-e" style="display:inline;margin-left:60px;cursor: default;">{{item.index}}、<em>({{if item.subQuestionType == "1"}}单选题{{else if item.subQuestionType == "2"}}多选题{{else}}判断题{{/if}})</em>',
+                    '<div style="margin-left:100px;margin-top:-19px">{{item.subContent}}</div></div>',
+                    '      {{if item.subQuestionType != "3"}}',
+                    '     {{each item.selectOption as option k}}',
+                    '       <li class="e-a clefix {{if item.stuAnswer && item.stuAnswer.indexOf(k) > -1}}checked{{/if}}"  data-index="{{k}}"  data-subquesid="{{item.subId}}" data-subquestiontype="{{item.subQuestionType}}" style="margin-left:80px;margin-top: 6px"><span class="e-a-right" style="margin-left:20px"></span>',
+                    '        <div class="e-blank-e ErichText" style="display:inline;margin-top: 0px;">{{option.index}}、<div style="margin-left:30px;margin-top:-19px">{{option.content}}</div></div>',
+                    '      </li>',
+                    '    {{/each}}',
+                    '    {{else}}',
+                     '      <li class="e-a {{if item.stuAnswer == "true"}}checked{{/if}}"  data-subquestiontype="3"  data-subquesid="{{item.subId}}" data-index="0" style="margin-left:103px;margin-top: 10px;">',
+                    '       <span class="e-a-right"></span>A、正确',
+                    '      </li>',
+                    '      <li class="e-a {{if item.stuAnswer == "false"}}checked{{/if}}"  data-subquestiontype="3"  data-subquesid="{{item.subId}}" data-index="1" style="margin-left:103px;margin-top: 10px;">',
+                    '       <span class="e-a-right"></span>B、错误',
+                    '     </li>',
+                    '   {{/if}}',
+                    '</span>',
+                    '{{/each}}',
+                    '</ul>'].join('')
+            }
+        },
+        readonly: {
+            menu: ['<div class="e-b-g types-l">',
+                '{{each menus as item i}}',
+                '    <a href="#" class="e-b" data-type="{{item.type}}">{{item.name}}</a>',
+                '{{/each}}',
+                '</div>'].join(''),
+            right: ['<div class="e-quest-p w_e-q-panel">',
+                '{{if opts.showScore}}<div class="totalscore">',
+                '{{if totalScore == -20}}',
+                '<p style="color:red;text-align:center;font-size:25px;">未批阅</p>',
+                '{{else}}',
+                '    <p>得分：<em>{{totalScore}}</em>分</p>',
+                '{{/if}}',
+                '</div>{{/if}}',
+                '<div class="e-quest-review">',
+                '    <span class="py-right"><em></em>正确</span>',
+                '    <span class="py-wrong"><em></em>错误</span>',
+                '    {{if opts.showScore}}<span class="py-no-read"><em></em>未批阅</span>{{/if}}',
+                '</div>',
+                '<div class="e-selects-g">',
+                '    {{each rights as item i}}',
+                '    <div>',
+                '        <div class="e-select-i">{{item.name}}<span class="e-i-desc">({{item.count}}题{{if opts.showScore}}　共{{item.score}}分{{/if}})</span></div>',
+                '         <div class="e-quest-header">',
+                '            <span><i class="iconfont icon-dui"></i>{{item.marking.right}}</span>',
+                '            <span><i class="iconfont icon-xiao65"></i>{{item.marking.wrong}}</span>',
+                '            {{if opts.showScore && item.type != 4 && item.type != 5}}<span class="defen">得分<em>{{item.marking.totalScore}}分</em></span>{{/if}}',
+                '        </div>',
+                '        <div class="e-select-g">',
+                '            {{each item.questions as question j}}',
+                '                <a href="#" class="e-item {{question.status}}" data-id="{{question.id}}">{{question.sortOrder}}</a>',
+                '            {{/each}}',
+                '        </div>',
+                '    </div>',
+                '    {{/each}}',
+                '</div>',
+                '</div>'].join(''),
+            left: ['<div class="right-inner" style="background-color: #f6f6f6;">',
+                '<ul class="h-state">',
+                '   <li class="h-li">',
+                '       <a href="javascript:;" class="h-s btn_preview_0" data-type="0" data-paperid={{left_data.paperId}}>',
+                '           <span class="h-icon"></span>',
+                '           <span class="h-text">本次答题结果</span>',
+                '       </a>',
+                '   </li>',
+                '   <li class="h-li">',
+                '       <a href="javascript:;" class="h-s btn_preview_1" data-type="1" data-paperid={{left_data.oldPaperId}}>',
+                '           <span class="h-icon"></span>',
+                '           <span class="h-text">上次答题结果</span>',
+                '       </a>',
+                '   </li>',
+                '</ul>',
+                '</div>'].join(''),
+            body: ['{{each menus as item i}}',
+                '   <div class="e-q-panel" id="{{item.type}}">',
+                '       <div class="e-q-header clefix">',
+                '           <span class="e-text">{{item.name}}</span>',
+                '           <span class="e-close">&nbsp;</span>',
+                '       </div>',
+                '       <div class="e-q-body">',
+                '       {{each item.questions as question j}}',
+                '           <div class="e-q" id="{{question.id}}" data-type="{{question.correctStatus}}">',
+                '               <div class="e-q-t">',
+                '                    <div class="e-q-l">',
+                '                        <div class="e-q-{{question.status}}"></div>',
+                '                    </div>',
+                '                   <div class="e-q-r">',
+                '                       <span class="e-q-no">{{question.sortOrder}}{{if opts.showScore}}<em>({{question.totalScore}}分)</em>{{/if}}、</span>',
+                '                       <div class="e-q-quest">',
+                '                            {{if opts.showScore}}',
+                '                            {{if question.correctStatus == -1 }}',
+                '                               <div class="f-no-read">未批阅</div>',
+                '                            {{else}}',
+                '                            <div class="f-g clefix">',
+                '                                <span class="e-score-s">{{question.score}}</span>',
+                '                            </div>',
+                '                            {{/if}}',
+                '                            {{/if}}',
+                '                           <div class="e-q-q">',
+                '          {{if question.type!=4}}',
+                '                               <div class="ErichText">{{#question.content}}</div>',
+                '                 {{/if}}',
+                '          {{if question.type==4}}',
+                '                               <div class="ErichText">{{question.content}}</div>',
+                '                 {{/if}}',
+                '                           </div>',
+                '                           <div class="e-a-g e-choice-a">',
+                '                               {{question | resolveOptions}}',
+                '                           </div>',
+                '                       </div>',
+                '                   </div>',
+                '               </div>',
+                '               {{if isDone || item.type != 4 && item.type != 5}}',
+                '                <div class="e-q-b uerichText">',
+                '                    <div class="e-a-ans clefix">',
+                '                        <div class="e-ans-ref">参考答案：',
+                '                           <span class="e-ans-r">{{question._answers}}</span>',
+                '                        </div>',
+                '                        <a href="#" class="e-b-open btn_show_analysis">展开解析</a>',
+                '                    </div>',
+                '                    <div class="e-a-analysis" style="display:none;">',
+                '                        <span class="e-ans-l">解析：</span>',
+                '                        <div class="e-ans-r uerichText">{{question.analysis || "暂无解析" }}</div>',
+                '                    </div>',
+                '                </div>',
+                '                 {{/if}}',
+                '           </div>',
+                '       {{/each}}',
+                '       </div>',
+                '   </div>',
+                '{{/each}}'].join('')
+        }
+    };
+
+    String.prototype.toHHMMSS = function () {
+        var sec_num = parseInt(this, 10); // don't forget the second param
+
+        var leave1 = sec_num % (24 * 3600),    //计算天数后剩余的秒数
+            leave2 = leave1 % (3600),       //计算小时数后剩余的秒数 
+            leave3 = leave2 % (60);      //计算分钟数后剩余的秒数
+
+        var days = Math.floor(sec_num / (24 * 3600)),
+            hours = Math.floor(leave1 / (3600)),
+            minutes = Math.floor(leave2 / (60)),
+            seconds = Math.round(leave3),
+            time = '';
+
+        if (days > 0) {
+            time += (days < 10 ? '0' + days : days) + '天  ';
+        }
+
+        time += (hours < 10 ? '0' + hours : hours) + ':';
+        time += (minutes < 10 ? '0' + minutes : minutes) + ':';
+        time += (seconds < 10 ? '0' + seconds : seconds);
+
+        return time;
+    }
+
+})(jQuery);

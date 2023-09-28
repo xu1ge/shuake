@@ -1,0 +1,669 @@
+/*	SWFObject v2.2 <http://code.google.com/p/swfobject/> 
+    is released under the MIT License <http://www.opensource.org/licenses/mit-license.php> 
+*/
+var swfobject = function () { var D = "undefined", r = "object", S = "Shockwave Flash", W = "ShockwaveFlash.ShockwaveFlash", q = "application/x-shockwave-flash", R = "SWFObjectExprInst", x = "onreadystatechange", O = window, j = document, t = navigator, T = false, U = [h], o = [], N = [], I = [], l, Q, E, B, J = false, a = false, n, G, m = true, M = function () { var aa = typeof j.getElementById != D && typeof j.getElementsByTagName != D && typeof j.createElement != D, ah = t.userAgent.toLowerCase(), Y = t.platform.toLowerCase(), ae = Y ? /win/.test(Y) : /win/.test(ah), ac = Y ? /mac/.test(Y) : /mac/.test(ah), af = /webkit/.test(ah) ? parseFloat(ah.replace(/^.*webkit\/(\d+(\.\d+)?).*$/, "$1")) : false, X = !+"\v1", ag = [0, 0, 0], ab = null; if (typeof t.plugins != D && typeof t.plugins[S] == r) { ab = t.plugins[S].description; if (ab && !(typeof t.mimeTypes != D && t.mimeTypes[q] && !t.mimeTypes[q].enabledPlugin)) { T = true; X = false; ab = ab.replace(/^.*\s+(\S+\s+\S+$)/, "$1"); ag[0] = parseInt(ab.replace(/^(.*)\..*$/, "$1"), 10); ag[1] = parseInt(ab.replace(/^.*\.(.*)\s.*$/, "$1"), 10); ag[2] = /[a-zA-Z]/.test(ab) ? parseInt(ab.replace(/^.*[a-zA-Z]+(.*)$/, "$1"), 10) : 0 } } else { if (typeof O.ActiveXObject != D) { try { var ad = new ActiveXObject(W); if (ad) { ab = ad.GetVariable("$version"); if (ab) { X = true; ab = ab.split(" ")[1].split(","); ag = [parseInt(ab[0], 10), parseInt(ab[1], 10), parseInt(ab[2], 10)] } } } catch (Z) { } } } return { w3: aa, pv: ag, wk: af, ie: X, win: ae, mac: ac } }(), k = function () { if (!M.w3) { return } if ((typeof j.readyState != D && j.readyState == "complete") || (typeof j.readyState == D && (j.getElementsByTagName("body")[0] || j.body))) { f() } if (!J) { if (typeof j.addEventListener != D) { j.addEventListener("DOMContentLoaded", f, false) } if (M.ie && M.win) { j.attachEvent(x, function () { if (j.readyState == "complete") { j.detachEvent(x, arguments.callee); f() } }); if (O == top) { (function () { if (J) { return } try { j.documentElement.doScroll("left") } catch (X) { setTimeout(arguments.callee, 0); return } f() })() } } if (M.wk) { (function () { if (J) { return } if (!/loaded|complete/.test(j.readyState)) { setTimeout(arguments.callee, 0); return } f() })() } s(f) } }(); function f() { if (J) { return } try { var Z = j.getElementsByTagName("body")[0].appendChild(C("span")); Z.parentNode.removeChild(Z) } catch (aa) { return } J = true; var X = U.length; for (var Y = 0; Y < X; Y++) { U[Y]() } } function K(X) { if (J) { X() } else { U[U.length] = X } } function s(Y) { if (typeof O.addEventListener != D) { O.addEventListener("load", Y, false) } else { if (typeof j.addEventListener != D) { j.addEventListener("load", Y, false) } else { if (typeof O.attachEvent != D) { i(O, "onload", Y) } else { if (typeof O.onload == "function") { var X = O.onload; O.onload = function () { X(); Y() } } else { O.onload = Y } } } } } function h() { if (T) { V() } else { H() } } function V() { var X = j.getElementsByTagName("body")[0]; var aa = C(r); aa.setAttribute("type", q); var Z = X.appendChild(aa); if (Z) { var Y = 0; (function () { if (typeof Z.GetVariable != D) { var ab = Z.GetVariable("$version"); if (ab) { ab = ab.split(" ")[1].split(","); M.pv = [parseInt(ab[0], 10), parseInt(ab[1], 10), parseInt(ab[2], 10)] } } else { if (Y < 10) { Y++; setTimeout(arguments.callee, 10); return } } X.removeChild(aa); Z = null; H() })() } else { H() } } function H() { var ag = o.length; if (ag > 0) { for (var af = 0; af < ag; af++) { var Y = o[af].id; var ab = o[af].callbackFn; var aa = { success: false, id: Y }; if (M.pv[0] > 0) { var ae = c(Y); if (ae) { if (F(o[af].swfVersion) && !(M.wk && M.wk < 312)) { w(Y, true); if (ab) { aa.success = true; aa.ref = z(Y); ab(aa) } } else { if (o[af].expressInstall && A()) { var ai = {}; ai.data = o[af].expressInstall; ai.width = ae.getAttribute("width") || "0"; ai.height = ae.getAttribute("height") || "0"; if (ae.getAttribute("class")) { ai.styleclass = ae.getAttribute("class") } if (ae.getAttribute("align")) { ai.align = ae.getAttribute("align") } var ah = {}; var X = ae.getElementsByTagName("param"); var ac = X.length; for (var ad = 0; ad < ac; ad++) { if (X[ad].getAttribute("name").toLowerCase() != "movie") { ah[X[ad].getAttribute("name")] = X[ad].getAttribute("value") } } P(ai, ah, Y, ab) } else { p(ae); if (ab) { ab(aa) } } } } } else { w(Y, true); if (ab) { var Z = z(Y); if (Z && typeof Z.SetVariable != D) { aa.success = true; aa.ref = Z } ab(aa) } } } } } function z(aa) { var X = null; var Y = c(aa); if (Y && Y.nodeName == "OBJECT") { if (typeof Y.SetVariable != D) { X = Y } else { var Z = Y.getElementsByTagName(r)[0]; if (Z) { X = Z } } } return X } function A() { return !a && F("6.0.65") && (M.win || M.mac) && !(M.wk && M.wk < 312) } function P(aa, ab, X, Z) { a = true; E = Z || null; B = { success: false, id: X }; var ae = c(X); if (ae) { if (ae.nodeName == "OBJECT") { l = g(ae); Q = null } else { l = ae; Q = X } aa.id = R; if (typeof aa.width == D || (!/%$/.test(aa.width) && parseInt(aa.width, 10) < 310)) { aa.width = "310" } if (typeof aa.height == D || (!/%$/.test(aa.height) && parseInt(aa.height, 10) < 137)) { aa.height = "137" } j.title = j.title.slice(0, 47) + " - Flash Player Installation"; var ad = M.ie && M.win ? "ActiveX" : "PlugIn", ac = "MMredirectURL=" + O.location.toString().replace(/&/g, "%26") + "&MMplayerType=" + ad + "&MMdoctitle=" + j.title; if (typeof ab.flashvars != D) { ab.flashvars += "&" + ac } else { ab.flashvars = ac } if (M.ie && M.win && ae.readyState != 4) { var Y = C("div"); X += "SWFObjectNew"; Y.setAttribute("id", X); ae.parentNode.insertBefore(Y, ae); ae.style.display = "none"; (function () { if (ae.readyState == 4) { ae.parentNode.removeChild(ae) } else { setTimeout(arguments.callee, 10) } })() } u(aa, ab, X) } } function p(Y) { if (M.ie && M.win && Y.readyState != 4) { var X = C("div"); Y.parentNode.insertBefore(X, Y); X.parentNode.replaceChild(g(Y), X); Y.style.display = "none"; (function () { if (Y.readyState == 4) { Y.parentNode.removeChild(Y) } else { setTimeout(arguments.callee, 10) } })() } else { Y.parentNode.replaceChild(g(Y), Y) } } function g(ab) { var aa = C("div"); if (M.win && M.ie) { aa.innerHTML = ab.innerHTML } else { var Y = ab.getElementsByTagName(r)[0]; if (Y) { var ad = Y.childNodes; if (ad) { var X = ad.length; for (var Z = 0; Z < X; Z++) { if (!(ad[Z].nodeType == 1 && ad[Z].nodeName == "PARAM") && !(ad[Z].nodeType == 8)) { aa.appendChild(ad[Z].cloneNode(true)) } } } } } return aa } function u(ai, ag, Y) { var X, aa = c(Y); if (M.wk && M.wk < 312) { return X } if (aa) { if (typeof ai.id == D) { ai.id = Y } if (M.ie && M.win) { var ah = ""; for (var ae in ai) { if (ai[ae] != Object.prototype[ae]) { if (ae.toLowerCase() == "data") { ag.movie = ai[ae] } else { if (ae.toLowerCase() == "styleclass") { ah += ' class="' + ai[ae] + '"' } else { if (ae.toLowerCase() != "classid") { ah += " " + ae + '="' + ai[ae] + '"' } } } } } var af = ""; for (var ad in ag) { if (ag[ad] != Object.prototype[ad]) { af += '<param name="' + ad + '" value="' + ag[ad] + '" />' } } aa.outerHTML = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"' + ah + ">" + af + "</object>"; N[N.length] = ai.id; X = c(ai.id) } else { var Z = C(r); Z.setAttribute("type", q); for (var ac in ai) { if (ai[ac] != Object.prototype[ac]) { if (ac.toLowerCase() == "styleclass") { Z.setAttribute("class", ai[ac]) } else { if (ac.toLowerCase() != "classid") { Z.setAttribute(ac, ai[ac]) } } } } for (var ab in ag) { if (ag[ab] != Object.prototype[ab] && ab.toLowerCase() != "movie") { e(Z, ab, ag[ab]) } } aa.parentNode.replaceChild(Z, aa); X = Z } } return X } function e(Z, X, Y) { var aa = C("param"); aa.setAttribute("name", X); aa.setAttribute("value", Y); Z.appendChild(aa) } function y(Y) { var X = c(Y); if (X && X.nodeName == "OBJECT") { if (M.ie && M.win) { X.style.display = "none"; (function () { if (X.readyState == 4) { b(Y) } else { setTimeout(arguments.callee, 10) } })() } else { X.parentNode.removeChild(X) } } } function b(Z) { var Y = c(Z); if (Y) { for (var X in Y) { if (typeof Y[X] == "function") { Y[X] = null } } Y.parentNode.removeChild(Y) } } function c(Z) { var X = null; try { X = j.getElementById(Z) } catch (Y) { } return X } function C(X) { return j.createElement(X) } function i(Z, X, Y) { Z.attachEvent(X, Y); I[I.length] = [Z, X, Y] } function F(Z) { var Y = M.pv, X = Z.split("."); X[0] = parseInt(X[0], 10); X[1] = parseInt(X[1], 10) || 0; X[2] = parseInt(X[2], 10) || 0; return (Y[0] > X[0] || (Y[0] == X[0] && Y[1] > X[1]) || (Y[0] == X[0] && Y[1] == X[1] && Y[2] >= X[2])) ? true : false } function v(ac, Y, ad, ab) { if (M.ie && M.mac) { return } var aa = j.getElementsByTagName("head")[0]; if (!aa) { return } var X = (ad && typeof ad == "string") ? ad : "screen"; if (ab) { n = null; G = null } if (!n || G != X) { var Z = C("style"); Z.setAttribute("type", "text/css"); Z.setAttribute("media", X); n = aa.appendChild(Z); if (M.ie && M.win && typeof j.styleSheets != D && j.styleSheets.length > 0) { n = j.styleSheets[j.styleSheets.length - 1] } G = X } if (M.ie && M.win) { if (n && typeof n.addRule == r) { n.addRule(ac, Y) } } else { if (n && typeof j.createTextNode != D) { n.appendChild(j.createTextNode(ac + " {" + Y + "}")) } } } function w(Z, X) { if (!m) { return } var Y = X ? "visible" : "hidden"; if (J && c(Z)) { c(Z).style.visibility = Y } else { v("#" + Z, "visibility:" + Y) } } function L(Y) { var Z = /[\\\"<>\.;]/; var X = Z.exec(Y) != null; return X && typeof encodeURIComponent != D ? encodeURIComponent(Y) : Y } var d = function () { if (M.ie && M.win) { window.attachEvent("onunload", function () { var ac = I.length; for (var ab = 0; ab < ac; ab++) { I[ab][0].detachEvent(I[ab][1], I[ab][2]) } var Z = N.length; for (var aa = 0; aa < Z; aa++) { y(N[aa]) } for (var Y in M) { M[Y] = null } M = null; for (var X in swfobject) { swfobject[X] = null } swfobject = null }) } }(); return { registerObject: function (ab, X, aa, Z) { if (M.w3 && ab && X) { var Y = {}; Y.id = ab; Y.swfVersion = X; Y.expressInstall = aa; Y.callbackFn = Z; o[o.length] = Y; w(ab, false) } else { if (Z) { Z({ success: false, id: ab }) } } }, getObjectById: function (X) { if (M.w3) { return z(X) } }, embedSWF: function (ab, ah, ae, ag, Y, aa, Z, ad, af, ac) { var X = { success: false, id: ah }; if (M.w3 && !(M.wk && M.wk < 312) && ab && ah && ae && ag && Y) { w(ah, false); K(function () { ae += ""; ag += ""; var aj = {}; if (af && typeof af === r) { for (var al in af) { aj[al] = af[al] } } aj.data = ab; aj.width = ae; aj.height = ag; var am = {}; if (ad && typeof ad === r) { for (var ak in ad) { am[ak] = ad[ak] } } if (Z && typeof Z === r) { for (var ai in Z) { if (typeof am.flashvars != D) { am.flashvars += "&" + ai + "=" + Z[ai] } else { am.flashvars = ai + "=" + Z[ai] } } } if (F(Y)) { var an = u(aj, am, ah); if (aj.id == ah) { w(ah, true) } X.success = true; X.ref = an } else { if (aa && A()) { aj.data = aa; P(aj, am, ah, ac); return } else { w(ah, true) } } if (ac) { ac(X) } }) } else { if (ac) { ac(X) } } }, switchOffAutoHideShow: function () { m = false }, ua: M, getFlashPlayerVersion: function () { return { major: M.pv[0], minor: M.pv[1], release: M.pv[2] } }, hasFlashPlayerVersion: F, createSWF: function (Z, Y, X) { if (M.w3) { return u(Z, Y, X) } else { return undefined } }, showExpressInstall: function (Z, aa, X, Y) { if (M.w3 && A()) { P(Z, aa, X, Y) } }, removeSWF: function (X) { if (M.w3) { y(X) } }, createCSS: function (aa, Z, Y, X) { if (M.w3) { v(aa, Z, Y, X) } }, addDomLoadEvent: K, addLoadEvent: s, getQueryParamValue: function (aa) { var Z = j.location.search || j.location.hash; if (Z) { if (/\?/.test(Z)) { Z = Z.split("?")[1] } if (aa == null) { return L(Z) } var Y = Z.split("&"); for (var X = 0; X < Y.length; X++) { if (Y[X].substring(0, Y[X].indexOf("=")) == aa) { return L(Y[X].substring((Y[X].indexOf("=") + 1))) } } } return "" }, expressInstallCallback: function () { if (a) { var X = c(R); if (X && l) { X.parentNode.replaceChild(l, X); if (Q) { w(Q, true); if (M.ie && M.win) { l.style.display = "block" } } if (E) { E(B) } } a = false } } } }();
+
+(function ($) {
+
+    var sxsk = {
+        urls: {
+            sxsk: _config.host + 'sxsk/sxsk',
+            get: _config.host + 'sxsk/loadSXSK',
+            postAnswer: _config.host + 'sxsk/submitPaperItem4User',
+            submit: _config.host + 'sxsk/submitSXSK',
+            rewrite: _config.host + 'sxsk/rewriteSXSK',
+            photo: _config.host + 'sxsk/savePhoto'
+        },
+        courseOpenId: '',
+        times: "",
+        everyNum: 0,
+        fileList: [],
+        imgSrc: "",
+
+
+        initPhoto: function (s) {
+   
+
+            var photo = $('.tool_bar '),
+                _offsetTop = photo.offset().top,
+                right = $('.e-quest-p.w_e-q-panel');
+
+            //自动跟着滚动
+            $(window).scroll(function () {
+
+                var top = $(window).scrollTop();
+
+                //上部导航
+                if (top > _offsetTop) {
+                    photo.css({ position: 'fixed', top: 0, left: right.offset().left });
+                    right.css({ position: 'fixed', top: 170, left: right.offset().left });
+                } else {
+                    photo.removeAttr('style');
+                    photo.addClass('tool_bar_style');
+                }
+            });
+            
+            //视频快照
+            if (s == 0) { return; }
+            this.times = s * 1000;
+            //var obj = swfobject.getObjectById("cam_fl");
+
+            //if (obj && typeof obj.callAs != "undefined") {
+
+            //    obj.callAs(s * 1000);
+            //}
+            console.log(this.times )
+            setInterval(() => {
+                // H5调用电脑摄像头API
+                navigator.mediaDevices.getUserMedia({
+                    video: true
+                }).then(success => {
+                   
+                    // 摄像头开启成功
+                    this.photograph();
+                }).catch(error => {
+                   
+                    let message = error.message || error,
+                        response = {
+                            'permission denied': '浏览器禁止本页面使用摄像头，请开启相关的权限',
+                            'requested device not found': '未检测到摄像头,页面即将返回上级页面',
+                            'could not start video source': '无法访问到摄像头，请重新插拔后重试'
+                        }
+                  
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000)
+
+                    cameraIsOnline = false
+                    alert(response[message.toLowerCase()] || '未知错误')
+                    /*  alert('摄像头开启失败，请检查摄像头是否可用！');*/
+                })
+                    
+                   
+                 }, this.times)
+           
+
+        },
+        //开启摄像头
+        callCamera: function () {
+            let constraints = {
+                // video属性设置
+                video: true
+
+            }
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then(mediaStream => {
+                    // 成功返回promise对象，接收一个mediaStream参数与video标签进行对接
+                    document.getElementById('video').srcObject = mediaStream
+                    document.getElementById('video').play()
+                    $(".openCamera").attr("style", "display:block;")
+                    setTimeout(() => { this.photograph(); }, 1000)
+                   
+                }).catch(error => {
+                    let message = error.message || error,
+                        response = {
+                            'permission denied': '浏览器禁止本页面使用摄像头，请开启相关的权限',
+                            'requested device not found': '未检测到摄像头',
+                            'could not start video source': '无法访问到摄像头，请重新插拔后重试'
+                        }
+
+                    cameraIsOnline = false
+                    alert(response[message.toLowerCase()] || '未知错误')
+                    /*  alert('摄像头开启失败，请检查摄像头是否可用！');*/
+                })
+        },
+
+        //拍照一下
+        photograph: function () {
+          
+            let canvas = document.getElementById("canvas");
+            let ctx = document.getElementById("canvas").getContext('2d')
+            ctx.drawImage(document.getElementById("video"), 0, 0, canvas.width, canvas.height)
+           
+          let baseImg = canvas.toDataURL("image/jpeg");
+            doUpload(baseImg);
+           
+           
+        },
+      
+
+
+        loadPhoto: function () {
+            var _this = this;
+            //选择拒绝后事件
+            window.stopCamera = function () {
+                alert('若要进行随学随考，必须开启摄像头才能进行考试！');
+                return false;
+            };
+
+    
+
+            //未检测到摄像头事件
+            window.noCamera = function () {
+                alert('请先安装摄像头后,再进行考试！');
+
+                return false;
+            };
+
+            //摄像头硬件发生错误事件
+            window.cameraError = function () {
+                alert('摄像头驱动可能存在问题，请先修复摄像头后再进行考试！');
+                return false;
+            };
+
+            //保存摄像头拍摄的照片事件
+            window.savePic = function (base64_str) {
+                var file = _this.base64toFile("data:image/png;base64," + base64_str);
+                doUpload(file);
+                return false;
+            };
+        },
+        loadPaper: function (paperId) {
+            var _this = this;
+  
+            $.post(_this.urls.get, { courseOpenId: _this.courseOpenId, paperId: paperId, schoolCode: getQuery('schoolCode') }, function (r) {
+
+                if (!handleException(r)) return false;
+
+                if (r.code < 0) {
+                    alert(r.msg || '发生未知错误，请刷新页面后尝试');
+                    $('.sys-dialog-lock').addClass('hidden');
+                    return false;
+                }
+
+                var left_data = {
+                    paperId: r.doingPaperId,
+                    oldPaperId: r.markingPaperId,
+                    type: _this.left_type
+                }
+
+                //获取ue 的配置
+                $.ajax({
+                    async: false,
+                    url: _config.host + 'ueditor/config',
+                    data: { courseOpenId: _this.courseOpenId, schoolCode: getQuery('schoolCode') },
+                    dataType: 'JSON',
+                    type: 'GET'
+                }).done(function (data) {
+                  
+                    $('#sxsk_container').assignment({
+                        data: r.data,
+                        time: r.endDate,
+                        totalScore: r.totalScore,
+                        isDone: r.isDone,
+                        showScore: true,
+                        showTime: true,
+                        left_data: left_data,
+                        ue_config: data,
+                        model: _this.canModify,
+                        callbacks: {
+                            postAnswer: function (data) {
+
+                                $.post(_this.urls.postAnswer, {
+                                    courseOpenId: _this.courseOpenId,
+                                    questionId: data.questionId,
+                                    answer: data.answer,
+                                    schoolCode: getQuery('schoolCode')
+                                }, function (r) {
+
+                                    if (!handleException(r)) return false;
+
+                                    if (r.code < 0) {
+                                        alert(r.msg || '提交失败，请刷新页面后尝试');
+                                        return false;
+                                    }
+
+                                }, 'json');
+                            },
+                            loaded: function (container) {
+                        
+
+                                //回答页 加载视频拍照随页面滚动  初始化视频快照
+                                if (_this.canModify == 'doing') {
+                                    _this.initPhoto(r.photosSeconds);
+                                   
+                                }
+                           
+                                //可以作答时候就可以保存试卷
+                                if (_this.canModify == 'doing') {
+
+                                    $('.e-quest-p.w_e-q-panel', container).append('<div class="e-save">' + (r.submitCount == 0 ? '<a href="#" class="e-save-b btn_save" data-type="1">提交试卷</a>' : '<a href="#" class="btn_save e-save-next" data-type="2">提交试卷</a>') + '</div>');
+                                    //点击保存
+                                    $('.btn_save', container).click(function () {
+
+                                        var type = $(this).data("type");
+                                        var answered_count = $('.e-selects-g .e-item.notdo', container).length;
+
+                                        if (answered_count != $('.e-selects-g .e-item', container).length && !confirm('还有未作答的题目，现在确认提交吗？')) return false;
+                                        //第一次交卷
+                                        if (type == 1) {
+
+                                            if (!confirm('确认提交当前试卷吗？')) return false;
+                                            submit(_this, true);//第一次交卷，直接保存
+                                        }
+                                        //多次交卷
+                                        else {
+
+                                            /*if (!confirm('确认提交当前试卷吗？提交后，系统将自动保留客观题最高分的考试。')) return false;*/
+                                            var t = this;
+                                            html = '<div><div style="background: #00b195; height: 30px; line-height: 30px; color: #fff; padding: 0 10px;margin: -20px -15px;"><a href="#" class="dlgClose" title="关闭"><span style="float:right; color:#fff;">X</span></a>温馨提示</div><div style="padding: 70px 20px 30px;width:280px;">请选择您要保存的考试：</div></div>'
+                                            t.dialog = $M({
+                                                content: html,
+                                                untitle: true,
+                                                unclose: true,
+                                                button: [{
+                                                    name: '保存当前试卷',
+                                                    callback: function () {
+                                                        this.close();
+                                                        submit(_this, true);
+                                                    },
+                                                    focus: true
+                                                },
+                                                {
+                                                    name: '保存最高分试卷',
+                                                    callback: function () {
+                                                        this.close();
+                                                        submit(_this, false);
+                                                    },
+                                                }
+                                                ]
+                                            });
+                                            $(".dlgClose").on('click', function () {
+                                                $(".ui-MDialog-wrap").hide();
+                                            });
+                                        }
+
+                                        return false;
+                                    });
+
+                                } else {
+
+                                    if (r.outTime && r.submitCount < 10) {
+
+                                        var _html = '<div class="e-save"><a href="#" class="e-redo-btn btn_rewrite" data-type="2">重做</a></div>';
+
+                                        if (_this.state == 'compare') {
+                                            _html = '<div class="e-save"><a href="#" class="e-redo-btn btn_rewrite" data-type="0">重做</a><a class="e-submit-btn btn_submit" href="#" data-type="1">提交试卷</a><p>温馨提示:</p><p>1、若你对当前最高分试卷仍不满意，可选择重做。</p><p>2、提交试卷后，系统将选择客观题得分最高的一次试卷提交给老师批阅。</p></div>';
+                                            if (r.submitCount == 9) {
+                                                _html = '<div class="e-save"><a class="e-submit-btn btn_submit" href="#" data-type="1">提交试卷</a><p>温馨提示:</p><p>1、你当前属于第10次考试，不可选择重做。</p><p>2、提交试卷后，系统将选择客观题得分最高的一次试卷提交给老师批阅。</p></div>';
+                                            }
+                                        }
+
+                                        $('.e-quest-p.w_e-q-panel', container).append(_html);
+
+                                        //点击重做
+                                        $('.btn_rewrite,.btn_submit', container).click(function () {
+
+                                            var type = $(this).data('type');
+
+                                            if (type == 1) {
+                                                if (!confirm('提交试卷将保留客观题最高的一份试卷，并进入查看页面？')) return false;
+
+                                            } else {
+                                                if (!confirm('是否确认放弃当前所做的试卷，并重新作答？')) return false;
+
+                                            }
+
+                                            $('.sys-dialog-lock').removeClass('hidden');
+
+                                            $.post(_this.urls.rewrite, {
+                                                courseOpenId: _this.courseOpenId,
+                                                type: type,
+                                                schoolCode: getQuery('schoolCode')
+                                            }, function (r) {
+
+                                                if (!handleException(r)) return false;
+
+                                                if (r.code < 0) {
+                                                    alert(r.msg || '操作失败，请刷新页面后尝试');
+                                                    $('.sys-dialog-lock').addClass('hidden');
+                                                    return false;
+                                                }
+
+                                                setTimeout(function () {
+
+                                                    //刷新本页面以重新加载一份新的试卷
+                                                    window.location.reload();
+                                                }, 1000);
+                                            }, 'json');
+
+                                            return false;
+                                        });
+                                    }
+
+                                    //对比页面 bind 点击事件
+                                    if (_this.state == 'compare') {
+
+                                        $('.right-all .btn_preview_0,.btn_preview_1').on('click', function () {
+
+                                            _this.left_type = $(this).data('type');
+
+                                            $('.sys-dialog-lock').removeClass('hidden');
+
+                                            _this.loadPaper($(this).data('paperid'));
+                                        });
+                                    }
+                                }
+
+                                $('.sys-dialog-lock').addClass('hidden');
+                            },
+                            overTime: function () {
+                                alert('考试时间已到，系统自动提交试卷，页面跳转中请稍候……');
+
+                                /*if (!confirm('确认提交当前试卷吗？提交后，系统将自动保留客观题最高分的考试。')) return false;*/
+                                var t = this;
+                                html = '<div><div style="background: #00b195; height: 30px; line-height: 30px; color: #fff; padding: 0 10px;margin: -20px -15px;"><a href="#" class="dlgClose" title="关闭"><span style="float:right; color:#fff;">X</span></a>温馨提示</div><div style="padding: 70px 20px 30px;width:280px;">请选择您要保存的考试：</div></div>'
+                                t.dialog = $M({
+                                    content: html,
+                                    untitle: true,
+                                    unclose: true,
+                                    button: [{
+                                        name: '保存当前试卷',
+                                        callback: function () {
+                                            this.close();
+                                            submitAutomatic(_this, true);
+                                        },
+                                        focus: true
+                                    },
+                                    {
+                                        name: '保存最高分试卷',
+                                        callback: function () {
+                                            this.close();
+                                            submitAutomatic(_this, false);
+                                        },
+                                    }
+                                    ]
+                                });
+                                $(".dlgClose").on('click', function () {
+                                    $(".ui-MDialog-wrap").hide();
+                                });
+
+
+
+                         
+
+
+                                return false;
+                            }
+                        }
+                    });
+                });
+
+            }, 'json');
+        },
+        init: function () {
+            var _this = this;
+  
+        
+     
+            _this.courseOpenId = getQuery('courseOpenId');
+            _this.first_load = true;
+
+            template.helper('dateFormat', dateFormat.format);
+   
+            //获取随学随考信息
+            $.post(_this.urls.sxsk, { courseOpenId: _this.courseOpenId, schoolCode: getQuery('schoolCode') }, function (r) {
+
+                if (!handleException(r)) return false;
+
+                if (r.code < 0) {
+                    $('div.wrapper').html(template('sxsk_error', { msg_error: r.msg || '发生未知错误' }));
+                    $('.sys-dialog-lock').addClass('hidden');
+                    return false;
+                }
+
+                //考试状态
+                _this.state = r.state;
+              
+                //判断进入答题页面 还是查看页面 或者 对比页面
+                switch (_this.state) {
+                    case "doing":
+                        if (r.code == 2) {
+                            $('div.wrapper').html(template('sxsk_error', { msg_error: r.msg || '发生未知错误' }));
+                            return false;
+                        }
+
+                        $('#sxsk_container').html(template('sxsk_main', r.data));
+
+                        _this.urls.savePhotoUrl = r.data.savePhotoUrl;
+
+                        $('div.wrapper').addClass('wrapper_video');
+                        $('div.wrapper').find('.tool_bar').css('display', 'block');
+
+                        _this.canModify = "doing";
+                 
+                        _this.callCamera();
+                        //_this.loadPhoto();
+                        break;      //答题页面
+                    case "compare":
+                        _this.canModify = "compare";
+                        _this.left_type = 0;
+
+                        $('div.wrapper').addClass('e-wrap');
+
+                        _this.loadPaper();
+                        break;
+                    case "readonly":
+                        _this.canModify = "readonly";
+
+                        _this.loadPaper();
+                        break;      //查看页面
+                }
+            });
+        },
+
+        save: function (url) {
+            var _this = this;
+            jQuery.post(_this.urls.photo, { courseOpenId: _this.courseOpenId, image: url, schoolCode: getQuery('schoolCode') }, function (r) {
+           
+                if (r.code < 0)
+                {
+                    console && console.log("PHOTO:", r.msg);
+                    return false
+                }
+            }, "json");
+        },
+
+        base64toFile: function (data, filename = 'file') {
+            
+
+            let arr = data.split(',')
+
+            let mime = arr[0].match(/:(.*?);/)[1]
+
+            let suffix = mime.split('/')[1]
+
+            let bstr = atob(arr[1])
+
+            let n = bstr.length
+
+            let u8arr = new Uint8Array(n)
+
+            while (n--) {
+
+                u8arr[n] = bstr.charCodeAt(n)
+
+            }
+
+            return new File([u8arr], `${filename}.${suffix}`, {
+
+                type: mime
+
+            })
+
+        },
+
+
+    }
+
+    sxsk.init();
+
+    window.goInto = function () {
+        sxsk.loadPaper();
+    }
+
+    function submit(_this, isConstraint) {
+        //var obj = swfobject.getObjectById("cam_fl");
+        //if (obj && typeof obj.callAs != "undefined") {
+        //    obj.callAs(100);
+        //}
+        setInterval(() => {
+            sxsk.photograph();
+        }, 100)
+   
+
+        $('.sys-dialog-lock').removeClass('hidden');
+
+        setTimeout(function () {
+            $.post(_this.urls.submit, {
+                courseOpenId: _this.courseOpenId,
+                schoolCode: getQuery('schoolCode'),
+                isConstraint: isConstraint
+            }, function (r) {
+
+                if (!handleException(r)) return false;
+
+                if (r.code < 0) {
+                    alert(r.msg || '提交失败，请刷新页面后尝试');
+                    $('.sys-dialog-lock').addClass('hidden');
+                    return false;
+                }
+
+                alert('保存成功，跳转页面中请稍候……');
+
+                setTimeout(function () {
+
+                    //刷新本页面以加载批阅结果
+                    window.location.reload();
+
+                }, 1000);
+            }, 'json');
+        }, 3000);
+    }
+    function submitAutomatic(_this, isConstraint) {
+    
+
+        $('.sys-dialog-lock').removeClass('hidden');
+
+        setTimeout(function () {
+            $.post(_this.urls.submit, {
+                courseOpenId: _this.courseOpenId,
+                schoolCode: getQuery('schoolCode'),
+                isConstraint: isConstraint
+            }, function (r) {
+
+                if (!handleException(r)) return false;
+
+                if (r.code < 0) {
+                    alert(r.msg || '提交失败，请刷新页面后尝试');
+                    $('.sys-dialog-lock').addClass('hidden');
+                    return false;
+                }
+
+                alert('保存成功，跳转页面中请稍候……');
+
+                setTimeout(function () {
+
+                    //刷新本页面以加载批阅结果
+                    window.location.reload();
+
+                }, 1000);
+            }, 'json');
+        }, 3000);
+    }
+
+    function doUpload   (base64_str) {
+        var file = sxsk.base64toFile(base64_str);
+    
+        sxsk.fileList.push(file);
+
+        if (sxsk.fileList.length > 10) {
+          
+            return
+        }
+       
+       
+        var ak = "YMYOKXLK2A0CK0J7CKVU";
+        var sk = "Nr7nG9EcQpxezYaNnsxrIldb8tsC6CL5iTQSxw49";
+        var server = "https://obs.cn-north-4.myhuaweicloud.com";
+        var obsClient = new ObsClient({
+            access_key_id: ak,
+            secret_access_key: sk,
+            server: server,
+            timeout: 60 * 5,
+        });
+        //获取最后一个.的位置
+        var index = file.name.lastIndexOf(".");
+        //获取后缀
+        var ext = file.name.substr(index + 1);
+        var bucketName = "ahcj-bucket-main";
+        var objectKey = "";
+      
+        getFileMd5(file).then((res) => {
+            console.log(res);
+            // put objects
+            obsClient.putObject({
+                Bucket: bucketName,
+                Key: res + "." + ext,
+                Metadata: { property: 'property-value' },
+                ACL: obsClient.enums.AclPublicRead,
+                SourceFile: file
+            }).then(function (result) {
+                var _doc = {
+                    url: '@' + res + "." + ext
+                };
+                sxsk.save(_doc.url);
+              
+               
+                console.log('CommonMsg:');
+                console.log('Status-->' + result.CommonMsg.Status);
+                console.log('Code-->' + result.CommonMsg.Code);
+                console.log('Message-->' + result.CommonMsg.Message);
+                console.log('HostId-->' + result.CommonMsg.HostId);
+                console.log(10086, res);
+                console.log('InterfaceResult:');
+                if (result.InterfaceResult) {
+                    console.log(10010, res);
+                    console.log('RequestId-->' + result.InterfaceResult.RequestId);
+                    console.log('ETag-->' + result.InterfaceResult.ETag);
+                    console.log('VersionId-->' + result.InterfaceResult.VersionId);
+                    console.log('StorageClass-->' + result.InterfaceResult.StorageClass);
+                }
+            }).catch(function (err) {
+                console.error('err:' + err);
+            });
+        });
+    }
+    function getFileMd5(file) {
+        return new Promise((resolve, reject) => {
+            var blobSlice = File.prototype.slice || File.prototype.mozSlice || File.prototype.webkitSlice,
+                chunkSize = 2097152, // 每次读取2MB
+                chunks = Math.ceil(file.size / chunkSize),
+                currentChunk = 0,
+                spark = new SparkMD5.ArrayBuffer(),
+                frOnload = function (e) {
+                    spark.append(e.target.result);
+
+                    console.log(spark, 99999);
+                    currentChunk++;
+                    if (currentChunk < chunks)
+                        loadNext();
+                    else {
+                        md5 = spark.end();
+                        resolve(md5);
+                    }
+                },
+                frOnerror = function () {
+                };
+            function loadNext() {
+                var fileReader = new FileReader();
+                fileReader.onload = frOnload;
+                fileReader.onerror = frOnerror;
+                var start = currentChunk * chunkSize,
+                    end = ((start + chunkSize) >= file.size) ? file.size : start + chunkSize;
+                fileReader.readAsArrayBuffer(blobSlice.call(file, start, end));
+            };
+            loadNext();
+        })
+    }
+}(jQuery));
